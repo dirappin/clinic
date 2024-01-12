@@ -14,15 +14,17 @@ function Sidebar() {
   };
 
   return (
-    <div className="bg-white xl:shadow-lg py-6 px-4 xl:h-screen w-full border-r border-border">
-      <Link to="/">
-        <img
-          src="/images/logo.png"
-          alt="logo"
-          className="w-64 h-24  object-contain"
-        />
-      </Link>
-      <div className="flex-colo gap-2 mt-12">
+    <div className="bg-white  xl:shadow-lg  overflow-auto py-6 px-4 xl:h-screen w-full border-r ">
+      <div className='border-b fixed top-0 pt-5 bg-white'>
+        <Link to="/" className=''>
+          <img
+            src="/images/logo.png"
+            alt="logo"
+            className="w-64 h-24  object-contain"
+          />
+        </Link>
+      </div>
+      <div className="flex-colo gap-2 mt-24">
         {MenuDatas.map((item, index) => (
           <Link
             to={item.path}
@@ -36,11 +38,10 @@ function Sidebar() {
             `}
             />
             <p
-              className={`text-sm font-medium group-hover:text-subMain ${
-                currentPath(item.path) === item.path
-                  ? 'text-subMain'
-                  : 'text-gray-500'
-              }`}
+              className={`text-sm font-medium group-hover:text-subMain ${currentPath(item.path) === item.path
+                ? 'text-subMain'
+                : 'text-gray-500'
+                }`}
             >
               {item.title}
             </p>
