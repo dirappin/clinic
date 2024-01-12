@@ -13,14 +13,20 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-modern-drawer/dist/index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { SWRConfig } from 'swr';
+import { swrFetcher } from './util/swr';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <RecoilRoot>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </RecoilRoot>
+  <SWRConfig value={{
+    fetcher: swrFetcher
+  }}>
+    <RecoilRoot>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </RecoilRoot>
+  </SWRConfig>
 );
 
 // If you want to start measuring performance in your app, pass a function

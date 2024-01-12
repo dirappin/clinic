@@ -49,8 +49,7 @@ function PersonalInfo({ titles }) {
     setLoading(true);
 
     try {
-      const imageUrl =
-        "https://res.cloudinary.com/dgbujfxvt/image/upload/v1704586725/scxspc5xc9vdbivtbnr3.jpg";
+      const imageUrl = await cloudinaryUploadFile();
       const request = await instance.post("patient", {
         ...values,
         ProfilePicture: imageUrl,

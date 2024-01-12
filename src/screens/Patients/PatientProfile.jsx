@@ -41,7 +41,7 @@ function PatientProfile() {
       setDisplayError(false);
       setLoading(true);
 
-      const response = await axios.get("http://localhost:3001/patien/" + params.id,);
+      const response = await axios.get("http://localhost:3001/patient/" + params.id,);
       if (response.status !== 200) {
         throw new Error(response.data.message || "Failed to fetch data");
       }
@@ -49,6 +49,7 @@ function PatientProfile() {
       setLoading(false);
 
     } catch (error) {
+      console.log(error);
       setLoading(false);
       setDisplayError(true)
       toast.error('failed to load patient details');
@@ -74,7 +75,7 @@ function PatientProfile() {
       case 6:
         return <MaterniteCart />;
       case 7:
-        return <Examen />;  
+        return <Examen />;
       case 8:
         return <LaboratioreRecord />;
       case 9:
