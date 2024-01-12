@@ -38,8 +38,8 @@ function PersonalInfo({ titles }) {
       <Input label="Full Name" color={true} type="text" />
       {/* phone */}
       <Input label="Phone Number" color={true} type="number" />
-      {/* email */}
-      <Input label="Email" color={true} type="email" />
+      {/* date de naissance*/}
+      <Input label="date de naissance" color={true} type="date" />
       {!titles && (
         <>
           {/* gender */}

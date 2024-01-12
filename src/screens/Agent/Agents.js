@@ -1,17 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { AgentTable } from '../../components/Tables';
+import Layout from '../../Layout';
+import { memberAgentsData } from '../../components/Datas';
 
-import { MdOutlineCloudDownload } from 'react-icons/md';
-import { toast } from 'react-hot-toast';
 import { BiPlus } from 'react-icons/bi';
-import { Button } from '../../components/Form';
-import { DoctorsTable } from '../../components/Tables';
-import { doctorsData } from '../../components/Datas';
 import { useNavigate } from 'react-router-dom';
-import AddDoctorModal from '../../components/Modals/AddDoctorModal';
+import AddAgentsModal from './AddAgentsModal';
 
-const DoctorCart = () => {
+const Agents = () => {
 
-  const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
   const navigate = useNavigate();
 
   const onCloseModal = () => {
@@ -19,14 +17,32 @@ const DoctorCart = () => {
   };
 
   const preview = (data) => {
-    navigate(`/doctors/preview/${data.id}`);
+    navigate(`/agents/preview/${data.id}`);
   };
 
+
   return (
-    <div>
-      
+    <Layout>
+      {
+        // add doctor modal
+        isOpen && (
+          <AddAgentsModal
+            closeModal={onCloseModal}
+            isOpen={isOpen}
+            doctor={true}
+            datas={null}
+          />
+        )
+      }
+      {/* add button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="w-16 animate-bounce h-16 border border-border z-50 bg-subMain text-white rounded-full flex-colo fixed bottom-8 right-12 button-fb"
+      >
+        <BiPlus className="text-2xl" />
+      </button>
       {/*  */}
-      <h1 className="text-xl font-semibold">Doctors</h1>
+      <h1 className="text-xl font-semibold">Agents</h1>
       <div
         data-aos="fade-up"
         data-aos-duration="1000"
@@ -44,20 +60,19 @@ const DoctorCart = () => {
               className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
             />
           </div>
-
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
-          <DoctorsTable
+          <AgentTable
             doctor={true}
-            data={doctorsData}
+            data={memberAgentsData}
             functions={{
               preview: preview,
             }}
           />
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 
-export default DoctorCart
+export default Agents

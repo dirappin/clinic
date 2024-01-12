@@ -40,7 +40,7 @@ const MaterniteCart = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/2`);
+                navigate(`/patients/visiting/10`);
               }}
             />
           </div>

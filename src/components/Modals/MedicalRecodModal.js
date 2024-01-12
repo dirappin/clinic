@@ -44,6 +44,7 @@ function MedicalRecodModal({ closeModal, isOpen, datas }) {
             </p>
           </div>
         </div>
+
         {/* medicine */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
@@ -51,12 +52,13 @@ function MedicalRecodModal({ closeModal, isOpen, datas }) {
           </div>
           <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl overflow-hidden p-4">
             <MedicineDosageTable
-              data={medicineData?.slice(0, 9)}
+              data={medicineData?.slice(0, 3)}
               functions={{}}
               button={false}
             />
           </div>
         </div>
+        
         {/* attachments */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">

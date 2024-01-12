@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import Layout from '../../Layout';
 import { Link } from 'react-router-dom';
@@ -20,12 +19,13 @@ const doctorsData = memberData.map((item) => {
     };
   });
 
-const NewMedicalRecodeTiage = () => {
+const NewMarternite = () => {
+
     const [doctors, setDoctors] = useState(doctorsData[0]);
     const [isOpen, setIsOpen] = useState(false);
-  
-    return (
-      <Layout>
+
+  return (
+    <Layout>
         {
           // modal
           isOpen && (
@@ -168,7 +168,7 @@ const NewMedicalRecodeTiage = () => {
           </div>
         </div>
       </Layout>
-    );
+  )
 }
 
-export default NewMedicalRecodeTiage
+export default NewMarternite

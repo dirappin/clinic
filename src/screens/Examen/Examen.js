@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 
 import { Button } from '../../components/Form';
 import { BiPlus } from 'react-icons/bi';
 import { FiEye } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { medicalLaboratoireRecodData } from '../../components/Datas';
-import MedicalLoboratoireRecodModal from '../../components/Modals/MedicalLoboratoireRecodModal';
+import { medicalRecodExamengeData } from '../../components/Datas';
+import MedicalRecodExamenModal from '../../components/Modals/MedicalRecodExamenModal';
 import { useNavigate } from 'react-router-dom';
 
-const LaboratioreRecord = () => {
+const Examen = () => {
 
     const [isOpen, setIsOpen] = React.useState(false);
     const [datas, setDatas] = React.useState({});
@@ -20,7 +20,7 @@ const LaboratioreRecord = () => {
       {
         // Modal
         isOpen && (
-          <MedicalLoboratoireRecodModal
+          <MedicalRecodExamenModal
             closeModal={() => {
               setIsOpen(false);
               setDatas({});
@@ -33,19 +33,19 @@ const LaboratioreRecord = () => {
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-4">
           <h1 className="text-sm font-medium sm:block hidden">
-            Laboratiore Record
+            Examen Record
           </h1>
           <div className="sm:w-1/4 w-full">
             <Button
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/12`);
+                navigate(`/patients/visiting/11`);
               }}
             />
           </div>
         </div>
-        {medicalLaboratoireRecodData.map((data) => (
+        {medicalRecodExamengeData.map((data) => (
           <div
             key={data.id}
             className="bg-dry items-start grid grid-cols-12 gap-4 rounded-xl border-[1px] border-border p-6"
@@ -100,4 +100,4 @@ const LaboratioreRecord = () => {
   )
 }
 
-export default LaboratioreRecord
+export default Examen

@@ -41,6 +41,12 @@ import PharmacyStock from './screens/Pharmacy/PharmacyStock';
 import Hospitalisation from './screens/Hospitalisation/Hospitalisation';
 import Maternite from './screens/Maternite/Maternite';
 import NewMedicalRecodeTiage from './screens/Triage/NewMedicalRecodeTiage';
+import NewMarternite from './screens/Maternite/NewMarternite';
+import NewExamen from './screens/Examen/NewExamen';
+import NewLoboratoireRecord from './screens/Laboratoire/NewLoboratoireRecord';
+import NewRadiographieRecord from './screens/Radiographie/NewRadiographieRecord';
+import Agents from './screens/Agent/Agents';
+import AgentProfile from './screens/Agent/AgentProfile';
 import { ThemeProvider } from "@material-tailwind/react";
 
 
@@ -84,6 +90,8 @@ function App() {
            <Route path='/hospitalisation' element={<Hospitalisation  />} />
            {/* Maternite */}
            <Route path='/maternite' element={<Maternite  />} />
+           {/* Agents */}
+           <Route path='/agents' element={<Agents />} />
           {/* invoce */}
           <Route path="/invoices" element={<Invoices />} />
           <Route path="/invoices/create" element={<CreateInvoice />} />
@@ -98,7 +106,12 @@ function App() {
           <Route path="/patients/preview/:id" element={<PatientProfile />} />
           <Route path="/patients/create" element={<CreatePatient />} />
           <Route path="/patients/visiting/:id" element={<NewMedicalRecode />} />
-          <Route path="/patients/visiting/:id" element={<NewMedicalRecodeTiage />} />
+          <Route path="/patients/triage/visiting/9" element={<NewMedicalRecodeTiage />} />
+          <Route path="/patients/visiting/10" element={<NewMarternite />} />
+          <Route path="/patients/visiting/11" element={<NewExamen />} />
+          <Route path="/patients/visiting/12" element={<NewLoboratoireRecord />} />
+          <Route path="/patients/visiting/13" element={<NewRadiographieRecord />} />
+          <Route path="/agents/preview/:id" element={<AgentProfile />} />
           {/* doctors */}
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/preview/:id" element={<DoctorProfile />} />

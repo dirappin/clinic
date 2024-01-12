@@ -1,7 +1,6 @@
 import React from 'react';
 import Layout from '../../Layout';
 import PersonalInfo from '../../components/UsedComp/PersonalInfo';
-import ChangePassword from '../../components/UsedComp/ChangePassword';
 import { Link } from 'react-router-dom';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import PatientsUsed from '../../components/UsedComp/PatientsUsed';
@@ -9,11 +8,11 @@ import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
 import { doctorTab } from '../../components/Datas';
 import PaymentsUsed from '../../components/UsedComp/PaymentUsed';
 import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
-import Access from '../../components/Access';
+
 
 function DoctorProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
-  const [access, setAccess] = React.useState({});
+  
 
   const tabPanel = () => {
     switch (activeTab) {
@@ -27,10 +26,6 @@ function DoctorProfile() {
         return <PaymentsUsed doctor={true} />;
       case 5:
         return <InvoiceUsed />;
-      case 6:
-        return <Access setAccess={setAccess} />;
-      case 7:
-        return <ChangePassword />;
       default:
         return;
     }
@@ -40,7 +35,7 @@ function DoctorProfile() {
     <Layout>
       <div className="flex items-center gap-4">
         <Link
-          to="/doctors"
+          to="/doctor"
           className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
         >
           <IoArrowBackOutline />
@@ -62,8 +57,8 @@ function DoctorProfile() {
           />
           <div className="gap-2 flex-colo">
             <h2 className="text-sm font-semibold">Dr. Daudi Mburuge</h2>
-            <p className="text-xs text-textGray">daudimburuge@gmail.com</p>
-            <p className="text-xs">+254 712 345 678</p>
+            <p className="text-xs text-textGray">daud@gmail.com</p>
+            <p className="text-xs">+255 712 345 678</p>
           </div>
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 2xl:px-12 w-full">

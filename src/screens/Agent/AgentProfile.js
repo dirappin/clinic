@@ -1,62 +1,36 @@
 import React from 'react';
 import Layout from '../../Layout';
-import { patientTab } from '../../components/Datas';
+import PersonalInfo from '../../components/UsedComp/PersonalInfo';
+import ChangePassword from '../../components/UsedComp/ChangePassword';
 import { Link } from 'react-router-dom';
 import { IoArrowBackOutline } from 'react-icons/io5';
-import MedicalRecord from './MedicalRecord';
+import PatientsUsed from '../../components/UsedComp/PatientsUsed';
 import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
-import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
+import { AgentTab } from '../../components/Datas';
 import PaymentsUsed from '../../components/UsedComp/PaymentUsed';
-import PersonalInfo from '../../components/UsedComp/PersonalInfo';
-import PatientImages from './PatientImages';
-import HealthInfomation from './HealthInfomation';
-import DentalChart from './DentalChart';
-import HospitalisationCart from './HospitalisationCart';
-import MaterniteCart from '../Maternite/MaterniteCart';
-import ChirurgieRecord from '../DoctorChirurgie/ChirurgieRecord';
-import EchographieRecord from '../Echographie/EchographieRecord';
-import RadiographieRecord from '../Radiographie/RadiographieRecord';
-import TriageRecord from '../Triage/TriageRecord';
-import LaboratioreRecord from '../Laboratoire/LaboratioreRecord';
-import Examen from '../Examen/Examen';
+import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
+import Access from '../../components/Access';
 
-function PatientProfile() {
+function AgentProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
+  const [access, setAccess] = React.useState({});
 
   const tabPanel = () => {
     switch (activeTab) {
       case 1:
-        return <MedicalRecord />;
+        return <PersonalInfo titles={true} />;
       case 2:
-        return <HospitalisationCart />;
+        return <PatientsUsed />;
       case 3:
-        return <TriageRecord />;
+        return <AppointmentsUsed doctor={true} />;
       case 4:
-        return <ChirurgieRecord />;
+        return <PaymentsUsed doctor={true} />;
       case 5:
-        return <EchographieRecord />;
-      case 6:
-        return <MaterniteCart />;
-      case 7:
-        return <Examen />;  
-      case 8:
-        return <LaboratioreRecord />;
-      case 9:
-        return <RadiographieRecord />;
-      case 10:
-        return <AppointmentsUsed doctor={false} />;
-      case 11:
         return <InvoiceUsed />;
-      case 12:
-        return <PaymentsUsed doctor={false} />;
-      case 13:
-        return <PatientImages />;
-      case 14:
-        return <DentalChart />;
-      case 15:
-        return <PersonalInfo titles={false} />;
-      case 16:
-        return <HealthInfomation />;
+      case 6:
+        return <Access setAccess={setAccess} />;
+      case 7:
+        return <ChangePassword />;
       default:
         return;
     }
@@ -66,12 +40,12 @@ function PatientProfile() {
     <Layout>
       <div className="flex items-center gap-4">
         <Link
-          to="/patients"
+          to="/agents"
           className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
         >
           <IoArrowBackOutline />
         </Link>
-        <h1 className="text-xl font-semibold">Deogratias</h1>
+        <h1 className="text-xl font-semibold">Dr. Daudi Mburuge</h1>
       </div>
       <div className=" grid grid-cols-12 gap-6 my-8 items-start">
         <div
@@ -82,18 +56,18 @@ function PatientProfile() {
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
           <img
-            src="/images/user7.png"
+            src="/images/user1.png"
             alt="setting"
             className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
           />
           <div className="gap-2 flex-colo">
-            <h2 className="text-sm font-semibold">Deogratias Ndayazi</h2>
-            <p className="text-xs text-textGray">deo@gmail.com</p>
-            <p className="text-xs">+256 778 519 051</p>
+            <h2 className="text-sm font-semibold">Dr. Daudi Mburuge</h2>
+            <p className="text-xs text-textGray">daudimburuge@gmail.com</p>
+            <p className="text-xs">+254 712 345 678</p>
           </div>
           {/* tabs */}
-          <div className="flex-colo gap-3 px-2 xl:px-12 w-full">
-            {patientTab.map((tab, index) => (
+          <div className="flex-colo gap-3 px-2 2xl:px-12 w-full">
+            {AgentTab.map((tab, index) => (
               <button
                 onClick={() => setActiveTab(tab.id)}
                 key={index}
@@ -125,4 +99,7 @@ function PatientProfile() {
   );
 }
 
-export default PatientProfile;
+export default AgentProfile;
+
+
+
