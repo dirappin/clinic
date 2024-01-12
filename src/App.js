@@ -1,5 +1,5 @@
 
-
+import { UseAuthentication } from './util/hooks/useAuth';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Aos from 'aos';
@@ -42,80 +42,90 @@ import Hospitalisation from './screens/Hospitalisation/Hospitalisation';
 import Maternite from './screens/Maternite/Maternite';
 import NewMedicalRecodeTiage from './screens/Triage/NewMedicalRecodeTiage';
 import { ThemeProvider } from "@material-tailwind/react";
-
+import { useEffect } from 'react';
+import Loader from './components/common/Loader';
+import SessionEnd from './screens/error/session-end';
 
 function App() {
   Aos.init();
 
+  const { loading, authenticate } = UseAuthentication();
+
+  useEffect(() => {
+    authenticate();
+  }, []);
+
+
   return (
     <>
-    <ThemeProvider>
-      {/* Toaster */}
-      <Toast />
-      {/* Routes */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          {/* surveillance */}
-          <Route path='/surveillance' element={<Surveillance />} />
-          {/* ReceptionAmbulatoire */}
-          <Route path='/Reception/ambulatoire' element={<ReceptionAmbulatoire />} />
-          {/* ComptableOne */}
-          <Route path='/comptable/one' element={<ComptableOne />} />
-          {/* Triage */}
-          <Route path='/triage' element={<Triage />} />
-           {/* DoctorAmbulatoire */}
-           <Route path='/doctor/ambulatoire' element={<DoctorAmbulatoire />} />
-           {/* DoctorAmbulatoire */}
-           <Route path='/chirurgie' element={<DoctorChirurgie />} />
-           {/* TodayAppointments  */}
-           <Route path='/today/appointments' element={<TodayAppointments  />} />
-           {/* Laboratoire */}
-           <Route path='/laboratoire' element={<Laboratoire  />} />
-           {/* Laboratoire */}
-           <Route path='/radiographie' element={<Radiographie  />} />
-           {/* Echographie */}
-           <Route path='/echographie' element={<Echographie  />} />
-           {/* PharmacyPoeple */}
-           <Route path='/pharmacypoeple' element={<PharmacyPoeple  />} />
-           {/* PharmacyPoeple */}
-           <Route path='/pharmacystock' element={<PharmacyStock  />} />
-           {/* Hospitalisation */}
-           <Route path='/hospitalisation' element={<Hospitalisation  />} />
-           {/* Maternite */}
-           <Route path='/maternite' element={<Maternite  />} />
-          {/* invoce */}
-          <Route path="/invoices" element={<Invoices />} />
-          <Route path="/invoices/create" element={<CreateInvoice />} />
-          <Route path="/invoices/edit/:id" element={<EditInvoice />} />
-          <Route path="/invoices/preview/:id" element={<PreviewInvoice />} />
-          {/* payments */}
-          <Route path="/payments" element={<Payments />} />
-          <Route path="/payments/edit/:id" element={<EditPayment />} />
-          <Route path="/payments/preview/:id" element={<PreviewPayment />} />
-          {/* patient */}
-          <Route path="/patients" element={<Patients />} />
-          <Route path="/patients/preview/:id" element={<PatientProfile />} />
-          <Route path="/patients/create" element={<CreatePatient />} />
-          <Route path="/patients/visiting/:id" element={<NewMedicalRecode />} />
-          <Route path="/patients/visiting/:id" element={<NewMedicalRecodeTiage />} />
-          {/* doctors */}
-          <Route path="/doctors" element={<Doctors />} />
-          <Route path="/doctors/preview/:id" element={<DoctorProfile />} />
-          {/* reception */}
-          <Route path="/receptions" element={<Receptions />} />
-          {/* others */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/appointments" element={<Appointments />} />
-          <Route path="/campaigns" element={<Campaings />} />
-          <Route path="/medicine" element={<Medicine />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-      </ThemeProvider>  
-    </>
+      {loading ? <Loader /> :
+        <ThemeProvider>
+          {/* Toaster */}
+          <Toast />
+          {/* Routes */}
+
+          <Routes>
+            <Route path="/session-end" element={<SessionEnd />} />
+            <Route path="/" element={<Dashboard />} />
+            {/* surveillance */}
+            <Route path='/surveillance' element={<Surveillance />} />
+            {/* ReceptionAmbulatoire */}
+            <Route path='/Reception/ambulatoire' element={<ReceptionAmbulatoire />} />
+            {/* ComptableOne */}
+            <Route path='/comptable/one' element={<ComptableOne />} />
+            {/* Triage */}
+            <Route path='/triage' element={<Triage />} />
+            {/* DoctorAmbulatoire */}
+            <Route path='/doctor/ambulatoire' element={<DoctorAmbulatoire />} />
+            {/* DoctorAmbulatoire */}
+            <Route path='/chirurgie' element={<DoctorChirurgie />} />
+            {/* TodayAppointments  */}
+            <Route path='/today/appointments' element={<TodayAppointments />} />
+            {/* Laboratoire */}
+            <Route path='/laboratoire' element={<Laboratoire />} />
+            {/* Laboratoire */}
+            <Route path='/radiographie' element={<Radiographie />} />
+            {/* Echographie */}
+            <Route path='/echographie' element={<Echographie />} />
+            {/* PharmacyPoeple */}
+            <Route path='/pharmacypoeple' element={<PharmacyPoeple />} />
+            {/* PharmacyPoeple */}
+            <Route path='/pharmacystock' element={<PharmacyStock />} />
+            {/* Hospitalisation */}
+            <Route path='/hospitalisation' element={<Hospitalisation />} />
+            {/* Maternite */}
+            <Route path='/maternite' element={<Maternite />} />
+            {/* invoce */}
+            <Route path="/invoices" element={<Invoices />} />
+            <Route path="/invoices/create" element={<CreateInvoice />} />
+            <Route path="/invoices/edit/:id" element={<EditInvoice />} />
+            <Route path="/invoices/preview/:id" element={<PreviewInvoice />} />
+            {/* payments */}
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/payments/edit/:id" element={<EditPayment />} />
+            <Route path="/payments/preview/:id" element={<PreviewPayment />} />
+            {/* patient */}
+            <Route path="/patients" element={<Patients />} />
+            <Route path="patients/preview/:id" element={<PatientProfile />} />
+            <Route path="/patients/create" element={<CreatePatient />} />
+            <Route path="/patients/visiting/:id" element={<NewMedicalRecode />} />
+            <Route path="/patients/visiting/:id" element={<NewMedicalRecodeTiage />} />
+            {/* doctors */}
+            <Route path="/doctors" element={<Doctors />} />
+            <Route path="/doctors/preview/:id" element={<DoctorProfile />} />
+            {/* reception */}
+            <Route path="/receptions" element={<Receptions />} />
+            {/* others */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/appointments" element={<Appointments />} />
+            <Route path="/campaigns" element={<Campaings />} />
+            <Route path="/medicine" element={<Medicine />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ThemeProvider>
+      }</>
   );
 }
 
