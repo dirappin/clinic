@@ -4,6 +4,8 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import Layout from "../../Layout";
 import PersonalInfo from "../../components/UsedComp/PersonalInfo";
 
+
+
 function CreatePatient() {
   return (
     <Layout>
