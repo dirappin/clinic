@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Modal from './Modal';
 import { Button } from '../Form';
 import { FiEye } from 'react-icons/fi';
@@ -7,10 +6,8 @@ import { MedicineDosageTable } from '../Tables';
 import { medicineData } from '../Datas';
 import { useNavigate } from 'react-router-dom';
 
-const MedicalRecodTriage = ({ closeModal, isOpen, datas }) => {
-
-    const navigate = useNavigate();
-
+function MedicalRecodModal({ closeModal, isOpen, datas }) {
+  const navigate = useNavigate();
   return (
     <Modal
       closeModal={closeModal}
@@ -47,7 +44,19 @@ const MedicalRecodTriage = ({ closeModal, isOpen, datas }) => {
             </p>
           </div>
         </div>
-       
+        {/* medicine */}
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Prescriptions</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl overflow-hidden p-4">
+            <MedicineDosageTable
+              data={medicineData?.slice(0, 9)}
+              functions={{}}
+              button={false}
+            />
+          </div>
+        </div>
         {/* attachments */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
@@ -83,7 +92,7 @@ const MedicalRecodTriage = ({ closeModal, isOpen, datas }) => {
         </div>
       </div>
     </Modal>
-  )
+  );
 }
 
-export default MedicalRecodTriage
+export default MedicalRecodModal;

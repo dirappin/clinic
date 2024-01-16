@@ -6,7 +6,7 @@ import { FiEye } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { medicalRecodTriageData } from '../../components/Datas';
-import MedicalRecodTriageModal from '../../components/Modals/MedicalRecodTriageModal';
+import MedicalRecodModal from '../../components/Modals/MedicalRecodModal';
 import { useNavigate } from 'react-router-dom';
 
 const TriageRecord = () => {
@@ -20,7 +20,7 @@ const TriageRecord = () => {
       {
         // Modal
         isOpen && (
-          <MedicalRecodTriageModal
+          <MedicalRecodModal
             closeModal={() => {
               setIsOpen(false);
               setDatas({});
@@ -40,7 +40,7 @@ const TriageRecord = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/9`);
+                navigate(`/patients/visiting/8`);
               }}
             />
           </div>
