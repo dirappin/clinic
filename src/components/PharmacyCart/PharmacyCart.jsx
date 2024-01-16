@@ -3,10 +3,10 @@ import React from 'react'
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { BiChevronDown, BiPlus } from 'react-icons/bi';
-import { Button, Select } from '../../components/Form';
-import { MedicineTable } from '../../components/Tables';
-import { medicineData, sortsDatas } from '../../components/Datas';
-import AddEditMedicineModal from '../../components/Modals/AddEditMedicine';
+import { Button, Select } from '../Form';
+import { MedicineTable } from '../Tables';
+import { medicineData, sortsDatas } from '../Datas';
+import AddEditMedicineModal from '../Modals/AddEditMedicine';
 
 const PharmacyCart = () => {
 

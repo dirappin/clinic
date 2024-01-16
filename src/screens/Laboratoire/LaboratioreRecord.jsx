@@ -9,7 +9,7 @@ import { medicalRecodData } from '../../components/Datas';
 import MedicalRecodModal from '../../components/Modals/MedicalRecodModal';
 import { useNavigate } from 'react-router-dom';
 
-const MaterniteCart = () => {
+const LaboratioreRecord = () => {
 
     const [isOpen, setIsOpen] = React.useState(false);
     const [datas, setDatas] = React.useState({});
@@ -40,7 +40,7 @@ const MaterniteCart = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/10`);
+                navigate(`/patients/visiting/2`);
               }}
             />
           </div>
@@ -100,4 +100,4 @@ const MaterniteCart = () => {
   )
 }
 
-export default MaterniteCart
+export default LaboratioreRecord

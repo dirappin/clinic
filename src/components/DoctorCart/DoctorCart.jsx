@@ -3,15 +3,15 @@ import React from 'react'
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { BiPlus } from 'react-icons/bi';
-import { Button } from '../../components/Form';
-import { DoctorsTable } from '../../components/Tables';
-import { doctorsData } from '../../components/Datas';
+import { Button } from '../Form';
+import { DoctorsTable } from '../Tables';
+import { doctorsData } from '../Datas';
 import { useNavigate } from 'react-router-dom';
-import AddDoctorModal from '../../components/Modals/AddDoctorModal';
+import AddDoctorModal from '../Modals/AddDoctorModal';
 
 const DoctorCart = () => {
 
-  const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
   const navigate = useNavigate();
 
   const onCloseModal = () => {
@@ -24,7 +24,24 @@ const DoctorCart = () => {
 
   return (
     <div>
-      
+        {
+        // add doctor modal
+        isOpen && (
+          <AddDoctorModal
+            closeModal={onCloseModal}
+            isOpen={isOpen}
+            doctor={true}
+            datas={null}
+          />
+        )
+      }
+      {/* add button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="w-16 animate-bounce h-16 border border-border z-50 bg-subMain text-white rounded-full flex-colo fixed bottom-8 right-12 button-fb"
+      >
+        <BiPlus className="text-2xl" />
+      </button>
       {/*  */}
       <h1 className="text-xl font-semibold">Doctors</h1>
       <div
@@ -45,6 +62,14 @@ const DoctorCart = () => {
             />
           </div>
 
+          {/* export */}
+          <Button
+            label="Export"
+            Icon={MdOutlineCloudDownload}
+            onClick={() => {
+              toast.error('Exporting is not available yet');
+            }}
+          />
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
           <DoctorsTable

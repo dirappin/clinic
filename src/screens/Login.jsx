@@ -1,17 +1,15 @@
 import React from "react";
-import { Button, Input } from "../components/Form";
+import { Button, Input } from "../components/Form.jsx";
 import { BiLogInCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { backendUrl } from "../components/constant";
+import { backendUrl } from "../components/constant.js";
 import axios from "axios";
 import { useState } from "react";
-import userAtom from "../state/user";
+import userAtom from "../state/user.js";
 import { useRecoilState } from "recoil";
 import * as Yup from "yup";
 import { cn } from "../util/cn.js";
-
-
 
 function Login() {
   const [error, setError] = useState("");
@@ -31,15 +29,13 @@ function Login() {
       email: Yup.string()
         .required("Email is required")
         .email("Please enter a valid email."),
-      password: Yup.string()
-        .required("password can't be empty")
+      password: Yup.string().required("password can't be empty"),
       // .matches(
       //   /^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*])/,
       //   "Password must contain at least one number, one uppercase letter, and one special character"
       // ),
     }),
   });
-
 
   const login = async (values) => {
     try {
@@ -55,14 +51,20 @@ function Login() {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      setError(error.response ? error.response.data.message : 'something went wrong please try again ');
+      setError(
+        error.response
+          ? error.response.data.message
+          : "something went wrong please try again "
+      );
     }
   };
 
-
   return (
     <div className="w-full h-screen flex-colo bg-dry px-4">
-      <form onSubmit={formik.handleSubmit} className="max-w-[650px] w-full 5 p-8 rounded-2xl m-auto bg-white flex-colo">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="max-w-[650px] w-full 5 p-8 rounded-2xl m-auto bg-white flex-colo"
+      >
         <img
           src="/images/logo.png"
           alt="logo"
@@ -82,15 +84,15 @@ function Login() {
             />
 
             <p
-              className={cn("text-red-500 absolute text-right top-[5.5rem]   text-[10px] min-h-[5px]")}
+              className={cn(
+                "text-red-500 absolute text-right top-[5.5rem]   text-[10px] min-h-[5px]"
+              )}
             >
-
               {formik.errors.email &&
                 formik.touched.email &&
                 formik.errors.email}
             </p>
           </div>
-
 
           <div className="relative flex justify-end w-full">
             <Input
@@ -102,10 +104,13 @@ function Login() {
               label="Password"
               color={true}
               placeholder={"*********"}
-
             />
 
-            <span className={cn("text-red-500 text-[10px] absolute text-right top-[5.5rem]   min-h-[5px]")}>
+            <span
+              className={cn(
+                "text-red-500 text-[10px] absolute text-right top-[5.5rem]   min-h-[5px]"
+              )}
+            >
               {formik.errors.password &&
                 formik.touched.password &&
                 formik.errors.password}
@@ -113,7 +118,7 @@ function Login() {
           </div>
         </div>
         <Button
-          type='submit'
+          type="submit"
           loading={loading}
           label="Login"
           Icon={BiLogInCircle}

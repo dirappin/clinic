@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import { memberData, sortsDatas } from '../../components/Datas';
+import { memberData, sortsDatas } from '../Datas';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiChevronDown, BiPlus, BiTime } from 'react-icons/bi';
 import { BsCalendarMonth } from 'react-icons/bs';
 import { MdFilterList, MdOutlineCalendarMonth } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
-import { Button, FromToDate, Select } from '../../components/Form';
-import { PatientTable } from '../../components/Tables';
+import { Button, FromToDate, Select } from '../Form';
+import { PatientTable } from '../Tables';
 
 
 const PatientsCart = () => {

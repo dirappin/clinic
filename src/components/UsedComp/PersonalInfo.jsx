@@ -10,7 +10,6 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import instance from "../../ axiosInstance";
 import { cloudinaryUploadFile } from "../../util/cloudinary";
-import { backendBaseUrl } from "../../constant";
 
 function PersonalInfo({ titles }) {
   const [title, setTitle] = React.useState(sortsDatas.title[0]);
@@ -50,11 +49,14 @@ function PersonalInfo({ titles }) {
     setLoading(true);
 
     try {
-      const imageUrl = await cloudinaryUploadFile(selectedProfileImage);
+      const imageUrl =
+        "https://res.cloudinary.com/dgbujfxvt/image/upload/v1704586725/scxspc5xc9vdbivtbnr3.jpg";
       const request = await instance.post("patient", {
         ...values,
         ProfilePicture: imageUrl,
       });
+
+      console.log(request.response);
 
       setLoading(false);
       navigate("/patients/preview/" + request.data._id);

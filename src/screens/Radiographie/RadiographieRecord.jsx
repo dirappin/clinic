@@ -5,11 +5,11 @@ import { BiPlus } from 'react-icons/bi';
 import { FiEye } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { medicalLaboratoireRecodData } from '../../components/Datas';
-import MedicalLoboratoireRecodModal from '../../components/Modals/MedicalLoboratoireRecodModal';
+import { medicalRecodData } from '../../components/Datas';
+import MedicalRecodModal from '../../components/Modals/MedicalRecodModal';
 import { useNavigate } from 'react-router-dom';
 
-const LaboratioreRecord = () => {
+const RadiographieRecord = () => {
 
     const [isOpen, setIsOpen] = React.useState(false);
     const [datas, setDatas] = React.useState({});
@@ -20,7 +20,7 @@ const LaboratioreRecord = () => {
       {
         // Modal
         isOpen && (
-          <MedicalLoboratoireRecodModal
+          <MedicalRecodModal
             closeModal={() => {
               setIsOpen(false);
               setDatas({});
@@ -33,19 +33,19 @@ const LaboratioreRecord = () => {
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-4">
           <h1 className="text-sm font-medium sm:block hidden">
-            Laboratiore Record
+            Maternite Record
           </h1>
           <div className="sm:w-1/4 w-full">
             <Button
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/12`);
+                navigate(`/patients/visiting/2`);
               }}
             />
           </div>
         </div>
-        {medicalLaboratoireRecodData.map((data) => (
+        {medicalRecodData.map((data) => (
           <div
             key={data.id}
             className="bg-dry items-start grid grid-cols-12 gap-4 rounded-xl border-[1px] border-border p-6"
@@ -100,4 +100,4 @@ const LaboratioreRecord = () => {
   )
 }
 
-export default LaboratioreRecord
+export default RadiographieRecord

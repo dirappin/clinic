@@ -9,7 +9,7 @@ import {
 import {
   appointmentsData,
   memberData,
-} from '../../components/Datas';
+} from '../Datas';
 import { Link } from 'react-router-dom';
 
 

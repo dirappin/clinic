@@ -6,7 +6,6 @@ import {
   TbFileInvoice,
   TbLockAccess,
   TbUsers,
-  TbUsersPlus,
   
 } from 'react-icons/tb';
 import { FaRegCalendarAlt, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa';
@@ -17,8 +16,7 @@ import {
   LuRadiation,
   LuBaby,
   LuBath,
-  LuSwords,
-  LuBookOpenCheck,
+  LuSwords
  } from "react-icons/lu";
 import {
   RiFileList3Line,
@@ -157,11 +155,6 @@ export const MenuDatas = [
     icon: MdOutlineInventory2,
   },
   {
-    title: 'Agents',
-    path: '/agents',
-    icon: TbUsersPlus,
-  },
-  {
     title: 'Medicine',
     path: '/medicine',
     icon: RiMedicineBottleLine,
@@ -281,124 +274,6 @@ export const memberData = [
     blood: 'AB+',
     totalAppointments: 70,
     date: '01 June 2018',
-  },
-];
-
-export const memberAgentsData = [
-  {
-    id: 1,
-    name: 'CHANTAL MANDR',
-    image: '/images/user1.png',
-    admin: false,
-    salary: '880',
-    phone: '+1 234 567 890',
-    age: 25,
-    gender: 'Male',
-    blood: 'A+',
-    date: '20 Aug 2021',
-    fonction: 'Directeur',
-    title : 'Dr',
-  },
-  {
-    id: 2,
-    name: 'Mauris auctor',
-    image: '/images/user2.png',
-    admin: false,
-    salary: '880',
-    phone: '+1 456 789 123',
-    age: 34,
-    gender: 'Female',
-    blood: 'B+',
-    totalAppointments: 3,
-    date: '22 Nov 2023',
-    title : 'Dr',
-    fonction: 'Directeur',
-  },
-  {
-    id: 3,
-    name: 'Michael Owen',
-    image: '/images/user3.png',
-    admin: false,
-    phone: '+1 890 123 456',
-    salary: '880',
-    age: 45,
-    gender: 'Male',
-    blood: 'O+',
-    totalAppointments: 26,
-    date: '12 Jan 2020',
-    title : 'Dr',
-    fonction: 'Directeur',
-  },
-  {
-    id: 4,
-    name: 'Amina Smith',
-    image: '/images/user4.png',
-    admin: true,
-    phone: '+1 908 765 432',
-    salary: '880',
-    age: 28,
-    gender: 'Female',
-    blood: 'AB+',
-    totalAppointments: 17,
-    date: '07 Feb 2001',
-    title : 'Dr',
-  },
-  {
-    id: 5,
-    name: 'Minahil Khan',
-    image: '/images/user5.png',
-    admin: false,
-    phone: '+1 890 123 456',
-    email: 'minahilkhan@gmail.com',
-    age: 35,
-    gender: 'Female',
-    blood: 'A+',
-    totalAppointments: 9,
-    date: '30 Dec 2019',
-    title : 'Dr',
-    fonction: 'Directeur',
-  },
-  {
-    id: 6,
-    name: 'Alex Morgan',
-    image: '/images/user6.png',
-    admin: false,
-    phone: '+1 908 765 432',
-    email: 'alexmorgan@gmail.com',
-    age: 29,
-    gender: 'Male',
-    blood: 'B+',
-    totalAppointments: 34,
-    date: '12 Jan 2020',
-    fonction: 'Directeur',
-  },
-  {
-    id: 7,
-    name: 'John Doe',
-    image: '/images/user7.png',
-    admin: false,
-    phone: '+1 234 567 890',
-    salary: '880',
-    age: 32,
-    gender: 'Male',
-    blood: 'O-',
-    totalAppointments: 12,
-    date: '18 Mar 2023',
-    fonction: 'Directeur',
-  },
-  {
-    id: 8,
-    name: 'David Beckham',
-    image: '/images/user8.png',
-    admin: false,
-    phone: '+1 456 789 123',
-    salary: '880',
-    age: 27,
-    gender: 'Female',
-    blood: 'AB+',
-    totalAppointments: 70,
-    date: '01 June 2018',
-    fonction: 'Directeur',
   },
 ];
 
@@ -1356,87 +1231,52 @@ export const patientTab = [
   },
   {
     id: 7,
-    title: 'Examen demande',
-    icon: LuBookOpenCheck,
-  },
-  {
-    id: 8,
     title: 'Laboratiore',
     icon: LuMicroscope,
   },
   {
-    id: 9,
+    id: 8,
     title: 'Radiographie',
     icon: LuRadiation,
   },
   {
-    id: 10,
+    id: 9,
     title: 'Appointments',
     icon: BiCalendar,
   },
   {
-    id: 11,
+    id: 10,
     title: 'Invoices',
     icon: RiFileList3Line,
   },
   {
-    id: 12,
+    id: 11,
     title: 'Payments',
     icon: RiMoneyDollarCircleLine,
   },
   {
-    id: 13,
+    id: 12,
     title: 'Images',
     icon: RiImageLine,
   },
   {
-    id: 14,
+    id: 13,
     title: 'Dental Chart',
     icon: RiStethoscopeLine,
   },
   {
-    id: 15,
+    id: 14,
     title: 'Patient Information',
     icon: RiUserLine,
   },
   {
-    id: 16,
+    id: 14,
     title: 'Health Information',
     icon: RiHeartLine,
   },
 ];
 
 export const doctorTab = [
-  {
-    id: 1,
-    title: 'Personal Information',
-    icon: RiUserLine,
-  },
-  {
-    id: 2,
-    title: 'Patients',
-    icon: BiUserPlus,
-  },
-  {
-    id: 3,
-    title: 'Appointments',
-    icon: BiCalendar,
-  },
-  {
-    id: 4,
-    title: 'Payments',
-    icon: RiMoneyDollarCircleLine,
-  },
-  {
-    id: 5,
-    title: 'Invoices',
-    icon: RiFileList3Line,
-  },
-  
-  
-];
-
-export const AgentTab = [
   {
     id: 1,
     title: 'Personal Information',
@@ -1473,7 +1313,6 @@ export const AgentTab = [
     icon: RiLockPasswordLine,
   },
 ];
-
 
 export const medicalRecodTriageData = [
   {
@@ -1534,35 +1373,24 @@ export const medicalRecodTriageData = [
     data: [
       {
         id: 1,
-        title: 'Poids',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Complaint',
+        value: 'Food impaction, Replacing Missing Teeth, bad breath',
       },
       {
         id: 2,
-        title: 'TA',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Diagnosis',
+        value: 'Caries, Periodontitis, Malocclusion',
       },
       {
         id: 3,
-        title: 'PU',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Treatment',
+        value: 'Superficial Scaling, Root Planing, Extraction',
       },
       {
         id: 4,
-        title: 'Température',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Prescription',
+        value: 'Benzocaine, Lidocaine, Mepivacaine, Prilocaine',
       },
-      {
-        id: 5,
-        title: 'SATUROMAITRE',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 6,
-        title: 'Plaintes',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      
     ],
     attachments: [
       'https://placehold.it/300x300',
@@ -1584,35 +1412,24 @@ export const medicalRecodTriageData = [
     data: [
       {
         id: 1,
-        title: 'Poids',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Complaint',
+        value: 'Broken Teeth, Bridge, Cap in the front teeth',
       },
       {
         id: 2,
-        title: 'TA',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Diagnosis',
+        value: 'Unspecified Gingival Recession, Unspecified Caries',
       },
       {
         id: 3,
-        title: 'PU',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Treatment',
+        value: 'Consultation, Scaling, Root Planing, Extraction',
       },
       {
         id: 4,
-        title: 'Température',
-        value: 'Bleeding Gums, Toothache, bad breath',
+        title: 'Prescription',
+        value: 'Gingival Gel, Chlorhexidine, Fluoride, Calcium',
       },
-      {
-        id: 5,
-        title: 'SATUROMAITRE',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 6,
-        title: 'Plaintes',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      
     ],
     attachments: [
       'https://placehold.it/300x300',
@@ -1627,199 +1444,6 @@ export const medicalRecodTriageData = [
       'Pulse Rate: 80 bpm',
       'Respiratory Rate: 16 bpm',
     ],
-  },
-  {
-    id: 4,
-    date: '10, Apr 2022',
-    amount: 760000,
-    data: [
-      {
-        id: 1,
-        title: 'Poids',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 2,
-        title: 'TA',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 3,
-        title: 'PU',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 4,
-        title: 'Température',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 5,
-        title: 'SATUROMAITRE',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 6,
-        title: 'Plaintes',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      
-    ],
-    attachments: [
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-    ],
-    vitalSigns: [
-      'Sugar Level: 120 mg/dL',
-      'Oxygen Saturation: 98%',
-      'Cholesterol: 200 mg/dL',
-      'Blood Pressure: 120/80 mmHg',
-    ],
-  },
-];
-
-export const medicalRecodExamengeData = [
-  {
-    id: 1,
-    date: '13, Jan 2021',
-    amount: 150000,
-    data: [
-      {
-        id: 1,
-        title: 'Examen Demande',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-    ],
-  },
-  {
-    id: 2,
-    date: '10, Feb 2022',
-    amount: 300000,
-    data: [
-      {
-        id: 1,
-        title: 'Examen Demande',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      
-    ],
-  },
-  {
-    id: 3,
-    date: '20, Mar 2022',
-    amount: 500000,
-    data: [
-      {
-        id: 1,
-        title: 'Examen Demande',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      
-    ],
-  },
-  {
-    id: 4,
-    date: '10, Apr 2022',
-    amount: 760000,
-    data: [
-      {
-        id: 1,
-        title: 'Examen Demande',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-    ],
-    
-  },
-];
-
-export const medicalLaboratoireRecodData = [
-  {
-    id: 1,
-    date: '13, Jan 2021',
-    amount: 150000,
-    data: [
-      {
-        id: 1,
-        title: 'Resulta',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 2,
-        title: 'Description',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 3,
-        title: 'Diagnosis',
-        value: 'Unspecified Gingival Recession, Unspecified Caries',
-      },
-      
-    ],
-    attachments: [
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-    ],
-  },
-  {
-    id: 2,
-    date: '10, Feb 2022',
-    amount: 300000,
-    data: [
-      {
-        id: 1,
-        title: 'Resulta',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 2,
-        title: 'Description',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 3,
-        title: 'Diagnosis',
-        value: 'Unspecified Gingival Recession, Unspecified Caries',
-      },
-    ],
-    attachments: [
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-    ],
-  },
-  {
-    id: 3,
-    date: '20, Mar 2022',
-    amount: 500000,
-    data: [
-      {
-        id: 1,
-        title: 'Resulta',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 2,
-        title: 'Description',
-        value: 'Bleeding Gums, Toothache, bad breath',
-      },
-      {
-        id: 3,
-        title: 'Diagnosis',
-        value: 'Unspecified Gingival Recession, Unspecified Caries',
-      },
-    ],
-    attachments: [
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-      'https://placehold.it/300x300',
-    ],
-    
   },
   {
     id: 4,
@@ -2052,28 +1676,6 @@ export const doctorsData = [
   {
     id: 1,
     user: memberData[0],
-    title: 'Dr.',
-  },
-  {
-    id: 2,
-    user: memberData[1],
-    title: 'Dr.',
-  },
-  {
-    id: 3,
-    user: memberData[2],
-    title: 'Dr.',
-  },
-  {
-    id: 4,
-    user: memberData[3],
-    title: 'Dr.',
-  },
-];
-export const AgentsData = [
-  {
-    id: 1,
-    user: memberAgentsData[0],
     title: 'Dr.',
   },
   {
