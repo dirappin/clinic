@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import PatientsUsed from '../../components/UsedComp/PatientsUsed';
 import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
-import { AgentTab } from '../../components/Datas';
+import { doctorTab } from '../../components/Datas';
 import PaymentsUsed from '../../components/UsedComp/PaymentUsed';
 import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
 import Access from '../../components/Access';
 
-function AgentProfile() {
+function DoctorProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
   const [access, setAccess] = React.useState({});
 
@@ -40,7 +40,7 @@ function AgentProfile() {
     <Layout>
       <div className="flex items-center gap-4">
         <Link
-          to="/agents"
+          to="/doctors"
           className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
         >
           <IoArrowBackOutline />
@@ -67,7 +67,7 @@ function AgentProfile() {
           </div>
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 2xl:px-12 w-full">
-            {AgentTab.map((tab, index) => (
+            {doctorTab.map((tab, index) => (
               <button
                 onClick={() => setActiveTab(tab.id)}
                 key={index}
@@ -99,7 +99,4 @@ function AgentProfile() {
   );
 }
 
-export default AgentProfile;
-
-
-
+export default DoctorProfile;
