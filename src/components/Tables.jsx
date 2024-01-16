@@ -10,6 +10,7 @@ import axios from "axios";
 import Loader from "./common/Loader";
 import NetworkError from "../screens/error/networkError";
 
+
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
 
@@ -340,15 +341,43 @@ export function ServiceTable({ data, onEdit }) {
 }
 
 // patient table
+// patient table
+// patient table
 export function PatientTable() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+  const searchInput = useRef();
+  const [showNotFountResult, setShowNotFountResult] = useState(false);
+
   const { data, error, isLoading } = useSWR(
-    `http://localhost:3001/patient/?skip=${1}`,
-    fetcher
+    `http://localhost:3001/patient/?skip=${1}`
   );
 
   const thclasse = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
   const tdclasse = "text-start text-xs py-4 px-2 whitespace-nowrap";
+
+  const searchPatient = async () => {
+    if (searchInput.current.value.trim() === "") return;
+    setSearchLoading(true);
+    setShowNotFountResult(false);
+
+    try {
+      const request = await axios.post(
+        backendBaseUrl + "patient/searchByName",
+        {
+          name: searchInput.current.value,
+        }
+      );
+      setSearchResult(request.data);
+      setSearchLoading(false);
+      if (request.data.length === 0) setShowNotFountResult(true);
+    } catch (error) {
+      setSearchLoading(false);
+      toast.error("failed to find patient");
+    }
+  };
 
   return (
     <div
@@ -361,10 +390,35 @@ export function PatientTable() {
       <div className="w-full overflow-x-scroll bg-white">
         <div className="grid mb-10  lg:grid-cols-5 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2">
           <input
+            ref={searchInput}
+            searchInput
+            defaultChecked={name}
             type="text"
             placeholder='Search "Patients"'
             className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
           />
+
+          <button
+            disabled={name.trim("") === " "}
+            onClick={() => {
+              if (searchResult.length > 0) {
+                setSearchResult([]);
+                setName("");
+                searchInput.current.value = "";
+              } else {
+                searchPatient();
+              }
+            }}
+            className="max-w-16 cursor-pointer text-gray-700 active:bg-gray-100 h-full bg-gray-50  flex items-center justify-center rounded-md border"
+          >
+            {searchLoading && <span className="text-[10px]">...loading</span>}
+
+            {!searchLoading && searchResult.length < 1 && (
+              <IoSearchOutline className="text-md " />
+            )}
+
+            {searchResult.length > 0 && <MdClose />}
+          </button>
         </div>
         <table className="table-auto w-full">
           <thead className="bg-dry rounded-md overflow-hidden">
@@ -382,9 +436,93 @@ export function PatientTable() {
               <th className={thclasse}>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {data &&
+              searchResult.length < 1 &&
+              !showNotFountResult &&
               data.patients.map((item, index) => (
+                <tr
+                  key={item.id}
+                  className="border-b border-border hover:bg-greyed transitions"
+                >
+                  <td className={tdclasse}>{index + 1}</td>
+                  <td className={tdclasse}>
+                    <div className="flex gap-4 items-center">
+                      <span className="w-12">
+                        <img
+                          src={item.ProfilePicture}
+                          alt={item.firstName}
+                          className="w-full h-12 rounded-full object-cover border border-border"
+                        />
+                      </span>
+
+                      <div>
+                        <h4 className="text-sm font-medium">
+                          {item.firstName + " "}
+                          {item.secondName}{" "}
+                        </h4>
+                        <p className="text-xs mt-1 text-textGray">
+                          {item.phoneNumber}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className={tdclasse}>
+                    {new Date(item.createdAt).getFullYear()}
+                  </td>
+
+                  <td className={tdclasse}>
+                    <span
+                      className={`py-1 px-4 ${
+                        item.gender === "Male"
+                          ? "bg-subMain text-subMain"
+                          : "bg-orange-500 text-orange-500"
+                      } bg-opacity-10 text-xs rounded-xl`}
+                    >
+                      {item.gender}
+                    </span>
+                  </td>
+
+                  <>
+                    <td className={tdclasse}>{item.blood}</td>
+                    <td className={tdclasse}>
+                      {new Date().getFullYear() -
+                        new Date(item.birthdate).getFullYear()}
+                    </td>
+                  </>
+
+                  <td className={tdclasse}>
+                    <MenuSelect
+                      datas={[
+                        {
+                          title: "View",
+                          icon: FiEye,
+                          onClick: () => {
+                            navigate("/patients/preview/" + item._id);
+                          },
+                        },
+                        {
+                          title: "Delete",
+                          icon: RiDeleteBin6Line,
+                          onClick: () => {
+                            toast.error("This feature is not available yet");
+                          },
+                        },
+                      ]}
+                    >
+                      <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                        <BiDotsHorizontalRounded />
+                      </div>
+                    </MenuSelect>
+                  </td>
+                </tr>
+              ))}
+
+            {/* search result */}
+            {searchResult.length > 0 &&
+              !showNotFountResult &&
+              searchResult.map((item, index) => (
                 <tr
                   key={item.id}
                   className="border-b border-border hover:bg-greyed transitions"
@@ -463,6 +601,15 @@ export function PatientTable() {
               ))}
           </tbody>
         </table>
+
+        {showNotFountResult && searchResult.length < 1 && (
+          <EmptyResult
+            close={() => {
+              setShowNotFountResult(false);
+              searchInput.current.value = "";
+            }}
+          />
+        )}
 
         {isLoading && <Loader />}
         {error && !isLoading && <NetworkError />}
