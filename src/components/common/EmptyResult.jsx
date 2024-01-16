@@ -16,4 +16,5 @@ const EmptyResult = ({ lable, close }) => {
   );
 };
 
+
 export default EmptyResult;
