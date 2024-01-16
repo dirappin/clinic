@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from '../Layout';
-
 import {
   BsArrowDownLeft,
   BsArrowDownRight,
@@ -75,7 +74,6 @@ function Dashboard() {
                 </span>
               </p>
             </div>
-          
             {/* Earning Reports */}
             <div className="mt-4">
               <DashboardBigChart />
@@ -101,7 +99,6 @@ function Dashboard() {
             </div>
           </div>
         </div>
-       
         {/* side 2 */}
         <div
           data-aos="fade-left"
@@ -182,7 +179,7 @@ function Dashboard() {
             ))}
           </div>
         </div>
-      </div> 
+      </div>
     </Layout>
   );
 }

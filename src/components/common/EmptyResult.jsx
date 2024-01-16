@@ -1,3 +1,4 @@
+
 import React from "react";
 import { PiFolderOpenThin } from "react-icons/pi";
 import { Button } from "../Form";
@@ -18,3 +19,4 @@ const EmptyResult = ({ lable, close }) => {
 
 
 export default EmptyResult;
+

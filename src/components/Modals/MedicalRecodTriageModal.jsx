@@ -1,8 +1,15 @@
 import React from 'react';
 
 import Modal from './Modal';
+import { Button } from '../Form';
+import { FiEye } from 'react-icons/fi';
+import { MedicineDosageTable } from '../Tables';
+import { medicineData } from '../Datas';
+import { useNavigate } from 'react-router-dom';
 
-const MedicalLoboratoireRecodModal = ({ closeModal, isOpen, datas }) => {
+const MedicalRecodTriageModal = ({ closeModal, isOpen, datas }) => {
+
+    const navigate = useNavigate();
 
   return (
     
@@ -25,6 +32,23 @@ const MedicalLoboratoireRecodModal = ({ closeModal, isOpen, datas }) => {
             </div>
           </div>
         ))}
+        {/* visual sign */}
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Vital Signs:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {datas?.vitalSigns?.map((item) => (
+                // separate each item with comma
+                <span key={item} className="mr-1">
+                  {item},
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+        
         {/* attachments */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
@@ -44,11 +68,23 @@ const MedicalLoboratoireRecodModal = ({ closeModal, isOpen, datas }) => {
             }
           </div>
         </div>
-        
+
+        {/* view Invoice */}
+        <div className="flex justify-end items-center w-full">
+          <div className="md:w-3/4 w-full">
+            <Button
+              label="View Invoice"
+              Icon={FiEye}
+              onClick={() => {
+                closeModal();
+                navigate(`/invoices/preview/198772`);
+              }}
+            />
+          </div>
+        </div>
       </div>
     </Modal>
   )
 }
 
-export default MedicalLoboratoireRecodModal
-
+export default MedicalRecodTriageModal
