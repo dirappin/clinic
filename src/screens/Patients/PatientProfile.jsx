@@ -1,3 +1,5 @@
+import Examen from "../Examen/Examen";
+
 import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
 import { patientTab } from "../../components/Datas";
@@ -23,6 +25,7 @@ import axios from "axios";
 import Loader from "../../components/common/Loader";
 import toast from "react-hot-toast";
 import NetworkError from "../error/networkError";
+import { backendBaseUrl } from "../../constant";
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
@@ -32,28 +35,29 @@ function PatientProfile() {
   const [loading, setLoading] = useState(false);
 
   const request = async () => {
-
     try {
       setDisplayError(false);
       setLoading(true);
 
-      const response = await axios.get("http://localhost:3001/patien/" + params.id,);
+      const response = await axios.get(
+        backendBaseUrl + `patient/${params.id}`
+      );
       if (response.status !== 200) {
         throw new Error(response.data.message || "Failed to fetch data");
       }
       setData({ ...response.data });
       setLoading(false);
-
     } catch (error) {
+      console.log(error);
       setLoading(false);
-      setDisplayError(true)
-      toast.error('failed to load patient details');
+      setDisplayError(true);
+      toast.error("failed to load patient details");
     }
-  }
+  };
 
   useEffect(() => {
-    request()
-  }, [])
+    request();
+  }, []);
 
   const tabPanel = () => {
     switch (activeTab) {
@@ -70,22 +74,24 @@ function PatientProfile() {
       case 6:
         return <MaterniteCart />;
       case 7:
-        return <LaboratioreRecord />;
+        return <Examen />;
       case 8:
-        return <RadiographieRecord />;
+        return <LaboratioreRecord />;
       case 9:
-        return <AppointmentsUsed doctor={false} />;
+        return <RadiographieRecord />;
       case 10:
-        return <InvoiceUsed />;
+        return <AppointmentsUsed doctor={false} />;
       case 11:
-        return <PaymentsUsed doctor={false} />;
+        return <InvoiceUsed />;
       case 12:
-        return <PatientImages />;
+        return <PaymentsUsed doctor={false} />;
       case 13:
-        return <DentalChart />;
+        return <PatientImages />;
       case 14:
-        return <PersonalInfo titles={false} />;
+        return <DentalChart />;
       case 15:
+        return <PersonalInfo titles={false} />;
+      case 16:
         return <HealthInfomation />;
       default:
         return;
@@ -122,7 +128,9 @@ function PatientProfile() {
               className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
             />
             <div className="gap-2 flex-colo">
-              <h2 className="text-sm font-semibold">{data.firstName} {data.secondName}</h2>
+              <h2 className="text-sm font-semibold">
+                {data.firstName} {data.secondName}
+              </h2>
               <p className="text-xs text-textGray">{data.gender}</p>
               <p className="text-xs">+{data.phoneNumber}</p>
             </div>
@@ -133,10 +141,11 @@ function PatientProfile() {
                   onClick={() => setActiveTab(tab.id)}
                   key={index}
                   className={`
-                ${activeTab === tab.id
-                      ? "bg-text text-subMain"
-                      : "bg-dry text-main hover:bg-text hover:text-subMain"
-                    }
+                ${
+                  activeTab === tab.id
+                    ? "bg-text text-subMain"
+                    : "bg-dry text-main hover:bg-text hover:text-subMain"
+                }
                 text-xs gap-4 flex items-center w-full p-4 rounded`}
                 >
                   <tab.icon className="text-lg" /> {tab.title}
