@@ -29,19 +29,19 @@ import { backendBaseUrl } from "../../constant";
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
-  const params = useParams();
+  const {patientId} = useParams();
   const [data, setData] = useState({});
   const [displayError, setDisplayError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  
 
   const request = async () => {
     try {
       setDisplayError(false);
       setLoading(true);
 
-      const response = await axios.get(
-        backendBaseUrl + `patient/${params.id}`
-      );
+      const response = await axios.get(backendBaseUrl + `patient/${patientId}`);
       if (response.status !== 200) {
         throw new Error(response.data.message || "Failed to fetch data");
       }

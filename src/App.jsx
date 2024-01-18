@@ -106,9 +106,9 @@ function App() {
             <Route path="/payments/preview/:id" element={<PreviewPayment />} />
             {/* patient */}
             <Route path="/patients" element={<Patients />} />
-            <Route path="patients/preview/:id" element={<PatientProfile />} />
+            <Route path="patients/preview/:patientId" element={<PatientProfile />} />
             <Route path="/patients/create" element={<CreatePatient />} />
-            <Route path="/patients/visiting/:id" element={<NewMedicalRecode />} />
+            <Route path="/patients/visiting/:patientId" element={<NewMedicalRecode />} />
             <Route path="/patients/visiting/:id" element={<NewMedicalRecodeTiage />} />
             {/* doctors */}
             <Route path="/doctors" element={<Doctors />} />

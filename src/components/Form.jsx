@@ -104,10 +104,12 @@ export function Select({ children, selectedPerson, setSelectedPerson, datas }) {
           <Listbox.Options className="flex  flex-col gap-4 top-10 z-50 absolute left-0 w-full bg-white rounded-md shadow-lg py-4 px-6 ring-1 ring-border focus:outline-none">
             {datas.map((person) => (
               <Listbox.Option
-                className={`cursor-pointer text-xs hover:text-subMain`}
+                className={cn("cursor-pointer text-xs hover:text-subMain", {
+                  "text-gray-300 hover:text-gray-300": person.disabled,
+                })}
                 key={person.id}
                 value={person}
-                disabled={person.unavailable}
+                disabled={person.disabled || false}
               >
                 {person.name}
               </Listbox.Option>
@@ -120,7 +122,6 @@ export function Select({ children, selectedPerson, setSelectedPerson, datas }) {
 }
 
 // switch
-
 export function Switchi({ checked, onChange }) {
   return (
     <Switch
@@ -140,11 +141,19 @@ export function Switchi({ checked, onChange }) {
 
 // textarea
 
-export function Textarea({ label, name, register, placeholder, rows }) {
+export function Textarea({
+  label,
+  name,
+  register,
+  placeholder,
+  rows,
+  ...props
+}) {
   return (
     <div className="text-sm w-full">
       <label className={"text-black text-sm"}>{label}</label>
       <textarea
+        {...props}
         name={name}
         rows={rows}
         {...register}
