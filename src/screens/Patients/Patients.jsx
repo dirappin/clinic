@@ -1,26 +1,12 @@
 import React, { useState } from "react";
 import Layout from "../../Layout";
-import { memberData, sortsDatas } from "../../components/Datas";
+import { sortsDatas } from "../../components/Datas";
 import { Link, useNavigate } from "react-router-dom";
-import { BiChevronDown, BiPlus, BiTime } from "react-icons/bi";
 import { BsCalendarMonth } from "react-icons/bs";
-import { MdFilterList, MdOutlineCalendarMonth } from "react-icons/md";
-import { toast } from "react-hot-toast";
-import { Button, FromToDate, Select } from "../../components/Form";
+import { BiTime } from "react-icons/bi";
 import { PatientTable } from "../../components/Tables";
-import useSWR from "swr";
-import axios from "axios";
-
-
-const fetcher = async (url) => {
-  const response = await axios.get(url);
-
-  if (response.status !== 200) {
-    throw new Error(response.data.message || "Failed to fetch data");
-  }
-
-  return response.data;
-};
+import { MdOutlineCalendarMonth } from "react-icons/md";
+import { BiPlus } from "react-icons/bi";
 
 function Patients() {
   const [status, setStatus] = useState(sortsDatas.filterPatient[0]);

@@ -1,23 +1,26 @@
-import React from 'react';
-import { Button } from '../../components/Form';
-import { BiPlus } from 'react-icons/bi';
-import { FiEye } from 'react-icons/fi';
-import { toast } from 'react-hot-toast';
-import { RiDeleteBin6Line } from 'react-icons/ri';
-import { medicalRecodData } from '../../components/Datas';
-import MedicalRecodModal from '../../components/Modals/MedicalRecodModal';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Button } from "../../components/Form";
+import { BiPlus } from "react-icons/bi";
+import { FiEye } from "react-icons/fi";
+import { toast } from "react-hot-toast";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { medicalRecodData } from "../../components/Datas";
+import MedicalRecodModal from "../../components/Modals/MedicalRecodModal";
+import { useNavigate, useParams } from "react-router-dom";
 
 function MedicalRecord() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [datas, setDatas] = React.useState({});
   const navigate = useNavigate();
+  const { patientId } = useParams();
+
   return (
     <>
       {
         // Modal
         isOpen && (
           <MedicalRecodModal
+          add
             closeModal={() => {
               setIsOpen(false);
               setDatas({});
@@ -37,7 +40,7 @@ function MedicalRecord() {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/2`);
+                navigate(`/patients/visiting/${patientId}`);
               }}
             />
           </div>
@@ -53,7 +56,7 @@ function MedicalRecord() {
             <div className="col-span-12 md:col-span-6 flex flex-col gap-2">
               {data?.data?.map((item, index) => (
                 <p key={item.id} className="text-xs text-main font-light">
-                  <span className="font-medium">{item?.title}:</span>{' '}
+                  <span className="font-medium">{item?.title}:</span>{" "}
                   {
                     // if value character is more than 40, show only 40 characters
                     item?.value?.length > 40
@@ -66,7 +69,7 @@ function MedicalRecord() {
             {/* price */}
             <div className="col-span-12 md:col-span-2">
               <p className="text-xs text-subMain font-semibold">
-                <span className="font-light text-main">(USD)</span>{' '}
+                <span className="font-light text-main">(USD)</span>{" "}
                 {data?.amount}
               </p>
             </div>
@@ -83,7 +86,7 @@ function MedicalRecord() {
               </button>
               <button
                 onClick={() => {
-                  toast.error('This feature is not available yet');
+                  toast.error("This feature is not available yet");
                 }}
                 className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
               >
