@@ -7,10 +7,10 @@ import {
   TbLockAccess,
   TbUsers,
   TbUsersPlus,
-  
+
 } from 'react-icons/tb';
 import { FaRegCalendarAlt, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa';
-import { 
+import {
   LuMicroscope,
   LuCross,
   LuCopyPlus,
@@ -19,7 +19,7 @@ import {
   LuBath,
   LuSwords,
   LuBookOpenCheck,
- } from "react-icons/lu";
+} from "react-icons/lu";
 import {
   RiFileList3Line,
   RiHeartLine,
@@ -31,7 +31,7 @@ import {
   RiUserHeartLine,
   RiUserLine,
   RiMedicineBottleFill,
- 
+
 } from 'react-icons/ri';
 import {
   MdListAlt,
@@ -43,138 +43,162 @@ import {
   MdAccessibilityNew,
   MdCreditCard,
   MdOutlineFace2,
-  
 } from 'react-icons/md';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { BiCalendar, BiUserPlus } from 'react-icons/bi';
 
 export const MenuDatas = [
-
   {
     title: 'surveillance',
     path: '/surveillance',
-    icon: MdVideoCameraFront
+    icon: MdVideoCameraFront,
+    permission: ['entry-checker']
   },
+
   {
     title: 'Dashboard',
     path: '/',
     icon: HiOutlineHome,
+    permission: ['admin']
   },
+
   {
     title: 'Reception Ambulatoire',
     path: '/Reception/ambulatoire',
     icon: MdAccessibilityNew,
+    permission: ['all']
   },
   {
     title: 'Comptable One',
     path: '/comptable/one',
     icon: MdCreditCard,
+    permission: ['comptable', 'admin']
   },
   {
     title: 'Triage',
     path: '/triage',
     icon: LuCopyPlus,
+    permission: ['all']
   },
   {
     title: 'Doctor Ambulatoire',
     path: '/doctor/ambulatoire',
     icon: MdOutlineFace2,
+    permission: ['doctor']
   },
   {
     title: 'Doctor Chirurgie',
     path: '/chirurgie',
     icon: LuSwords,
+    permission: ['doctor']
   },
   {
     title: 'Laboratoire',
     path: '/laboratoire',
     icon: LuMicroscope,
+    permission: ['all']
   },
   {
     title: 'Radiographie',
     path: '/radiographie',
     icon: LuRadiation,
+    permission: ['all']
   },
   {
     title: 'Échographie',
     path: '/echographie',
     icon: LuBath,
+    permission: ['all']
   },
   {
     title: 'Pharmacy Poeple',
     path: '/pharmacypoeple',
     icon: RiMedicineBottleFill,
+    permission: ['pharamacy-store']
   },
   {
     title: 'Pharmacy Stock',
     path: '/pharmacystock',
     icon: RiMedicineBottleLine,
+    permission: ['pharamacy-stock']
   },
   {
     title: 'Hospitalisation',
     path: '/hospitalisation',
     icon: LuCross,
+    permission: ['all']
   },
   {
     title: 'Maternité',
     path: '/Maternite',
     icon: LuBaby,
+    permission: ['all']
   },
   {
     title: 'Patients',
     path: '/patients',
     icon: TbUsers,
+    permission: ['all']
   },
   {
     title: 'Receptions',
     path: '/receptions',
     icon: HiOutlineUsers,
+    permission: ['all']
   },
   {
     title: 'Doctors',
     path: '/doctors',
     icon: RiUserHeartLine,
+    permission: ['admin']
   },
-
   {
     title: 'Appointments',
     path: '/appointments',
     icon: FaRegCalendarAlt,
+    permission: ['all']
   },
   {
     title: 'Payments',
     path: '/payments',
     icon: MdListAlt,
+    permission: ['comptable']
   },
   {
     title: 'Invoices',
     path: '/invoices',
     icon: TbFileInvoice,
+    permission: ['comptable']
   },
   {
     title: 'Services',
     path: '/services',
     icon: MdOutlineInventory2,
+    permission: ['admin']
   },
   {
     title: 'Agents',
     path: '/agents',
     icon: TbUsersPlus,
+    permission: ['admin']
   },
   {
     title: 'Medicine',
     path: '/medicine',
     icon: RiMedicineBottleLine,
+    permission: ['all']
   },
   {
     title: 'Campaigns',
     path: '/campaigns',
     icon: MdOutlineCampaign,
+    permission: ['all']
   },
   {
     title: 'Settings',
     path: '/settings',
     icon: AiOutlineSetting,
+    permission: ['all']
   },
 ];
 export const memberData = [
@@ -297,7 +321,7 @@ export const memberAgentsData = [
     blood: 'A+',
     date: '20 Aug 2021',
     fonction: 'Directeur',
-    title : 'Dr',
+    title: 'Dr',
   },
   {
     id: 2,
@@ -311,7 +335,7 @@ export const memberAgentsData = [
     blood: 'B+',
     totalAppointments: 3,
     date: '22 Nov 2023',
-    title : 'Dr',
+    title: 'Dr',
     fonction: 'Directeur',
   },
   {
@@ -326,7 +350,7 @@ export const memberAgentsData = [
     blood: 'O+',
     totalAppointments: 26,
     date: '12 Jan 2020',
-    title : 'Dr',
+    title: 'Dr',
     fonction: 'Directeur',
   },
   {
@@ -341,7 +365,7 @@ export const memberAgentsData = [
     blood: 'AB+',
     totalAppointments: 17,
     date: '07 Feb 2001',
-    title : 'Dr',
+    title: 'Dr',
   },
   {
     id: 5,
@@ -355,7 +379,7 @@ export const memberAgentsData = [
     blood: 'A+',
     totalAppointments: 9,
     date: '30 Dec 2019',
-    title : 'Dr',
+    title: 'Dr',
     fonction: 'Directeur',
   },
   {
@@ -460,16 +484,16 @@ export const sortsDatas = {
   instractions: [
     {
       id: 1,
-      disabled:true,
+      disabled: true,
       name: 'Select Instraction',
     },
     {
-      disabled:false,
+      disabled: false,
       id: 2,
       name: 'After Meal',
     },
     {
-      disabled:false,
+      disabled: false,
       id: 3,
       name: 'Before Meal',
     },
@@ -1435,8 +1459,8 @@ export const doctorTab = [
     title: 'Invoices',
     icon: RiFileList3Line,
   },
-  
-  
+
+
 ];
 
 export const AgentTab = [
@@ -1519,7 +1543,7 @@ export const medicalRecodTriageData = [
         title: 'Plaintes',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
-      
+
     ],
     attachments: [
       'https://placehold.it/300x300',
@@ -1570,7 +1594,7 @@ export const medicalRecodTriageData = [
         title: 'Plaintes',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
-      
+
     ],
     attachments: [
       'https://placehold.it/300x300',
@@ -1620,7 +1644,7 @@ export const medicalRecodTriageData = [
         title: 'Plaintes',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
-      
+
     ],
     attachments: [
       'https://placehold.it/300x300',
@@ -1676,7 +1700,7 @@ export const medicalRecodTriageData = [
         title: 'Plaintes',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
-      
+
     ],
     attachments: [
       'https://placehold.it/300x300',
@@ -1726,7 +1750,7 @@ export const medicalRecodExamengeData = [
         title: 'Examen Demande',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
-      
+
     ],
   },
   {
@@ -1744,7 +1768,7 @@ export const medicalRecodExamengeData = [
         title: 'Examen Demande',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
-      
+
     ],
   },
   {
@@ -1763,7 +1787,7 @@ export const medicalRecodExamengeData = [
         value: 'Bleeding Gums, Toothache, bad breath',
       },
     ],
-    
+
   },
 ];
 
@@ -1793,7 +1817,7 @@ export const medicalLaboratoireRecodData = [
         title: 'Diagnosis',
         value: 'Unspecified Gingival Recession, Unspecified Caries',
       },
-      
+
     ],
     attachments: [
       'https://placehold.it/300x300',
@@ -1867,7 +1891,7 @@ export const medicalLaboratoireRecodData = [
       'https://placehold.it/300x300',
       'https://placehold.it/300x300',
     ],
-    
+
   },
   {
     id: 4,

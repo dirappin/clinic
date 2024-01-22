@@ -1,4 +1,3 @@
-
 import { UseAuthentication } from './util/hooks/useAuth';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
