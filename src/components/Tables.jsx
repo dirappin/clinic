@@ -347,7 +347,7 @@ export function PatientTable() {
   const [showNotFountResult, setShowNotFountResult] = useState(false);
 
   const { data, error, isLoading } = useSWR(
-    `http://localhost:3001/patient/?skip=${1}`
+    `${backendBaseUrl}patient/?skip=${1}`
   );
 
   const thclasse = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
@@ -982,45 +982,56 @@ export function InvoiceProductsTable({ data, functions, button }) {
 }
 
 // medicine Dosage table
-
-export function MedicineDosageTable({ data, functions, button }) {
+export function MedicineDosageTable({
+  data = [],
+  functions,
+  button,
+  deleteMedecin,
+}) {
   const thclasse = "text-start text-xs font-medium py-3 px-2 whitespace-nowrap";
-  const tdclasse = "text-start text-xs py-4 px-2 whitespace-nowrap";
+  const tdclasse = "text-center text-xs py-4 px-2 whitespace-nowrap";
+
   return (
     <table className="table-auto w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclasse}>Item</th>
           <th className={thclasse}>
-            Item Price
-            <span className="text-xs font-light ml-1">(Tsh)</span>
+            Price
+            <span className="text-xs font-light ml-1">($)</span>
           </th>
+
           <th className={thclasse}>Dosage</th>
           <th className={thclasse}>Instraction</th>
           <th className={thclasse}>Quantity</th>
-          <th className={thclasse}>
-            Amout
-            <span className="text-xs font-light ml-1">(Tsh)</span>
-          </th>
+          <th className={thclasse}>Dosage Quantity</th>
           {button && <th className={thclasse}>Actions</th>}
         </tr>
       </thead>
+
       <tbody>
         {data?.map((item) => (
           <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
+            key={item.selectedMedecine._id}
+            className="border-b border-border text-center hover:bg-greyed transitions"
           >
-            <td className={tdclasse}>{item.name}</td>
-            <td className={tdclasse}>{item.price}</td>
-            <td className={tdclasse}>{item.id} - M/A/E</td>
-            <td className={tdclasse}>{item.instraction}</td>
-            <td className={tdclasse}>{item.id}</td>
-            <td className={tdclasse}>{item.price * item.id}</td>
+            <td className={tdclasse}>{item.selectedMedecine.name}</td>
+            <td className={tdclasse}>{item.selectedMedecine.price}</td>
+            <td className={tdclasse}>
+              {item.selectedDosage.map((it, index) => (
+                <span key={index}>{it.name.split("")[0].toUpperCase()}/</span>
+              ))}{" "}
+            </td>
+            <td className={tdclasse}>{item.instruction}</td>
+            <td className={tdclasse}>{item.quantity}</td>
+            <td className={tdclasse}>{item.dosagequantity}</td>
             {button && (
               <td className={tdclasse}>
                 <button
-                  onClick={() => functions.delete(item.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteMedecin(item.id);
+                  }}
                   className="bg-red-600 bg-opacity-5 text-red-600 rounded-lg border border-red-100 py-3 px-4 text-sm"
                 >
                   <RiDeleteBinLine />

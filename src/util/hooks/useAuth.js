@@ -34,7 +34,6 @@ export function UseAuthentication() {
             });
 
             setLoading(false);
-            navigate("/");
         } catch (error) {
             if (error.response?.data.message === jwtExpirationMessage) {
                 setLoading(false);

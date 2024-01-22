@@ -460,13 +460,16 @@ export const sortsDatas = {
   instractions: [
     {
       id: 1,
+      disabled:true,
       name: 'Select Instraction',
     },
     {
+      disabled:false,
       id: 2,
       name: 'After Meal',
     },
     {
+      disabled:false,
       id: 3,
       name: 'Before Meal',
     },
