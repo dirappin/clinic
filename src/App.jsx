@@ -41,6 +41,13 @@ import PharmacyStock from './screens/Pharmacy/PharmacyStock';
 import Hospitalisation from './screens/Hospitalisation/Hospitalisation';
 import Maternite from './screens/Maternite/Maternite';
 import NewMedicalRecodeTiage from './screens/Triage/NewMedicalRecodeTiage';
+import Agents from './screens/Agent/Agents';
+import NewRadiographieRecord from './screens/Radiographie/NewRadiographieRecord';
+import NewLoboratoireRecord from './screens/Laboratoire/NewLoboratoireRecord';
+import NewExamen from './screens/Examen/NewExamen';
+import DoctorCart from './components/DoctorCart/DoctorCart';
+import NewEchographieRecord from './screens/Echographie/NewEchographieRecord';
+import NewHospitalisationRecord from './screens/Hospitalisation/NewHospitalisationRecord';
 import { ThemeProvider } from "@material-tailwind/react";
 import { useEffect } from 'react';
 import Loader from './components/common/Loader';
@@ -96,6 +103,8 @@ function App() {
             {/* Maternite */}
             <Route path='/maternite' element={<Maternite />} />
             {/* invoce */}
+            <Route path='/agents' element={<Agents />} />
+            {/* invoce */}
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/invoices/create" element={<CreateInvoice />} />
             <Route path="/invoices/edit/:id" element={<EditInvoice />} />
@@ -109,10 +118,17 @@ function App() {
             <Route path="patients/preview/:id" element={<PatientProfile />} />
             <Route path="/patients/create" element={<CreatePatient />} />
             <Route path="/patients/visiting/:id" element={<NewMedicalRecode />} />
-            <Route path="/patients/visiting/:id" element={<NewMedicalRecodeTiage />} />
+            <Route path="/triage/visiting/:id" element={<NewMedicalRecodeTiage />} />
+            <Route path="/radiographie/visiting/:id" element={<NewRadiographieRecord />} />
+            <Route path="/laboratoire/visiting/:id" element={<NewLoboratoireRecord />} />
+            <Route path="/examen/visiting/:id" element={<NewExamen />} />
+            <Route path="/echographie/visiting/:id" element={<NewEchographieRecord />} />
+            <Route path="/hospitalisation/visiting/:id" element={<NewHospitalisationRecord />} />
             {/* doctors */}
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/preview/:id" element={<DoctorProfile />} />
+            {/* doctorscart */}
+            <Route path="/doctorscart" element={<DoctorCart />} />
             {/* reception */}
             <Route path="/receptions" element={<Receptions />} />
             {/* others */}

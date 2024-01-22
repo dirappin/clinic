@@ -40,7 +40,7 @@ const Examen = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/11`);
+                navigate(`/examen/visiting/1`);
               }}
             />
           </div>

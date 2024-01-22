@@ -40,7 +40,7 @@ const TriageRecord = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/9`);
+                navigate(`/triage/visiting/1`);
               }}
             />
           </div>

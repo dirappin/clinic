@@ -5,8 +5,8 @@ import { BiPlus } from 'react-icons/bi';
 import { FiEye } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { medicalRecodData } from '../../components/Datas';
-import MedicalRecodModal from '../../components/Modals/MedicalRecodModal';
+import { medicalRecodHospitalisationData } from '../../components/Datas';
+import MedicalRecodHospitalisationModal from '../../components/Modals/MedicalRecodModal';
 import { useNavigate } from 'react-router-dom';
 
 const HospitalisationCart = () => {
@@ -20,7 +20,7 @@ const HospitalisationCart = () => {
       {
         // Modal
         isOpen && (
-          <MedicalRecodModal
+          <MedicalRecodHospitalisationModal
             closeModal={() => {
               setIsOpen(false);
               setDatas({});
@@ -40,12 +40,12 @@ const HospitalisationCart = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/2`);
+                navigate(`/hospitalisation/visiting/1`);
               }}
             />
           </div>
         </div>
-        {medicalRecodData.map((data) => (
+        {medicalRecodHospitalisationData.map((data) => (
           <div
             key={data.id}
             className="bg-dry items-start grid grid-cols-12 gap-4 rounded-xl border-[1px] border-border p-6"

@@ -5,7 +5,6 @@ import DoctorAvatar2 from "../../images/deo/avatarDoctor2.png";
 import Layout from '../../Layout';
 import DoctorCart from '../../components/DoctorCart/DoctorCart';
 import Button from '../../components/Button/Button';
-import { DoctorsTable } from '../../components/Tables';
 import { doctorsData } from '../../components/Datas';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,13 +18,13 @@ const DoctorAmbulatoire = () => {
 
   return (
     <Layout>
-      <div className=" p-16">
+      <div className="p16">
         <HeroSection
           nameService="doctor"
           name="doctor"
           images={DoctorAvatar2}
         />
-        <div className="flex gap-24 p-8">
+        <div className="flex justify-between p-8">
           <Button
             link="/appointments"
             logo={
@@ -66,40 +65,27 @@ const DoctorAmbulatoire = () => {
             }
             title="Today Appointments"
           />
-        </div>
-      </div>
-      <div
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        data-aos-delay="100"
-        data-aos-offset="200"
-        className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
-      >
-        {/* datas */}
-
-        <div className="grid md:grid-cols-6 sm:grid-cols-2 grid-cols-1 gap-2">
-          <div className="md:col-span-5 grid lg:grid-cols-4 items-center gap-6">
-            <input
-              type="text"
-              placeholder='Search "daudi mburuge"'
-              className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
-            />
-          </div>
-
-        </div>
-        <div className="mt-8 w-full overflow-x-scroll">
-          <DoctorsTable
-            doctor={true}
-            data={doctorsData}
-            functions={{
-              preview: preview,
-            }}
+          <Button
+            link="/doctorscart"
+            logo={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+            }
+            title="DOCTORS"
           />
         </div>
-      </div>
-      
-      <div>
-       
       </div>
     </Layout>
   );
