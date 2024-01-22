@@ -61,7 +61,7 @@ function Sidebar() {
           <img
             src="/images/logo.png"
             alt="logo"
-            className="w-64 h-24  object-contain"
+            className=" lg:w-44 w-64 h-24  object-contain"
           />
         </Link>
       </div>

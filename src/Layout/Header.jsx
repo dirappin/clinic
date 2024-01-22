@@ -3,10 +3,12 @@ import { MenuSelect } from '../components/Form';
 import { TbUser } from 'react-icons/tb';
 import { AiOutlinePoweroff } from 'react-icons/ai';
 import { MdOutlineNotificationsNone } from 'react-icons/md';
+import { IoArrowBackOutline, IoArrowForwardOutline } from 'react-icons/io5';
 import NotificationComp from '../components/NotificationComp';
 import { useNavigate } from 'react-router-dom';
 import { BiMenu } from 'react-icons/bi';
 import MenuDrawer from '../components/Drawer/MenuDrawer';
+
 
 function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -48,6 +50,18 @@ function Header() {
             <BiMenu />
           </button>
 
+          <button
+            className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
+            onClick={() => navigate(-1)}
+          >
+            <IoArrowBackOutline />
+          </button>
+          <button
+            className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
+            onClick={() => navigate(1)}
+          >
+            <IoArrowForwardOutline />
+          </button>
         </div>
         <div className="md:col-span-1 sm:col-span-1 col-span-2 items-center justify-end pr-4 md:pr-0">
           <div className="float-right flex gap-4 items-center justify-center">

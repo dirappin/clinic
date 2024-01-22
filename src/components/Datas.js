@@ -63,13 +63,13 @@ export const MenuDatas = [
   },
 
   {
-    title: 'Reception ambulatoire',
+    title: 'Reception Ambulatoire',
     path: '/Reception/ambulatoire',
     icon: MdAccessibilityNew,
     permission: ['all']
   },
   {
-    title: 'ComptableOne',
+    title: 'Comptable One',
     path: '/comptable/one',
     icon: MdCreditCard,
     permission: ['comptable', 'admin']
@@ -111,13 +111,13 @@ export const MenuDatas = [
     permission: ['all']
   },
   {
-    title: 'PharmacyPoeple',
+    title: 'Pharmacy Poeple',
     path: '/pharmacypoeple',
     icon: RiMedicineBottleFill,
     permission: ['pharamacy-store']
   },
   {
-    title: 'PharmacyStock',
+    title: 'Pharmacy Stock',
     path: '/pharmacystock',
     icon: RiMedicineBottleLine,
     permission: ['pharamacy-stock']
@@ -1510,31 +1510,36 @@ export const medicalRecodTriageData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Poids',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 2,
+        id: 3,
         title: 'TA',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 3,
+        id: 4,
         title: 'PU',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 4,
+        id: 5,
         title: 'Température',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 5,
+        id: 6,
         title: 'SATUROMAITRE',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 6,
+        id: 7,
         title: 'Plaintes',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
@@ -1662,31 +1667,36 @@ export const medicalRecodTriageData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Poids',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 2,
+        id: 3,
         title: 'TA',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 3,
+        id: 4,
         title: 'PU',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 4,
+        id: 5,
         title: 'Température',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 5,
+        id: 6,
         title: 'SATUROMAITRE',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 6,
+        id: 7,
         title: 'Plaintes',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
@@ -1715,6 +1725,11 @@ export const medicalRecodExamengeData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Examen Demande',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
@@ -1727,6 +1742,11 @@ export const medicalRecodExamengeData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Examen Demande',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
@@ -1740,6 +1760,11 @@ export const medicalRecodExamengeData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Examen Demande',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
@@ -1753,6 +1778,11 @@ export const medicalRecodExamengeData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Examen Demande',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
@@ -1769,16 +1799,21 @@ export const medicalLaboratoireRecodData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Resulta',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 2,
+        id: 3,
         title: 'Description',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 3,
+        id: 4,
         title: 'Diagnosis',
         value: 'Unspecified Gingival Recession, Unspecified Caries',
       },
@@ -1798,16 +1833,21 @@ export const medicalLaboratoireRecodData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Resulta',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 2,
+        id: 3,
         title: 'Description',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 3,
+        id: 34,
         title: 'Diagnosis',
         value: 'Unspecified Gingival Recession, Unspecified Caries',
       },
@@ -1826,16 +1866,21 @@ export const medicalLaboratoireRecodData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Resulta',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 2,
+        id: 3,
         title: 'Description',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 3,
+        id: 4,
         title: 'Diagnosis',
         value: 'Unspecified Gingival Recession, Unspecified Caries',
       },
@@ -1855,21 +1900,26 @@ export const medicalLaboratoireRecodData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Complaint',
         value: 'Toothache, bad breath, Bleeding Gums',
       },
       {
-        id: 2,
+        id: 3,
         title: 'Diagnosis',
         value: 'Necrotizing Ulcerative Gingivitis, Periodontitis',
       },
       {
-        id: 3,
+        id: 4,
         title: 'Treatment',
         value: 'Crowns, Bridges, Veneers, Implants',
       },
       {
-        id: 4,
+        id: 5,
         title: 'Prescription',
         value: 'Tramadol, Codeine, Morphine, Oxycodone',
       },
@@ -1897,46 +1947,51 @@ export const medicalRecodData = [
     data: [
       {
         id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
         title: 'Complaint',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 2,
+        id: 3,
         title: 'Tete et cou',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 3,
+        id: 4,
         title: 'Thorax',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 4,
+        id: 5,
         title: 'Abdomen',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 5,
+        id: 6,
         title: 'Apparril Locomoteur',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 6,
+        id: 7,
         title: 'Exaen Orl',
         value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
-        id: 2,
+        id: 8,
         title: 'Diagnosis',
         value: 'Gingivitis, Caries, Periodontitis',
       },
       {
-        id: 3,
+        id: 9,
         title: 'Treatment',
         value: 'Filling, Post&Core, Implant, Extraction',
       },
       {
-        id: 4,
+        id: 10,
         title: 'Prescription',
         value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
       },
@@ -1962,23 +2017,53 @@ export const medicalRecodData = [
     data: [
       {
         id: 1,
-        title: 'Complaint',
-        value: 'Food impaction, Replacing Missing Teeth, bad breath',
+        title: 'Doctor',
+        value: 'Deogratias',
       },
       {
         id: 2,
-        title: 'Diagnosis',
-        value: 'Caries, Periodontitis, Malocclusion',
+        title: 'Complaint',
+        value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
         id: 3,
-        title: 'Treatment',
-        value: 'Superficial Scaling, Root Planing, Extraction',
+        title: 'Tete et cou',
+        value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
         id: 4,
+        title: 'Thorax',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 5,
+        title: 'Abdomen',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 6,
+        title: 'Apparril Locomoteur',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 7,
+        title: 'Exaen Orl',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 8,
+        title: 'Diagnosis',
+        value: 'Gingivitis, Caries, Periodontitis',
+      },
+      {
+        id: 9,
+        title: 'Treatment',
+        value: 'Filling, Post&Core, Implant, Extraction',
+      },
+      {
+        id: 10,
         title: 'Prescription',
-        value: 'Benzocaine, Lidocaine, Mepivacaine, Prilocaine',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
       },
     ],
     attachments: [
@@ -2001,23 +2086,53 @@ export const medicalRecodData = [
     data: [
       {
         id: 1,
-        title: 'Complaint',
-        value: 'Broken Teeth, Bridge, Cap in the front teeth',
+        title: 'Doctor',
+        value: 'Deogratias',
       },
       {
         id: 2,
-        title: 'Diagnosis',
-        value: 'Unspecified Gingival Recession, Unspecified Caries',
+        title: 'Complaint',
+        value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
         id: 3,
-        title: 'Treatment',
-        value: 'Consultation, Scaling, Root Planing, Extraction',
+        title: 'Tete et cou',
+        value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
         id: 4,
+        title: 'Thorax',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 5,
+        title: 'Abdomen',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 6,
+        title: 'Apparril Locomoteur',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 7,
+        title: 'Exaen Orl',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 8,
+        title: 'Diagnosis',
+        value: 'Gingivitis, Caries, Periodontitis',
+      },
+      {
+        id: 9,
+        title: 'Treatment',
+        value: 'Filling, Post&Core, Implant, Extraction',
+      },
+      {
+        id: 10,
         title: 'Prescription',
-        value: 'Gingival Gel, Chlorhexidine, Fluoride, Calcium',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
       },
     ],
     attachments: [
@@ -2041,23 +2156,414 @@ export const medicalRecodData = [
     data: [
       {
         id: 1,
-        title: 'Complaint',
-        value: 'Toothache, bad breath, Bleeding Gums',
+        title: 'Doctor',
+        value: 'Deogratias',
       },
       {
         id: 2,
-        title: 'Diagnosis',
-        value: 'Necrotizing Ulcerative Gingivitis, Periodontitis',
+        title: 'Complaint',
+        value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
         id: 3,
-        title: 'Treatment',
-        value: 'Crowns, Bridges, Veneers, Implants',
+        title: 'Tete et cou',
+        value: 'Bleeding Gums, Toothache, bad breath',
       },
       {
         id: 4,
+        title: 'Thorax',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 5,
+        title: 'Abdomen',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 6,
+        title: 'Apparril Locomoteur',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 7,
+        title: 'Exaen Orl',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 8,
+        title: 'Diagnosis',
+        value: 'Gingivitis, Caries, Periodontitis',
+      },
+      {
+        id: 9,
+        title: 'Treatment',
+        value: 'Filling, Post&Core, Implant, Extraction',
+      },
+      {
+        id: 10,
         title: 'Prescription',
-        value: 'Tramadol, Codeine, Morphine, Oxycodone',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+    vitalSigns: [
+      'Sugar Level: 120 mg/dL',
+      'Oxygen Saturation: 98%',
+      'Cholesterol: 200 mg/dL',
+      'Blood Pressure: 120/80 mmHg',
+    ],
+  },
+];
+
+export const medicalRecodHospitalisationData = [
+  {
+    id: 1,
+    date: '13, Jan 2021',
+    amount: 150000,
+    data: [
+      {
+        id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
+        title: 'I.PLAINTES',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'II.HISTORIQUE DE LA MALADIE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'III.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 5,
+        title: 'IV.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 6,
+        title: 'V.EXAMEN PHYSIQUE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 7,
+        title: 'VI.SYSTEME RESPIRATOIRE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 8,
+        title: 'VII.SYSTEME PULMONAIRE',
+        value: 'Gingivitis, Caries, Periodontitis',
+      },
+      {
+        id: 9,
+        title: 'VIII.SYSTEME GASTRO INTESINAL',
+        value: 'Filling, Post&Core, Implant, Extraction',
+      },
+      {
+        id: 10,
+        title: 'IX.SYSTEME NEUROLOGIQUE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 11,
+        title: 'X.SYSTEME GENITAUX URINAIRE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 12,
+        title: 'XI.SYSTEME LOCOMOTEUR',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XII.DIAGNOSTIC DIFFERENCIEL',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XIII.TRAITEMENT',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+    vitalSigns: [
+      'Blood Pressure: 120/80 mmHg',
+      'Pulse Rate: 80 bpm',
+      'Respiratory Rate: 16 bpm',
+      'Temperature: 36.5 °C',
+      'Oxygen Saturation: 98%',
+    ],
+  },
+  {
+    id: 2,
+    date: '10, Feb 2022',
+    amount: 300000,
+    data: [
+      {
+        id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
+        title: 'I.PLAINTES',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'II.HISTORIQUE DE LA MALADIE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'III.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 5,
+        title: 'IV.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 6,
+        title: 'V.EXAMEN PHYSIQUE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 7,
+        title: 'VI.SYSTEME RESPIRATOIRE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 8,
+        title: 'VII.SYSTEME PULMONAIRE',
+        value: 'Gingivitis, Caries, Periodontitis',
+      },
+      {
+        id: 9,
+        title: 'VIII.SYSTEME GASTRO INTESINAL',
+        value: 'Filling, Post&Core, Implant, Extraction',
+      },
+      {
+        id: 10,
+        title: 'IX.SYSTEME NEUROLOGIQUE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 11,
+        title: 'X.SYSTEME GENITAUX URINAIRE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 12,
+        title: 'XI.SYSTEME LOCOMOTEUR',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XII.DIAGNOSTIC DIFFERENCIEL',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XIII.TRAITEMENT',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+    vitalSigns: [
+      'Weight: 60 kg',
+      'Height: 170 cm',
+      'BMI: 20.76 kg/m2',
+      'Blood Pressure: 120/80 mmHg',
+    ],
+  },
+  {
+    id: 3,
+    date: '20, Mar 2022',
+    amount: 500000,
+    data: [
+      {
+        id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
+        title: 'I.PLAINTES',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'II.HISTORIQUE DE LA MALADIE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'III.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 5,
+        title: 'IV.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 6,
+        title: 'V.EXAMEN PHYSIQUE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 7,
+        title: 'VI.SYSTEME RESPIRATOIRE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 8,
+        title: 'VII.SYSTEME PULMONAIRE',
+        value: 'Gingivitis, Caries, Periodontitis',
+      },
+      {
+        id: 9,
+        title: 'VIII.SYSTEME GASTRO INTESINAL',
+        value: 'Filling, Post&Core, Implant, Extraction',
+      },
+      {
+        id: 10,
+        title: 'IX.SYSTEME NEUROLOGIQUE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 11,
+        title: 'X.SYSTEME GENITAUX URINAIRE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 12,
+        title: 'XI.SYSTEME LOCOMOTEUR',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XII.DIAGNOSTIC DIFFERENCIEL',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XIII.TRAITEMENT',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+    vitalSigns: [
+      'Temperature: 36.5 °C',
+      'Oxygen Saturation: 98%',
+      'Blood Pressure: 120/80 mmHg',
+      'Pulse Rate: 80 bpm',
+      'Respiratory Rate: 16 bpm',
+    ],
+  },
+  {
+    id: 4,
+    date: '10, Apr 2022',
+    amount: 760000,
+    data: [
+      {
+        id: 1,
+        title: 'Doctor',
+        value: 'Deogratias',
+      },
+      {
+        id: 2,
+        title: 'I.PLAINTES',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'II.HISTORIQUE DE LA MALADIE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'III.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 5,
+        title: 'IV.ANTECEDENTS',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 6,
+        title: 'V.EXAMEN PHYSIQUE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 7,
+        title: 'VI.SYSTEME RESPIRATOIRE',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 8,
+        title: 'VII.SYSTEME PULMONAIRE',
+        value: 'Gingivitis, Caries, Periodontitis',
+      },
+      {
+        id: 9,
+        title: 'VIII.SYSTEME GASTRO INTESINAL',
+        value: 'Filling, Post&Core, Implant, Extraction',
+      },
+      {
+        id: 10,
+        title: 'IX.SYSTEME NEUROLOGIQUE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 11,
+        title: 'X.SYSTEME GENITAUX URINAIRE',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 12,
+        title: 'XI.SYSTEME LOCOMOTEUR',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XII.DIAGNOSTIC DIFFERENCIEL',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
+      },
+      {
+        id: 13,
+        title: 'XIII.TRAITEMENT',
+        value: 'Paracetamol, Amoxicillin, Ibuprofen, Aspirin',
       },
     ],
     attachments: [

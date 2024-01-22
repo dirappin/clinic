@@ -1,16 +1,15 @@
-import React from 'react'
-
+import React from 'react';
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { BiPlus } from 'react-icons/bi';
+import Layout from '../../Layout';
 import { Button } from '../Form';
-import { DoctorsTable } from '../../components/Tables';
+import { DoctorsTable } from '../Tables';
 import { doctorsData } from '../Datas';
 import { useNavigate } from 'react-router-dom';
 import AddDoctorModal from '../Modals/AddDoctorModal';
 
-const DoctorCart = () => {
-
+function DoctorCart() {
   const [isOpen, setIsOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -23,7 +22,18 @@ const DoctorCart = () => {
   };
 
   return (
-    <div>
+    <Layout>
+      {
+        // add doctor modal
+        isOpen && (
+          <AddDoctorModal
+            closeModal={onCloseModal}
+            isOpen={isOpen}
+            doctor={true}
+            datas={null}
+          />
+        )
+      }
       
       {/*  */}
       <h1 className="text-xl font-semibold">Doctors</h1>
@@ -45,6 +55,14 @@ const DoctorCart = () => {
             />
           </div>
 
+          {/* export */}
+          <Button
+            label="Export"
+            Icon={MdOutlineCloudDownload}
+            onClick={() => {
+              toast.error('Exporting is not available yet');
+            }}
+          />
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
           <DoctorsTable
@@ -56,8 +74,8 @@ const DoctorCart = () => {
           />
         </div>
       </div>
-    </div>
-  )
+    </Layout>
+  );
 }
 
-export default DoctorCart
+export default DoctorCart;
