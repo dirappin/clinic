@@ -9,9 +9,9 @@ import { MedicineDosageTable } from "../../components/Tables";
 import { toast } from "react-hot-toast";
 import MedicineDosageModal from "../../components/Modals/MedicineDosage";
 import { FaTimes } from "react-icons/fa";
-import Uploader from "../../components/Uploader";
+import { cloudinaryMiltifilesUpload } from "../../util/cloudinary";
 import { HiOutlineCheckCircle } from "react-icons/hi";
-import axios from "axios";
+import AxiosInstance from "../../ axiosInstance";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRecoilValue } from "recoil";
@@ -20,9 +20,11 @@ import useSWR from "swr";
 import { backendBaseUrl } from "../../constant";
 import { FaRegFaceGrimace } from "react-icons/fa6";
 import { cn } from "../../util/cn";
+import FilesUploader from "../../components/MultiFilesUploader";
+import { useNavigate } from "react-router-dom";
 
 function NewMedicalRecode() {
-  const userState = useRecoilValue(user);
+  const userData = useRecoilValue(user);
   const { patientId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const { data, error } = useSWR(`${backendBaseUrl}patient/${patientId}`);
@@ -31,33 +33,36 @@ function NewMedicalRecode() {
   );
   const [medecines, seteMedecines] = useState([]);
   const [mappedServiceData, setMappedServiceData] = useState([]);
-  const [createRecordLoading, setCreateRecordLoading] = useState();
+  const [createRecordLoading, setCreateRecordLoading] = useState(false);
   const [attachedImages, setAttachedImages] = useState([]);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      complain: "",
+      complains: "",
       Teteetcou: "",
       Thorax: "",
       Abdomen: "",
-      Apparreilocomoteur: "",
+      ApparreilLocomoteur: "",
       ExaenOrl: "",
       Diagnosis: "",
       VitalSigns: "",
     },
 
     validationSchema: Yup.object({
-      complain: Yup.string().required("complain can't be emepty"),
+      complains: Yup.string().required("complain can't be emepty"),
       Teteetcou: Yup.string().required("this field can't be empty"),
       Thorax: Yup.string().required("Thorax can't be empty"),
       Abdomen: Yup.string().required("Abdomen is required"),
-      Apparreilocomoteur: Yup.string().required("this field can't be empty"),
+      ApparreilLocomoteur: Yup.string().required("this field can't be empty"),
       ExaenOrl: Yup.string().required("field required"),
       Diagnosis: Yup.string().required("this field can't be empty"),
       VitalSigns: Yup.string().required("this field can't be empty"),
     }),
 
-    onSubmit: {},
+    onSubmit: async (values) => {
+      await createRecord(values);
+    },
   });
 
   useEffect(() => {
@@ -92,10 +97,45 @@ function NewMedicalRecode() {
     const filtered = prevSatate.filter((item) => {
       return item.id !== id;
     });
-
-    console.log(filtered);
-
     seteMedecines([...filtered]);
+  };
+
+  const mapMedecines = () => {
+    const map = medecines.map((medecine) => ({
+      quantity: +medecine.quantity,
+      dosage: medecine.selectedDosage.map((dosage) => dosage.name),
+      instruction: medecine.instruction,
+      dosageQuantity: +medecine.dosagequantity,
+      id: medecine.selectedMedecine._id,
+    }));
+
+    return map;
+  };
+
+  const createRecord = async (values) => {
+    try {
+      setCreateRecordLoading(true);
+      const uploadAttachedImages =
+        attachedImages.length < 1
+          ? []
+          : await cloudinaryMiltifilesUpload(attachedImages);
+      await AxiosInstance.post("medical-record/create", {
+        doctorId: userData._id,
+        patientId: patientId,
+        attachedImages: uploadAttachedImages,
+        Treatments: mappedServiceData.map((item) => item._id),
+        prescribeMedecin: mapMedecines(),
+        ...values,
+      });
+
+      setCreateRecordLoading(false);
+      navigate(`/patients/preview/${patientId}`);
+      toast.success("record successfully");
+    } catch (error) {
+      console.log(error);
+      setCreateRecordLoading(false);
+      toast.error("Failed to create medical record");
+    }
   };
 
   return (
@@ -173,7 +213,7 @@ function NewMedicalRecode() {
 
               <Textarea
                 required={true}
-                name={"complain"}
+                name={"complains"}
                 onBlur={formik.handleBlur}
                 id="new_record_complain"
                 defaultValue={formik.values.complain}
@@ -263,11 +303,11 @@ function NewMedicalRecode() {
               {/* Apparril Locomoteur */}
               <Textarea
                 required={true}
-                name={"Apparreilocomoteur"}
+                name={"ApparreilLocomoteur"}
                 onBlur={formik.handleBlur}
                 id="new_record_Locomoteur"
-                defaultValue={formik.values.Apparreilocomoteur}
-                label="Apparril Locomoteur"
+                defaultValue={formik.values.ApparreilLocomoteur}
+                label="Appareil Locomoteur"
                 color={true}
                 onChange={formik.handleChange}
                 rows={3}
@@ -278,9 +318,9 @@ function NewMedicalRecode() {
                   "text-red-500 text-[10px] text-right top-[5.5rem]   min-h-[5px]"
                 )}
               >
-                {formik.errors.Apparreilocomoteur &&
-                  formik.touched.Apparreilocomoteur &&
-                  formik.errors.Apparreilocomoteur}
+                {formik.errors.ApparreilLocomoteur &&
+                  formik.touched.ApparreilLocomoteur &&
+                  formik.errors.ApparreilLocomoteur}
               </p>
               {/*  Exaen Orl */}
               <Textarea
@@ -402,6 +442,7 @@ function NewMedicalRecode() {
                   />
                 </div>
                 <button
+                  type="button"
                   onClick={() => {
                     setIsOpen(true);
                   }}
@@ -413,30 +454,18 @@ function NewMedicalRecode() {
               {/* attachment */}
               <div className="flex w-full flex-col gap-4">
                 <p className="text-black text-sm">Attachments</p>
-                <div className="grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
-                  {attachedImages.map((_, i) => (
-                    <div className="relative w-full">
-                      <img
-                        src={`https://placehold.it/300x300?text=${i}`}
-                        alt="patient"
-                        className="w-full  md:h-40 rounded-lg object-cover"
-                      />
-                      <button
-                        onClick={() =>
-                          toast.error("This feature is not available yet.")
-                        }
-                        className="bg-white rounded-full w-8 h-8 flex-colo absolute -top-1 -right-1"
-                      >
-                        <FaTimes className="text-red-500" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
 
-                <Uploader setImage={{}} />
+                <FilesUploader
+                  selectImage={(files) => setAttachedImages(files)}
+                />
               </div>
               {/* submit */}
-              <Button label={"Save"} Icon={HiOutlineCheckCircle} />
+              <Button
+                loading={createRecordLoading}
+                type="submit"
+                label={"create"}
+                Icon={HiOutlineCheckCircle}
+              />
             </div>
           </form>
         </div>
