@@ -866,10 +866,7 @@ export function PaymentTable({ data, functions, doctor }) {
               </span>
             </td>
             <td className={tdclass}>
-              <p className="text-xs font-semibold">{`$${item.amount}`}</p>
-            </td>
-            <td className={tdclass}>
-              <p className="text-xs">{item.method}</p>
+              <p className="text-xs font-semibold">{`$${39}`}</p>
             </td>
 
             <td className={tdclass}>
@@ -991,11 +988,6 @@ export function MedicineDosageTable({
   const thclasse = "text-start text-xs font-medium py-3 px-2 whitespace-nowrap";
   const tdclasse = "text-center text-xs py-4 px-2 whitespace-nowrap";
 
-
-  useEffect(()=>{
-    item.prescribeMedecin
-  },[])
-
   return (
     <table className="table-auto w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
@@ -1010,6 +1002,7 @@ export function MedicineDosageTable({
           <th className={thclasse}>Instraction</th>
           <th className={thclasse}>Quantity</th>
           <th className={thclasse}>Dosage Quantity</th>
+          <th className={thclasse}>Total amount</th>
           {button && <th className={thclasse}>Actions</th>}
         </tr>
       </thead>
@@ -1017,25 +1010,103 @@ export function MedicineDosageTable({
       <tbody>
         {data?.map((item) => (
           <tr
-            key={item.selectedMedecine._id}
+            key={item.id._id}
             className="border-b border-border text-center hover:bg-greyed transitions"
           >
-            <td className={tdclasse}>{item.selectedMedecine.name}</td>
-            <td className={tdclasse}>{item.selectedMedecine.price}</td>
+            <td className={tdclasse}>{item.id.name}</td>
+            <td className={tdclasse}>{item.id.price}</td>
             <td className={tdclasse}>
-              {item.selectedDosage.map((it, index) => (
-                <span key={index}>{it.name.split("")[0].toUpperCase()}/</span>
-              ))}{" "}
+              {item.dosage.length < 1 && <>- - - </>}
+
+              {item.dosage.map((item, index) => (
+                <span key={`_medical_record_dosage_${index}`}>{item}/</span>
+              ))}
             </td>
             <td className={tdclasse}>{item.instruction}</td>
             <td className={tdclasse}>{item.quantity}</td>
-            <td className={tdclasse}>{item.dosagequantity}</td>
+            <td className={tdclasse}>{item.dosageQuantity}</td>
+            <td className={tdclasse}>{item.quantity * item.id.price}</td>
+
             {button && (
               <td className={tdclasse}>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    deleteMedecin(item.id);
+                  }}
+                  className="bg-red-600 bg-opacity-5 text-red-600 rounded-lg border border-red-100 py-3 px-4 text-sm"
+                >
+                  <RiDeleteBinLine />
+                </button>
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+// medicine Dosage table
+export function CreateMedicalRecordMedicineDosageTable({
+  data = {},
+  functions,
+  button,
+  deleteMedecin,
+}) {
+  const thclasse = "text-start text-xs font-medium py-3 px-2 whitespace-nowrap";
+  const tdclasse = "text-center text-xs py-4 px-2 whitespace-nowrap";
+
+  useEffect(() => {}, []);
+
+  return (
+    <table className="table-auto overflow-auto w-full">
+      <thead className="bg-dry rounded-md overflow-hidden">
+        <tr>
+          <th className={thclasse}>Item</th>
+          <th className={thclasse}>
+            Price
+            <span className="text-xs font-light ml-1">($)</span>
+          </th>
+
+          <th className={thclasse}>Dosage</th>
+          <th className={thclasse}>Instraction</th>
+          <th className={thclasse}>Quantity</th>
+          <th className={thclasse}>Dosage Quantity</th>
+          <th className={thclasse}>Total amount</th>
+          {button && <th className={thclasse}>Actions</th>}
+        </tr>
+      </thead>
+
+      <tbody className="overflow-auto">
+        {data?.map((item) => (
+          <tr
+            key={item.id}
+            className="border-b overflow-auto border-border text-center hover:bg-greyed transitions"
+          >
+            <td className={tdclasse}>{item.selectedMedecine.name}</td>
+            <td className={tdclasse}>{item.selectedMedecine.price}</td>
+            <td className={tdclasse}>
+              {item.selectedDosage.length < 1 && <>- - - </>}
+
+              {item.selectedDosage.map((item, index) => (
+                <span key={`_medical_record_dosage_${index}`}>
+                  {item.name}/
+                </span>
+              ))}
+            </td>
+            <td className={tdclasse}>{item.instruction}</td>
+            <td className={tdclasse}>{item.quantity}</td>
+            <td className={tdclasse}>{item.dosagequantity}</td>
+            <td className={tdclasse}>
+              {item.quantity * item.selectedMedecine.price}
+            </td>
+
+            {button && (
+              <td className={tdclasse}>
+                <button
+                  onClick={(e) => {
+                    deleteMedecin();
+                    e.preventDefault();
                   }}
                   className="bg-red-600 bg-opacity-5 text-red-600 rounded-lg border border-red-100 py-3 px-4 text-sm"
                 >

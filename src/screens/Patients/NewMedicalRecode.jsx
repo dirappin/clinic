@@ -3,7 +3,7 @@ import Layout from "../../Layout";
 import { Link, useParams } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Button, Checkbox, Select, Textarea } from "../../components/Form";
-import { MedicineDosageTable } from "../../components/Tables";
+import { CreateMedicalRecordMedicineDosageTable } from "../../components/Tables";
 import { toast } from "react-hot-toast";
 import MedicineDosageModal from "../../components/Modals/MedicineDosage";
 import { cloudinaryMiltifilesUpload } from "../../util/cloudinary";
@@ -34,6 +34,8 @@ function NewMedicalRecode() {
   const [createRecordLoading, setCreateRecordLoading] = useState(false);
   const [attachedImages, setAttachedImages] = useState([]);
   const navigate = useNavigate();
+
+  console.log(medecines);
 
   const formik = useFormik({
     initialValues: {
@@ -428,7 +430,7 @@ function NewMedicalRecode() {
               <div className="flex w-full flex-col gap-4 mb-6">
                 <p className="text-black text-sm">Medicine</p>
                 <div className="w-full overflow-x-scroll">
-                  <MedicineDosageTable
+                  <CreateMedicalRecordMedicineDosageTable
                     deleteMedecin={deleteMedecine}
                     data={medecines}
                     functions={{
