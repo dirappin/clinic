@@ -21,27 +21,25 @@ import RadiographieRecord from "../Radiographie/RadiographieRecord";
 import TriageRecord from "../Triage/TriageRecord";
 import LaboratioreRecord from "../Laboratoire/LaboratioreRecord";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import Loader from "../../components/common/Loader";
 import toast from "react-hot-toast";
 import NetworkError from "../error/networkError";
 import { backendBaseUrl } from "../../constant";
+import AxiosInstance from "../../ axiosInstance";
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
-  const {patientId} = useParams();
+  const { patientId } = useParams();
   const [data, setData] = useState({});
   const [displayError, setDisplayError] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  
 
   const request = async () => {
     try {
       setDisplayError(false);
       setLoading(true);
 
-      const response = await axios.get(backendBaseUrl + `patient/${patientId}`);
+      const response = await AxiosInstance.get(`patient/${patientId}`);
       if (response.status !== 200) {
         throw new Error(response.data.message || "Failed to fetch data");
       }
