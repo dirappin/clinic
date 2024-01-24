@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function MedicalRecodModal({ closeModal, isOpen, item }) {
   const navigate = useNavigate();
-  console.log(item);
+  console.log(item.prescribeMedecin);
 
   return (
     <Modal
@@ -163,11 +163,11 @@ function MedicalRecodModal({ closeModal, isOpen, item }) {
             <p className="text-sm font-medium">Prescriptions</p>
           </div>
           <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl overflow-hidden p-4">
-            {/* <MedicineDosageTable
-              data={medicineData?.slice(0, 3)}
+            <MedicineDosageTable
+              data={item.prescribeMedecin}
               functions={{}}
               button={false}
-            /> */}
+            />
           </div>
         </div>
 

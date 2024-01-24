@@ -26,7 +26,7 @@ const MedicalRecordItem = ({ item }) => {
       {openDetail && (
         <MedicalRecodModal
           item={item}
-          closeModal={() => {}}
+          closeModal={() => setOpenDetail(false)}
           isOpen={true}
           datas={item}
         />

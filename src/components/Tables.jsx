@@ -983,13 +983,18 @@ export function InvoiceProductsTable({ data, functions, button }) {
 
 // medicine Dosage table
 export function MedicineDosageTable({
-  data = [],
+  data = {},
   functions,
   button,
   deleteMedecin,
 }) {
   const thclasse = "text-start text-xs font-medium py-3 px-2 whitespace-nowrap";
   const tdclasse = "text-center text-xs py-4 px-2 whitespace-nowrap";
+
+
+  useEffect(()=>{
+    item.prescribeMedecin
+  },[])
 
   return (
     <table className="table-auto w-full">
