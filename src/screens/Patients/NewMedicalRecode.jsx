@@ -3,12 +3,9 @@ import Layout from "../../Layout";
 import { Link, useParams } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Button, Checkbox, Select, Textarea } from "../../components/Form";
-import { BiChevronDown, BiPlus } from "react-icons/bi";
-import { medicineData, memberData, servicesData } from "../../components/Datas";
 import { MedicineDosageTable } from "../../components/Tables";
 import { toast } from "react-hot-toast";
 import MedicineDosageModal from "../../components/Modals/MedicineDosage";
-import { FaTimes } from "react-icons/fa";
 import { cloudinaryMiltifilesUpload } from "../../util/cloudinary";
 import { HiOutlineCheckCircle } from "react-icons/hi";
 import AxiosInstance from "../../ axiosInstance";
@@ -22,6 +19,7 @@ import { FaRegFaceGrimace } from "react-icons/fa6";
 import { cn } from "../../util/cn";
 import FilesUploader from "../../components/MultiFilesUploader";
 import { useNavigate } from "react-router-dom";
+import { BiPlus } from "react-icons/bi";
 
 function NewMedicalRecode() {
   const userData = useRecoilValue(user);

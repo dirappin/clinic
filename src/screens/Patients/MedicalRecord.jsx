@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import AxiosInstance from "../../ axiosInstance";
 import Loader from "../../components/common/Loader";
 import MedicalRecordItem from "./MedicalRecordItem";
+import EmptyResult from "../../components/common/EmptyResult";
 
 function MedicalRecord() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -31,8 +32,6 @@ function MedicalRecord() {
         `medical-record/all/${patientId}`
       );
 
-      console.log(response.data)
-
       if (response.status !== 200) {
         throw new Error(response.data.message || "Failed to fetch data");
       }
@@ -52,20 +51,6 @@ function MedicalRecord() {
 
   return (
     <>
-      {
-        // Modal
-        isOpen && (
-          <MedicalRecodModal
-            add
-            closeModal={() => {
-              setIsOpen(false);
-              setDatas({});
-            }}
-            isOpen={isOpen}
-            datas={datas}
-          />
-        )
-      }
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-4">
           <h1 className="text-sm font-medium sm:block hidden">
@@ -82,6 +67,7 @@ function MedicalRecord() {
           </div>
         </div>
 
+        {data.length < 1 && !loading && <EmptyResult disableButton={true} />}
         {loading && <Loader />}
         {data.map((item) => (
           <MedicalRecordItem item={item} />
