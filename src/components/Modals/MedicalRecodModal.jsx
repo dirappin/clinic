@@ -5,10 +5,10 @@ import { FiEye } from "react-icons/fi";
 import { MedicineDosageTable } from "../Tables";
 import { medicineData } from "../Datas";
 import { useNavigate } from "react-router-dom";
+import { LuImageOff } from "react-icons/lu";
 
 function MedicalRecodModal({ closeModal, isOpen, item }) {
   const navigate = useNavigate();
-  console.log(item.prescribeMedecin);
 
   return (
     <Modal
@@ -140,24 +140,6 @@ function MedicalRecodModal({ closeModal, isOpen, item }) {
           </div>
         </div>
 
-        {/* visual sign */}
-        {/* <div className="grid grid-cols-12 gap-4 w-full">
-          <div className="col-span-12 md:col-span-3">
-            <p className="text-sm font-medium">Vital Signs:</p>
-          </div>
-          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
-            <p className="text-xs text-main font-light leading-5">
-              {datas?.vitalSigns?.map((item) => (
-                // separate each item with comma
-                <span key={item} className="mr-1">
-                  {item},
-                </span>
-              ))}
-            </p>
-          </div>
-        </div> */}
-
-        {/* medicine */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
             <p className="text-sm font-medium">Prescriptions</p>
@@ -171,23 +153,24 @@ function MedicalRecodModal({ closeModal, isOpen, item }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-4 w-full">
+        <div className="grid grid-cols-12  gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
             <p className="text-sm font-medium">Attachments:</p>
           </div>
 
           <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6 xs:grid-cols-2 md:grid-cols-4 grid gap-4">
-            {item.attachedImages.map(() => (
+            {item.attachedImages.map((img) => (
               <div className="w-40 h-40 rounded-lg bg-gray-300 flex items-center justify-center">
-                <img
-                  className=" object-contain"
-                  src={
-                    "https://res.cloudinary.com/dgbujfxvt/image/upload/v1706024647/tcpa9xnieoq9scecohk4.png"
-                  }
-                  alt=""
-                />
+                <img className=" object-contain" src={img} alt="" />
               </div>
             ))}
+
+            {item.attachedImages.length < 1 && (
+              <div className="flex col-span-9 m-auto w-full justify-center items-center flex-col gap-2">
+                <p className="text-gray-700">No attachement</p>
+                <LuImageOff className="text-gray-700 text-6xl" />
+              </div>
+            )}
           </div>
         </div>
 
