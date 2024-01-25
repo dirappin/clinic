@@ -14,6 +14,7 @@ import { backendBaseUrl } from "../constant";
 import { MdClose } from "react-icons/md";
 import { PiFolderOpenThin } from "react-icons/pi";
 import EmptyResult from "./common/EmptyResult";
+import { formatDate } from "../util/formatDate";
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -685,7 +686,9 @@ export function DoctorsTable({ data, functions, doctor }) {
 }
 
 // agent table
-export function AgentTable({ data, functions, agents }) {
+export function AgentTable({ functions, search = "" }) {
+  const { data, error, isLoading } = useSWR(`${backendBaseUrl}user/find/all`);
+
   const DropDown1 = [
     {
       title: "View",
@@ -703,59 +706,71 @@ export function AgentTable({ data, functions, agents }) {
     },
   ];
   return (
-    <table className="table-auto w-full">
-      <thead className="bg-dry rounded-md overflow-hidden">
-        <tr>
-          <th className={thclass}>#</th>
-          <th className={thclass}>{agents ? "Agents" : "Agents"}</th>
-          <th className={thclass}>Age</th>
-          <th className={thclass}>Created At</th>
-          <th className={thclass}>Phone</th>
-          <th className={thclass}>Fonction</th>
-          <th className={thclass}>Salary</th>
-          <th className={thclass}>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, index) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>{index + 1}</td>
-            <td className={tdclass}>
-              <div className="flex gap-4 items-center">
-                <span className="w-12">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-12 rounded-full object-cover border border-border"
-                  />
-                </span>
-                <h4 className="text-sm font-medium">
-                  {item.title}.{item.name}
-                </h4>
-              </div>
-            </td>
-            <td className={tdclass}>{item.age}</td>
-            <td className={tdclass}>{item.date}</td>
-            <td className={tdclass}>
-              <p className="text-textGray">{item.phone}</p>
-            </td>
-            <td className={tdclass}>{item.fonction}</td>
-            <td className={tdclass}>{item.salary}</td>
+    <>
+      {data && data.length < 1 && <EmptyResult lable={"No Agent Yet"} />}
+      {error && <NetworkError label={"Failed To Load Agents"} />}
+      {isLoading && <Loader />}
+      {data && data.length > 0 && (
+        <table className="table-auto w-full">
+          <thead className="bg-dry rounded-md overflow-hidden">
+            <tr>
+              <th className={thclass}>#</th>
+              <th className={thclass}>{"Agents"}</th>
+              <th className={thclass}>Role</th>
+              <th className={thclass}>Created At</th>
+              <th className={thclass}>Phone</th>
+              <th className={thclass}>Salary</th>
+              <th className={thclass}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data &&
+              data
+                .filter((filter) =>
+                  (filter.firstName + filter.secondName)
+                    .toUpperCase()
+                    .includes(search.toUpperCase())
+                )
+                .map((agent, index) => (
+                  <tr
+                    key={agent.__id}
+                    className="border-b border-border hover:bg-greyed transitions"
+                  >
+                    <td className={tdclass}>{index + 1}</td>
+                    <td className={tdclass}>
+                      <div className="flex gap-4 items-center">
+                        <span className="w-12">
+                          <img
+                            src={agent.profileImageUrl}
+                            alt={agent.firstName}
+                            className="w-full h-12 rounded-full object-cover border border-border"
+                          />
+                        </span>
+                        <h4 className="text-sm font-medium">
+                          {agent.firstName} {agent.secondName}
+                        </h4>
+                      </div>
+                    </td>
+                    <td className={tdclass}>{agent.role}</td>
+                    <td className={tdclass}>{formatDate(agent.createdAt)}</td>
+                    <td className={tdclass}>
+                      <p className="text-textGray">+{agent.phoneNumber}</p>
+                    </td>
+                    <td className={tdclass}>{agent.salary}</td>
 
-            <td className={tdclass}>
-              <MenuSelect datas={DropDown1} item={item}>
-                <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                  <BiDotsHorizontalRounded />
-                </div>
-              </MenuSelect>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                    <td className={tdclass}>
+                      <MenuSelect datas={DropDown1} item={agent}>
+                        <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                          <BiDotsHorizontalRounded />
+                        </div>
+                      </MenuSelect>
+                    </td>
+                  </tr>
+                ))}
+          </tbody>
+        </table>
+      )}
+    </>
   );
 }
 

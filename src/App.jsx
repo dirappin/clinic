@@ -54,13 +54,11 @@ import SessionEnd from './screens/error/session-end';
 
 function App() {
   Aos.init();
-
   const { loading, authenticate } = UseAuthentication();
 
   useEffect(() => {
     authenticate();
   }, []);
-
 
   return (
     <>
@@ -72,7 +70,8 @@ function App() {
 
           <Routes>
             <Route path="/session-end" element={<SessionEnd />} />
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Patients />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             {/* surveillance */}
             <Route path='/surveillance' element={<Surveillance />} />
             {/* ReceptionAmbulatoire */}

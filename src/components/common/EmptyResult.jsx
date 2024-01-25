@@ -2,7 +2,7 @@ import React from "react";
 import { PiFolderOpenThin } from "react-icons/pi";
 import { Button } from "../Form";
 
-const EmptyResult = ({ lable, close, disableButton }) => {
+const EmptyResult = ({ lable, close, disableButton, buttonLable }) => {
   return (
     <div className="flex flex-col items-center m-auto  justify-center py-10">
       <PiFolderOpenThin className="text-8xl mb-5 text-gray-600" />
@@ -10,8 +10,8 @@ const EmptyResult = ({ lable, close, disableButton }) => {
       {!disableButton && (
         <Button
           onClick={() => close()}
-          className={"w-[180px] mt-4"}
-          label={"close"}
+          className={"w-[170px] mt-4"}
+          label={buttonLable ? buttonLable : "close"}
         />
       )}
     </div>
