@@ -15,7 +15,7 @@ const networkError = ({ callBack, label }) => {
           : label}
       </p>
       <Button
-        onClick={callBack ? callBack : () => window.location.reload()}
+        onClick={() => (callBack ? callBack() : () => window.location.reload())}
         className="w-[200px] text-white mt-5"
         label={"Reload"}
       />
