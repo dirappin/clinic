@@ -9,6 +9,7 @@ import {
   TbUsersPlus,
 
 } from 'react-icons/tb';
+import { FaChartPie } from "react-icons/fa6";
 import { FaRegCalendarAlt, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa';
 import {
   LuMicroscope,
@@ -54,11 +55,18 @@ export const MenuDatas = [
     icon: MdVideoCameraFront,
     permission: ['entry-checker']
   },
+  
+  {
+    title: 'Home',
+    path: '/',
+    icon: HiOutlineHome,
+    permission: ['all']
+  },
 
   {
     title: 'Dashboard',
-    path: '/',
-    icon: HiOutlineHome,
+    path: '/dashboard',
+    icon: FaChartPie,
     permission: ['admin']
   },
 

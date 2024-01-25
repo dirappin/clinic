@@ -6,6 +6,7 @@ import user from "../state/user";
 import useEntryCheckerRole from "../util/hooks/entryCheckerRoleRestriction";
 import { CiLock } from "react-icons/ci";
 
+
 const MenuElement = ({ item, index }) => {
   const userData = useRecoilValue(user);
   const currentPath = (path) => {
