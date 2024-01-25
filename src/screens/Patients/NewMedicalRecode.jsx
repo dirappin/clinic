@@ -35,8 +35,6 @@ function NewMedicalRecode() {
   const [attachedImages, setAttachedImages] = useState([]);
   const navigate = useNavigate();
 
-  console.log(medecines);
-
   const formik = useFormik({
     initialValues: {
       complains: "",
@@ -123,7 +121,9 @@ function NewMedicalRecode() {
         doctorId: userData._id,
         patientId: patientId,
         attachedImages: uploadAttachedImages,
-        Treatments: mappedServiceData.map((item) => item._id),
+        Treatments: mappedServiceData
+          .filter((item) => item.checked)
+          .map((service) => service._id),
         prescribeMedecin: mapMedecines(),
         ...values,
       });
