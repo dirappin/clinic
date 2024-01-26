@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { cloudinaryUploadFile } from "../../util/cloudinary";
 import { useNavigate } from "react-router-dom";
+import { usersRole } from "../../constant";
 
 
 
@@ -26,7 +27,7 @@ function AddAgentsModal({ closeModal, isOpen, doctor, datas }) {
       firstName: "",
       secondName: "",
       salary: 10,
-      role: "",
+      role: "doctor",
       phoneNumber: "",
       password: "",
       email: "",
@@ -142,6 +143,16 @@ function AddAgentsModal({ closeModal, isOpen, doctor, datas }) {
           color={true}
           placeholder="eg:test@gmail.com" />
 
+        <div className="w-full">
+          <div className="">
+            <label htmlFor="role" className="text-sm mb-3">Role</label>
+            <select className="w-full text-sm p-3 border rounded-md" name="role" defaultValue={formik.values.role} id="">
+              {usersRole.map((role) => (<option className="text-sm" value={role}>{role}</option>))}
+            </select>
+          </div>
+        </div>
+
+
         <div className="grid sm:grid-cols-2 gap-4 w-full">
           <Input
             required={true}
@@ -175,21 +186,9 @@ function AddAgentsModal({ closeModal, isOpen, doctor, datas }) {
           />
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 w-full">
+        <div className="w-full">
           <Input
-            name={"role"}
-            errormessage={
-              formik.errors.role && formik.touched.role && formik.errors.role
-            }
-            defaulValue={formik.values.role}
-            required={true}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            label="Role"
-            color={true}
-          />
-
-          <Input
+          type={'password'}
             name={"password"}
             errormessage={
               formik.errors.password &&

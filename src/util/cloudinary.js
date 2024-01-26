@@ -1,12 +1,12 @@
 import axios from "axios";
 import { clpudinary_name, cloudinary_upload_preset } from "../constant";
 
-
 export const cloudinaryUploadFile = async (file) => {
     // Upload the file to Cloudinary
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', cloudinary_upload_preset);
+
 
     const response = await fetch(`https://api.cloudinary.com/v1_1/${clpudinary_name}/image/upload`, {
         method: 'POST',
@@ -15,7 +15,6 @@ export const cloudinaryUploadFile = async (file) => {
 
     if (response.ok) {
         const result = await response.json();
-
         // Set the Cloudinary URL to the selectedImage state
         return (result.secure_url);
     }

@@ -51,6 +51,8 @@ import { ThemeProvider } from "@material-tailwind/react";
 import { useEffect } from "react";
 import Loader from "./components/common/Loader";
 import SessionEnd from "./screens/error/session-end";
+import AgentProfile from "./screens/Agent/AgentProfile";
+
 
 function App() {
   Aos.init();
@@ -153,7 +155,7 @@ function App() {
 
             {/* doctors */}
             <Route path="/doctors" element={<Doctors />} />
-            <Route path="agents/preview/:agentId" element={<DoctorProfile />} />
+            <Route path="agents/preview/:agentId" element={<AgentProfile />} />
             {/* doctorscart */}
             <Route path="/doctorscart" element={<DoctorCart />} />
             {/* reception */}
