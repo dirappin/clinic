@@ -24,7 +24,6 @@ import { useParams } from "react-router-dom";
 import Loader from "../../components/common/Loader";
 import toast from "react-hot-toast";
 import NetworkError from "../error/networkError";
-import { backendBaseUrl } from "../../constant";
 import AxiosInstance from "../../ axiosInstance";
 
 function PatientProfile() {

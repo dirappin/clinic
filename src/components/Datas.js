@@ -98,7 +98,7 @@ export const MenuDatas = [
     title: 'Doctor Chirurgie',
     path: '/chirurgie',
     icon: LuSwords,
-    permission: ['doctor']
+    permission: ['doctor','admin']
   },
   {
     title: 'Laboratoire',
@@ -158,7 +158,7 @@ export const MenuDatas = [
     title: 'Doctors',
     path: '/doctors',
     icon: RiUserHeartLine,
-    permission: ['admin']
+    permission: ['admin','doctor']
   },
   {
     title: 'Appointments',

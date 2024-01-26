@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instAxiosInstancence = axios.create({
+const AxiosInstancence = axios.create({
     baseURL: 'http://localhost:3001/', // Set your base URL
     timeout: 5000, // Set your timeout// 
     headers: {
@@ -9,4 +9,4 @@ const instAxiosInstancence = axios.create({
     },
 });
 
-export default instAxiosInstancence;
+export default AxiosInstancence;

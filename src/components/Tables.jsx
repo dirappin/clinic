@@ -4,7 +4,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { FiEdit, FiEye } from "react-icons/fi";
 import { RiDeleteBin6Line, RiDeleteBinLine } from "react-icons/ri";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import Loader from "./common/Loader";
 import NetworkError from "../screens/error/networkError";
@@ -86,13 +86,12 @@ export function Transactiontable({ data, action, functions }) {
             <td className={tdclass}>{item.date}</td>
             <td className={tdclass}>
               <span
-                className={`py-1 px-4 ${
-                  item.status === "Paid"
-                    ? "bg-subMain text-subMain"
-                    : item.status === "Pending"
+                className={`py-1 px-4 ${item.status === "Paid"
+                  ? "bg-subMain text-subMain"
+                  : item.status === "Pending"
                     ? "bg-orange-500 text-orange-500"
                     : item.status === "Cancel" && "bg-red-600 text-red-600"
-                } bg-opacity-10 text-xs rounded-xl`}
+                  } bg-opacity-10 text-xs rounded-xl`}
               >
                 {item.status}
               </span>
@@ -247,11 +246,10 @@ export function MedicineTable({ data, onEdit }) {
             <td className={`${tdclass} font-semibold`}>{item?.price}</td>
             <td className={tdclass}>
               <span
-                className={`text-xs font-medium ${
-                  item?.status === "Out of stock"
-                    ? "text-red-600"
-                    : "text-green-600"
-                }`}
+                className={`text-xs font-medium ${item?.status === "Out of stock"
+                  ? "text-red-600"
+                  : "text-green-600"
+                  }`}
               >
                 {item?.status}
               </span>
@@ -316,9 +314,8 @@ export function ServiceTable({ data, onEdit }) {
             <td className={`${tdclass} font-semibold`}>{item?.price}</td>
             <td className={tdclass}>
               <span
-                className={`text-xs font-medium ${
-                  !item?.status ? "text-red-600" : "text-green-600"
-                }`}
+                className={`text-xs font-medium ${!item?.status ? "text-red-600" : "text-green-600"
+                  }`}
               >
                 {!item?.status ? "Disabled" : "Enabled"}
               </span>
@@ -470,11 +467,10 @@ export function PatientTable() {
 
                   <td className={tdclasse}>
                     <span
-                      className={`py-1 px-4 ${
-                        item.gender === "Male"
-                          ? "bg-subMain text-subMain"
-                          : "bg-orange-500 text-orange-500"
-                      } bg-opacity-10 text-xs rounded-xl`}
+                      className={`py-1 px-4 ${item.gender === "Male"
+                        ? "bg-subMain text-subMain"
+                        : "bg-orange-500 text-orange-500"
+                        } bg-opacity-10 text-xs rounded-xl`}
                     >
                       {item.gender}
                     </span>
@@ -551,11 +547,10 @@ export function PatientTable() {
 
                   <td className={tdclasse}>
                     <span
-                      className={`py-1 px-4 ${
-                        item.gender === "Male"
-                          ? "bg-subMain text-subMain"
-                          : "bg-orange-500 text-orange-500"
-                      } bg-opacity-10 text-xs rounded-xl`}
+                      className={`py-1 px-4 ${item.gender === "Male"
+                        ? "bg-subMain text-subMain"
+                        : "bg-orange-500 text-orange-500"
+                        } bg-opacity-10 text-xs rounded-xl`}
                     >
                       {item.gender}
                     </span>
@@ -688,20 +683,21 @@ export function DoctorsTable({ data, functions, doctor }) {
 // agent table
 export function AgentTable({ functions, search = "" }) {
   const { data, error, isLoading } = useSWR(`${backendBaseUrl}user/find/all`);
+  const navigate = useNavigate();
 
   const DropDown1 = [
     {
       title: "View",
       icon: FiEye,
-      onClick: (data) => {
-        functions.preview(data);
+      onClick: (id) => {
+        navigate('/agents/preview/' + id._id);
       },
     },
     {
       title: "Delete",
       icon: RiDeleteBin6Line,
       onClick: () => {
-        toast.error("This feature is not available yet");
+        navia;
       },
     },
   ];
@@ -806,13 +802,12 @@ export function AppointmentTable({ data, functions, doctor }) {
             </td>
             <td className={tdclass}>
               <span
-                className={`py-1  px-4 ${
-                  item.status === "Approved"
-                    ? "bg-subMain text-subMain"
-                    : item.status === "Pending"
+                className={`py-1  px-4 ${item.status === "Approved"
+                  ? "bg-subMain text-subMain"
+                  : item.status === "Pending"
                     ? "bg-orange-500 text-orange-500"
                     : item.status === "Cancel" && "bg-red-600 text-red-600"
-                } bg-opacity-10 text-xs rounded-xl`}
+                  } bg-opacity-10 text-xs rounded-xl`}
               >
                 {item.status}
               </span>
@@ -869,13 +864,12 @@ export function PaymentTable({ data, functions, doctor }) {
             </td>
             <td className={tdclass}>
               <span
-                className={`py-1  px-4 ${
-                  item.status === "Paid"
-                    ? "bg-subMain text-subMain"
-                    : item.status === "Pending"
+                className={`py-1  px-4 ${item.status === "Paid"
+                  ? "bg-subMain text-subMain"
+                  : item.status === "Pending"
                     ? "bg-orange-500 text-orange-500"
                     : item.status === "Cancel" && "bg-red-600 text-red-600"
-                } bg-opacity-10 text-xs rounded-xl`}
+                  } bg-opacity-10 text-xs rounded-xl`}
               >
                 {item.status}
               </span>
@@ -1071,7 +1065,7 @@ export function CreateMedicalRecordMedicineDosageTable({
   const thclasse = "text-start text-xs font-medium py-3 px-2 whitespace-nowrap";
   const tdclasse = "text-center text-xs py-4 px-2 whitespace-nowrap";
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <table className="table-auto overflow-auto w-full">

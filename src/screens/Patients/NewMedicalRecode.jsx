@@ -67,9 +67,9 @@ function NewMedicalRecode() {
     setMappedServiceData(
       serviceData
         ? serviceData.map((item) => ({
-            ...item,
-            checked: false,
-          }))
+          ...item,
+          checked: false,
+        }))
         : []
     );
   }, [serviceData]);
@@ -216,7 +216,7 @@ function NewMedicalRecode() {
                 name={"complains"}
                 onBlur={formik.handleBlur}
                 id="new_record_complain"
-                defaultValue={formik.values.complain}
+                defaultValue={formik.values.complains}
                 label="Complains"
                 color={true}
                 onChange={formik.handleChange}
@@ -228,9 +228,9 @@ function NewMedicalRecode() {
                   "text-red-500 text-[10px] text-right top-[5.5rem]   min-h-[5px]"
                 )}
               >
-                {formik.errors.complain &&
-                  formik.touched.complain &&
-                  formik.errors.complain}
+                {formik.errors.complains &&
+                  formik.touched.complains &&
+                  formik.errors.complains}
               </p>
 
               {/* Tete et cou */}

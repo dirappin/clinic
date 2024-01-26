@@ -8,36 +8,33 @@ import { HiOutlineCheckCircle } from "react-icons/hi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import instance from "../../ axiosInstance";
+import AxiosInstancence from "../../ axiosInstance";
 import { cloudinaryUploadFile } from "../../util/cloudinary";
-import { backendBaseUrl } from "../../constant";
 import { usersRole } from "../../constant";
+import { BiDollar } from "react-icons/bi";
 
-function PersonalInfo({ titles }) {
+
+function AgentPersonalInfo({ titles, data = {} }) {
   const [title, setTitle] = React.useState(sortsDatas.title[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [selectedProfileImage, SetSelectedProfileImage] = useState();
 
+
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      secondName: "",
-      phoneNumber: "",
-      emergencyContact: "",
-      gender: "Male",
-      birthdate: "",
-      address: "",
+      firstName: data.user ? data.user.firstName : "",
+      secondName: data.user ? data.user.secondName : "",
+      phoneNumber: data.user ? data.user.phoneNumber : "",
+      role: data.user ? data.user.role : "",
+      salary: data.user ? data.user.salary : ""
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("field required"),
       secondName: Yup.string().required("field required"),
       phoneNumber: Yup.string().required("field required"),
-      emergencyContact: Yup.string().required("field required"),
-      gender: Yup.string().required("field required"),
-      birthdate: Yup.string().required("field required"),
-      address: Yup.string().required("field required"),
+      salary: Yup.number().required("field required"),
     }),
 
     onSubmit: async (values) => {
@@ -46,20 +43,20 @@ function PersonalInfo({ titles }) {
   });
 
   const createPatient = async (values) => {
-    if (!selectedProfileImage)
-      return toast.error("profile picture is required");
     setLoading(true);
+    setError("");
 
     try {
-      const imageUrl = await cloudinaryUploadFile(selectedProfileImage);
-      const request = await instance.post("patient", {
+      const imageUrl = selectedProfileImage ? await cloudinaryUploadFile(selectedProfileImage) : data.user.profileImageUrl;
+      const request = await AxiosInstancence.post("user/update/profile/" + data.user._id, {
         ...values,
-        ProfilePicture: imageUrl,
+        profileImageUrl: imageUrl,
       });
 
       setLoading(false);
-      navigate("/patients/preview/" + request.data._id);
+      navigate("/agents");
     } catch (error) {
+
       setError(
         error.response
           ? error.response.data.message
@@ -84,26 +81,12 @@ function PersonalInfo({ titles }) {
         <Uploder selectImage={(file) => SetSelectedProfileImage(file)} />
       </div>
       {/* select  */}
-      {titles && (
-        <div className="flex w-full flex-col gap-3">
-          <p className="text-black text-sm">Title</p>
-          <Select
-            selectedPerson={title}
-            setSelectedPerson={setTitle}
-            datas={sortsDatas.title}
-          >
-            <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-              {title?.name} <BiChevronDown className="text-xl" />
-            </div>
-          </Select>
-        </div>
-      )}
 
       {/* fullName */}
-      <div className="w-full">
+      <div className="w-full flex gap-4">
         <Input
           value={formik.values.firstName}
-          name="firstName"
+          name="First name"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           label="First Name"
@@ -115,23 +98,50 @@ function PersonalInfo({ titles }) {
             formik.errors.firstName
           }
         />
-      </div>
 
-      <div className="w-full">
         <Input
           value={formik.values.secondName}
+          name="secondName"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           label="Second Name"
           color={true}
           type="text"
-          name={"secondName"}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
           errormessage={
             formik.errors.secondName &&
             formik.touched.secondName &&
             formik.errors.secondName
           }
         />
+      </div>
+
+      <div className="w-full flex flex-row-reverse items-center gap-4">
+        <div className="flex w-full h-full flex-row-reverse gap-2 items-center">
+          <div className="h-14 w-14 flex items-center justify-center rounded-md relative border top-4 bg-gray-100">
+            <BiDollar className="text-gray-500" />
+          </div>
+          <Input
+            value={formik.values.salary}
+            label="Salary"
+            color={true}
+            type="number"
+            name={"salary"}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            errormessage={
+              formik.errors.secondName &&
+              formik.touched.secondName &&
+              formik.errors.secondName
+            }
+          />
+        </div>
+
+        <div className="w-full">
+          <label htmlFor="" className="text-sm pb-4">Role</label>
+          <select className="w-full py-3.5 px-2  border rounded-lg" onBlur={formik.handleBlur} onChange={formik.handleChange} defaultValue={data.user.role} name="" id="">
+            {usersRole.map((role) => (<option className="bg-red-300 w-full" value={role}>{role}</option>))}
+          </select>
+        </div>
       </div>
 
       {/* phone */}
@@ -154,21 +164,6 @@ function PersonalInfo({ titles }) {
       {/* email */}
       {!titles && (
         <>
-          {/* gender */}
-          <div className="flex w-full flex-col gap-3">
-            <label className="text-black text-sm">Gender</label>
-            <select
-              name="gender"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.gender}
-              className="w-full border p-2 rounded-md"
-            >
-              <option defaultChecked>Male</option>
-              <option>Female</option>
-            </select>
-          </div>
-
           {/* emergancy contact */}
 
           <div className="w-full">
@@ -211,20 +206,17 @@ function PersonalInfo({ titles }) {
             </span>
           </div>
 
-          {/* address */}
-          <div className="w-full">
+          <div className="">
             <Input
-              name="address"
-              value={formik.values.address}
+              name="salary"
+              value={formik.values.salary}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              label="Address"
-              color={true}
-              type="text"
+              type="number"
               errormessage={
-                formik.errors.address &&
-                formik.touched.address &&
-                formik.errors.address
+                formik.errors.salary &&
+                formik.touched.salary &&
+                formik.errors.salary
               }
             />
           </div>
@@ -235,7 +227,7 @@ function PersonalInfo({ titles }) {
         <Button
           type="submit"
           loading={loading}
-          label={"Create Patient"}
+          label={"Update Profile"}
           Icon={HiOutlineCheckCircle}
         />
       </div>
@@ -243,4 +235,4 @@ function PersonalInfo({ titles }) {
   );
 }
 
-export default PersonalInfo;
+export default AgentPersonalInfo;
