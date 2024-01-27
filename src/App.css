@@ -13,6 +13,12 @@ input:focus, textarea:focus, select:focus,button:focus{
   outline: none;
 }
 
+.create-triage-form span{
+  position: relative;
+  bottom: 20px;
+  font-size: 14px
+}
+
 .flex-colo{
   @apply flex flex-col justify-center items-center;
 }
