@@ -39,7 +39,7 @@ import PharmacyPoeple from "./screens/Pharmacy/PharmacyPoeple";
 import PharmacyStock from "./screens/Pharmacy/PharmacyStock";
 import Hospitalisation from "./screens/Hospitalisation/Hospitalisation";
 import Maternite from "./screens/Maternite/Maternite";
-import NewMedicalRecodeTiage from "./screens/Triage/NewMedicalRecodeTiage";
+import CreateTriage from "./screens/Triage/createTriage";
 import Agents from "./screens/Agent/Agents";
 import NewRadiographieRecord from "./screens/Radiographie/NewRadiographieRecord";
 import NewLoboratoireRecord from "./screens/Laboratoire/NewLoboratoireRecord";
@@ -127,8 +127,8 @@ function App() {
             <Route path="/patients/create" element={<CreatePatient />} />
 
             <Route
-              path="/triage/visiting/:id"
-              element={<NewMedicalRecodeTiage />}
+              path="/triage/visiting/:patientId"
+              element={<CreateTriage />}
             />
             <Route
               path="/radiographie/visiting/:id"

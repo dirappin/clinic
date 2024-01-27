@@ -7,13 +7,14 @@ import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { medicalRecodTriageData } from '../../components/Datas';
 import MedicalRecodTriageModal from '../../components/Modals/MedicalRecodTriageModal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const TriageRecord = () => {
 
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [datas, setDatas] = React.useState({});
-    const navigate = useNavigate();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [datas, setDatas] = React.useState({});
+  const navigate = useNavigate();
+  const { patientId } = useParams();
 
   return (
     <>
@@ -40,7 +41,7 @@ const TriageRecord = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/triage/visiting/1`);
+                navigate(`/triage/visiting/${patientId}`);
               }}
             />
           </div>

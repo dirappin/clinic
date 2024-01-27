@@ -5,3 +5,9 @@ export const formatDate = (date) => {
 
     return `${day}, ${month} ${year}`
 }
+
+export const birthYearFormater = (birthYear) => {
+    const currentDate = new Date();
+    const birthDate = new Date(birthYear);
+    return currentDate.getFullYear() - birthDate.getFullYear()
+}
