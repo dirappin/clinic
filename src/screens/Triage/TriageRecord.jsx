@@ -16,6 +16,7 @@ const TriageRecord = () => {
   const navigate = useNavigate();
   const { patientId } = useParams();
 
+
   return (
     <>
       {
