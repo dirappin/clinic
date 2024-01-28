@@ -54,6 +54,7 @@ const NewMedicalRecordTriage = () => {
       await AxiosInstance.post("triages", {
         ...values,
         attachedImages: uploadAttachedImages,
+        patientId:patientId
       });
       setCreateTriageLoading(false);
       navigate(`/patients/preview/${patientId}`);
@@ -73,7 +74,7 @@ const NewMedicalRecordTriage = () => {
       PU: '',
       Temperature: '',
       saturometre: '',
-      complains: '', // Changed from 'plaintes' to 'complains'
+      complains: '',// Changed from 'plaintes' to 'complains'
     },
     validationSchema: Yup.object({
       doctor: Yup.string().required('Doctor is required'),

@@ -4,6 +4,8 @@ import HeroSection from '../../components/heroSection/HeroSection';
 import PhotoTri from '../../images/deo/clipart.png';
 import Layout from '../../Layout';
 import Button from '../../components/Button/Button';
+import MedicalRecodTriageModal from '../../components/Modals/MedicalRecodTriageModal';
+
 
 const Triage = () => {
   return (

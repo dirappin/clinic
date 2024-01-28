@@ -8,6 +8,7 @@ import { PatientTable } from "../../components/Tables";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { BiPlus } from "react-icons/bi";
 
+
 function Patients() {
   const [status, setStatus] = useState(sortsDatas.filterPatient[0]);
   const [gender, setGender] = useState(sortsDatas.genderFilter[0]);
