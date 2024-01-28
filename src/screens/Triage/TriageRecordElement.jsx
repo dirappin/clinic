@@ -8,7 +8,7 @@ import MedicalRecodTriageModal from '../../components/Modals/MedicalRecodTriageM
 
 const TriageRecordElement = ({ data }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-
+  console.log(data)
   return (
     <div
       key={data._id}
@@ -23,7 +23,7 @@ const TriageRecordElement = ({ data }) => {
               setDatas({});
             }}
             isOpen={isOpen}
-            datas={{}}
+            data={{...data}}
           />
         )
       }

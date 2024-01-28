@@ -3,83 +3,142 @@ import React from 'react';
 import Modal from './Modal';
 import { Button } from '../Form';
 import { FiEye } from 'react-icons/fi';
+import EmptyResult from '../common/EmptyResult';
+import { formatDate } from '../../util/formatDate';
 
 import { useNavigate } from 'react-router-dom';
 
-const MedicalRecodTriageModal = ({ closeModal, isOpen, datas }) => {
-
-    const navigate = useNavigate();
-
+const MedicalRecodTriageModal = ({ closeModal, isOpen, data }) => {
+  console.log(data);
   return (
-    
+
     <Modal
       closeModal={closeModal}
       isOpen={isOpen}
-      title="12 May 2021"
+      title={formatDate(data.createdAt)}
       width={'max-w-4xl'}
     >
       <div className="flex-colo gap-6">
-        {datas?.data?.slice(0, 7).map((data) => (
-          <div key={data.id} className="grid grid-cols-12 gap-4 w-full">
-            <div className="col-span-12 md:col-span-3">
-              <p className="text-sm font-medium">{data.title}:</p>
-            </div>
-            <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
-              <p className="text-xs text-main font-light leading-5">
-                {data.value}
-              </p>
-            </div>
-          </div>
-        ))}
+
+
         {/* visual sign */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
-            <p className="text-sm font-medium">Vital Signs:</p>
+            <p className="text-sm font-medium">Poid:</p>
           </div>
           <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
             <p className="text-xs text-main font-light leading-5">
-              {datas?.vitalSigns?.map((item) => (
-                // separate each item with comma
-                <span key={item} className="mr-1">
-                  {item},
-                </span>
-              ))}
+              {data.poid}
             </p>
           </div>
         </div>
-        
+
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Doctor:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.doctor.firstName} {data.doctor.secondName}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">TA:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.TA}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">PU:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.PU}
+            </p>
+          </div>
+        </div>
+
+
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Temperature:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.Temperature}
+            </p>
+          </div>
+        </div>
+
+
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">saturometre:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.saturometre}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Plainte:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.complains}
+            </p>
+          </div>
+        </div>
+
+
         {/* attachments */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
             <p className="text-sm font-medium">Attachments:</p>
           </div>
-          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6 xs:grid-cols-2 md:grid-cols-4 grid gap-4">
+          <div className="w-full col-span-full">
             {
               // show attachments
-              datas?.attachments?.map((item) => (
+              data?.attachedImage?.map((image) => (
                 <img
-                  key={item}
-                  src={item}
+                  key={image}
+                  src={image}
                   alt="attachment"
                   className="w-full md:h-32 object-cover rounded-md"
                 />
               ))
+            }
+            {
+              !data.attachedImage && (
+                <div className='w-full rounded-lg border'>
+                  <EmptyResult disableButton className='w-full left-[50%] relative' lable={'No attachement left'} />
+                </div>)
             }
           </div>
         </div>
 
         {/* view Invoice */}
         <div className="flex justify-end items-center w-full">
-          <div className="md:w-3/4 w-full">
-            <Button
-              label="View Invoice"
-              Icon={FiEye}
-              onClick={() => {
-                closeModal();
-                navigate(`/invoices/preview/198772`);
-              }}
-            />
-          </div>
+
+          <Button
+            label="Close"
+            Icon={FiEye}
+            onClick={() => {
+              closeModal();
+            }}
+          />
+
         </div>
       </div>
     </Modal>
