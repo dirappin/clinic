@@ -54,6 +54,7 @@ const NewMedicalRecordTriage = () => {
       await AxiosInstance.post("triages", {
         ...values,
         attachedImages: uploadAttachedImages,
+        patientId:patientId
       });
       setCreateTriageLoading(false);
       navigate(`/patients/preview/${patientId}`);
@@ -73,7 +74,8 @@ const NewMedicalRecordTriage = () => {
       PU: '',
       Temperature: '',
       saturometre: '',
-      complains: '', // Changed from 'plaintes' to 'complains'
+      complains: '',
+      vitalsigns:'' // Changed from 'plaintes' to 'complains'
     },
     validationSchema: Yup.object({
       doctor: Yup.string().required('Doctor is required'),
@@ -83,6 +85,7 @@ const NewMedicalRecordTriage = () => {
       Temperature: Yup.string().required('Temperature is required'),
       saturometre: Yup.string().required('Saturometre is required'),
       complains: Yup.string().required('Complains is required'),
+      vitalsigns: Yup.string().required('vital signs is required'),
     }),
     onSubmit: async (values) => {
       // Handle form submission logic here
@@ -222,6 +225,22 @@ const NewMedicalRecordTriage = () => {
             {formik.errors.PU && formik.touched.PU && (
               <span className="text-red-500">{formik.errors.PU}</span>
             )}
+
+            <Textarea
+              label="Vital Signs"
+              color={true}
+              rows={3}
+              placeholder={'Vital Signs, ....'}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.PU}
+              name="vitalsigns"
+            />
+            {formik.errors.PU && formik.touched.PU && (
+              <span className="text-red-500">{formik.errors.PU}</span>
+            )}
+
+
 
             {/* Température */}
             <Textarea

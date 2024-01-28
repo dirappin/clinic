@@ -8,6 +8,13 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { medicalRecodTriageData } from '../../components/Datas';
 import MedicalRecodTriageModal from '../../components/Modals/MedicalRecodTriageModal';
 import { useNavigate, useParams } from 'react-router-dom';
+import useSWR from 'swr';
+import { backendBaseUrl } from '../../constant';
+import TriageRecordElement from './TriageRecordElement';
+import FetchError from '../error/fetchError';
+import EmptyResult from '../../components/common/EmptyResult';
+
+
 
 const TriageRecord = () => {
 
@@ -15,6 +22,7 @@ const TriageRecord = () => {
   const [datas, setDatas] = React.useState({});
   const navigate = useNavigate();
   const { patientId } = useParams();
+  const { loading, data, error, mutate } = useSWR(`${backendBaseUrl}triages/find/all/${patientId}`)
 
 
   return (
@@ -47,55 +55,10 @@ const TriageRecord = () => {
             />
           </div>
         </div>
-        {medicalRecodTriageData.map((data) => (
-          <div
-            key={data.id}
-            className="bg-dry items-start grid grid-cols-12 gap-4 rounded-xl border-[1px] border-border p-6"
-          >
-            <div className="col-span-12 md:col-span-2">
-              <p className="text-xs text-textGray font-medium">{data.date}</p>
-            </div>
-            <div className="col-span-12 md:col-span-6 flex flex-col gap-2">
-              {data?.data?.map((item, index) => (
-                <p key={item.id} className="text-xs text-main font-light">
-                  <span className="font-medium">{item?.title}:</span>{' '}
-                  {
-                    // if value character is more than 40, show only 40 characters
-                    item?.value?.length > 40
-                      ? `${item?.value?.slice(0, 40)}...`
-                      : item?.value
-                  }
-                </p>
-              ))}
-            </div>
-            {/* price */}
-            <div className="col-span-12 md:col-span-2">
-              <p className="text-xs text-subMain font-semibold">
-                <span className="font-light text-main">(USD)</span>{' '}
-                {data?.amount}
-              </p>
-            </div>
-            {/* actions */}
-            <div className="col-span-12 md:col-span-2 flex-rows gap-2">
-              <button
-                onClick={() => {
-                  setIsOpen(true);
-                  setDatas(data);
-                }}
-                className="text-sm flex-colo bg-white text-subMain border border-border rounded-md w-2/4 md:w-10 h-10"
-              >
-                <FiEye />
-              </button>
-              <button
-                onClick={() => {
-                  toast.error('This feature is not available yet');
-                }}
-                className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
-              >
-                <RiDeleteBin6Line />
-              </button>
-            </div>
-          </div>
+        {data && data.length < 1 && <EmptyResult lable={'No triage Yet'} disableButton />}
+        {error && <FetchError loading={loading} action={() => mutate()} />}
+        {data?.map((data) => (
+          <TriageRecordElement data={data} />
         ))}
       </div>
     </>

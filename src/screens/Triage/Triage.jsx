@@ -5,6 +5,7 @@ import PhotoTri from '../../images/deo/clipart.png';
 import Layout from '../../Layout';
 import Button from '../../components/Button/Button';
 
+
 const Triage = () => {
   return (
     <Layout>
