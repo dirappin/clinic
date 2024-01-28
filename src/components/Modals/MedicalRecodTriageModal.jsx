@@ -107,20 +107,22 @@ const MedicalRecodTriageModal = ({ closeModal, isOpen, data }) => {
           <div className="col-span-12 md:col-span-3">
             <p className="text-sm font-medium">Attachments:</p>
           </div>
-          <div className="w-full col-span-full">
+          <div className="w-full flex gap-4 col-span-full">
             {
               // show attachments
-              data?.attachedImage?.map((image) => (
-                <img
-                  key={image}
-                  src={image}
-                  alt="attachment"
-                  className="w-full md:h-32 object-cover rounded-md"
-                />
+              data?.attachedImages?.map((image) => (
+                <div className='w-[100px] h-[100px]'>
+                  <img
+                    key={image}
+                    src={image}
+                    alt="attachment"
+                    className="w-full h-full select-none  object-cover rounded-md"
+                  />
+                </div>
               ))
             }
             {
-              !data.attachedImage && (
+              !data.attachedImages || data.attachedImages.length < 1 && (
                 <div className='w-full rounded-lg border'>
                   <EmptyResult disableButton className='w-full left-[50%] relative' lable={'No attachement left'} />
                 </div>)
