@@ -1,8 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { cn } from '../../util/cn';
 
-export default function Modal({ closeModal, isOpen, width, children, title }) {
+export default function Modal({ closeModal, isOpen, width, children, title, disableDeleteButton }) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -31,19 +32,20 @@ export default function Modal({ closeModal, isOpen, width, children, title }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={` w-full ${
-                    width ? width : 'max-w-4xl'
-                  } transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
+                  className={` w-full ${width ? width : 'max-w-4xl'
+                    } transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
                 >
                   <div className="w-full flex-btn gap-2 mb-8">
-                    <h1 className="text-md font-semibold">{title}</h1>
-                    <button
+                    <div>{title}</div>
+                    {disableDeleteButton && <button
                       onClick={closeModal}
-                      className="w-14 h-12 bg-dry text-red-600 rounded-md flex-colo"
+                      className={cn("w-14 h-12 bg-dry text-red-600 rounded-md flex-colo")}
                     >
                       <FaTimes />
                     </button>
+                    }
                   </div>
+
                   {children}
                 </Dialog.Panel>
               </Transition.Child>
