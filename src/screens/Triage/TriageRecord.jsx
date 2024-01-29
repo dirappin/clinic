@@ -13,7 +13,7 @@ import { backendBaseUrl } from '../../constant';
 import TriageRecordElement from './TriageRecordElement';
 import FetchError from '../error/fetchError';
 import EmptyResult from '../../components/common/EmptyResult';
-
+import DeleteModal from '../../components/Modals/DeleteModal';
 
 
 const TriageRecord = () => {
@@ -43,6 +43,7 @@ const TriageRecord = () => {
           />
         )
       }
+
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-4">
           <h1 className="text-sm font-medium sm:block hidden">

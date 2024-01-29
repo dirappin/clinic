@@ -7,6 +7,7 @@ import { HiOutlineCheckCircle } from 'react-icons/hi';
 import { toast } from 'react-hot-toast';
 import Access from '../Access';
 import Uploader from '../Uploader';
+import DeleteModal from './DeleteModal';
 
 function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
   const [instraction, setInstraction] = useState(sortsDatas.title[0]);
@@ -23,6 +24,7 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
       title={doctor ? 'Add Doctor' : datas?.id ? 'Edit Stuff' : 'Add Stuff'}
       width={'max-w-3xl'}
     >
+      
       <div className="flex gap-3 flex-col col-span-6 mb-6">
         <p className="text-sm">Profile Image</p>
         <Uploader />
