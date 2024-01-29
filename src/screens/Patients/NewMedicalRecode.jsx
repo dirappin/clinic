@@ -132,7 +132,6 @@ function NewMedicalRecode() {
       navigate(`/patients/preview/${patientId}`);
       toast.success("record successfully");
     } catch (error) {
-      console.log(error);
       setCreateRecordLoading(false);
       toast.error("Failed to create medical record");
     }

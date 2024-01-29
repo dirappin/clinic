@@ -9,7 +9,6 @@ import { formatDate } from '../../util/formatDate';
 import { useNavigate } from 'react-router-dom';
 
 const MedicalRecodTriageModal = ({ closeModal, isOpen, data }) => {
-  console.log(data);
   return (
 
     <Modal

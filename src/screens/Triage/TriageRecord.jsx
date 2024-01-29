@@ -22,7 +22,10 @@ const TriageRecord = () => {
   const [datas, setDatas] = React.useState({});
   const navigate = useNavigate();
   const { patientId } = useParams();
-  const { loading, data, error, mutate } = useSWR(`${backendBaseUrl}triages/find/all/${patientId}`)
+  const { loading, data, error, mutate } = useSWR(`${backendBaseUrl}triages/find/all/${patientId}`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  })
 
 
   return (
