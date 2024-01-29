@@ -15,6 +15,10 @@ import Loader from '../../components/common/Loader';
 import FetchError from '../error/fetchError';
 import FilesUploader from '../../components/MultiFilesUploader';
 import { useNavigate } from 'react-router-dom';
+import FormUserProfile from '../../components/common/FormUserProfile';
+import DectorSelector from '../../components/common/DectorSelector';
+
+
 
 const NewMedicalRecordTriage = () => {
   const [loading, setLoading] = useState(false);
@@ -23,7 +27,6 @@ const NewMedicalRecordTriage = () => {
   const { patientId } = useParams();
   const [attachedImages, setAttachedImages] = useState([]);
   const [createTriageLoading, setCreateTriageLoading] = useState(false)
-  const { loading: patientLoading, data: patientData, error: patientError, mutate } = useSWR(`${backendBaseUrl}patient/${patientId}`)
   const navigate = useNavigate();
 
   const fetchDoctors = async () => {
@@ -54,7 +57,7 @@ const NewMedicalRecordTriage = () => {
       await AxiosInstance.post("triages", {
         ...values,
         attachedImages: uploadAttachedImages,
-        patientId:patientId
+        patientId: patientId
       });
       setCreateTriageLoading(false);
       navigate(`/patients/preview/${patientId}`);
@@ -98,44 +101,7 @@ const NewMedicalRecordTriage = () => {
       </div>
 
       <div className="grid grid-cols-12 gap-6 my-8 items-start">
-
-
-        <div
-          data-aos="fade-right"
-          data-aos-duration="1000"
-          data-aos-delay="100"
-          data-aos-offset="200"
-          className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
-        >{patientData &&
-          (<>
-            <img
-              src={patientData.ProfilePicture}
-              alt="setting"
-              className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-            />
-            <div className="gap-2 flex-colo">
-              <h2 className="text-sm font-semibold">{patientData.firstName} {patientData.secondName}</h2>
-              <p className="text-xs text-textGray">{patientData.address}</p>
-              <p className="text-xs">{ }</p>
-              <p className="text-xs text-subMain bg-text font-medium py-1 px-4 rounded-full border-[0.5px] border-subMain">
-                {birthYearFormater(patientData.birthdate)} yrs
-              </p>
-            </div>
-          </>
-          )}
-
-          {
-            patientLoading && <Loader className={'h-40'} />
-          }
-
-          {
-            patientError && <>
-              <FetchError description={'Failed To load Patient'} action={() => mutate()} />
-            </>
-          }
-
-        </div>
-
+        <FormUserProfile />
         <form
           data-aos="fade-left"
           data-aos-duration="1000"
@@ -146,38 +112,7 @@ const NewMedicalRecordTriage = () => {
         >
           <div className="flex w-full flex-col gap-5">
             {/* Doctor Dropdown */}
-            <div className="flex flex-col gap-3">
-              <label htmlFor="">Doctor</label>
-              {loading && <Loader className={'h-40'} />}
-              {error && <FetchError description={'Failed to get doctors please try again'} action={() => fetchDoctors()} />}
-              {doctors.length > 0 && !error && (
-                <>
-                  <select
-                    className="border py-2 text-sm px-4 rounded-md"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.doctor}
-                    name="doctor"
-                  >
-                    {!error && <>
-                      <option value="" disabled>
-                        Select Doctor
-                      </option>
-                      {doctors.map((doctor) => (
-                        <option key={doctor._id} value={doctor._id}>
-                          {doctor.firstName} {doctor.secondName}
-                        </option>
-                      ))}</>}
-
-                  </select>
-                  {formik.errors.doctor && formik.touched.doctor && (
-                    <span className="text-red-500 mt-3">
-                      {formik.errors.doctor}
-                    </span>
-                  )}
-                </>
-              )}
-            </div>
+            <DectorSelector formik={formik} />
 
             {/* Poids */}
             <Textarea

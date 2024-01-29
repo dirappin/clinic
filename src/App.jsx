@@ -131,20 +131,20 @@ function App() {
               element={<CreateTriage />}
             />
             <Route
-              path="/radiographie/visiting/:id"
+              path="/radiographie/visiting/:patientId"
               element={<NewRadiographieRecord />}
             />
             <Route
-              path="/laboratoire/visiting/:id"
+              path="/laboratoire/visiting/:patientId"
               element={<NewLoboratoireRecord />}
             />
-            <Route path="/examen/visiting/:id" element={<NewExamen />} />
+            <Route path="/examen/visiting/:patientId" element={<NewExamen />} />
             <Route
-              path="/echographie/visiting/:id"
+              path="/echographie/visiting/:patientId"
               element={<NewEchographieRecord />}
             />
             <Route
-              path="/hospitalisation/visiting/:id"
+              path="/hospitalisation/visiting/:patientId"
               element={<NewHospitalisationRecord />}
             />
 

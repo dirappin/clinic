@@ -16,7 +16,7 @@ export function UseAuthentication() {
         const getToken = localStorage.getItem("token");
 
         if (!getToken) {
-            navigate("/auth/signin");
+            return navigate("login");
         }
 
         try {
@@ -35,6 +35,7 @@ export function UseAuthentication() {
 
             setLoading(false);
         } catch (error) {
+
             if (error.response?.data.message === jwtExpirationMessage) {
                 setLoading(false);
                 navigate("/session-end");

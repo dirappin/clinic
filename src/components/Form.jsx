@@ -63,14 +63,14 @@ export function Input({
 }
 
 // button
-export function Button({ label, onClick, loading, Icon, className, ...props }) {
+export function Button({ label, onClick, loading, Icon, className, disabled, ...props }) {
   return (
     <button
       {...props}
-      disabled={loading}
+      disabled={loading || disabled}
       onClick={onClick}
       className={cn(
-        "w-full flex-rows gap-4 hover:opacity-80 transitions bg-subMain text-white text-sm font-medium px-2 py-4 rounded",
+        "w-full flex-rows gap-4 hover:opacity-80 transitions bg-subMain text-white text-sm font-medium px-2 py-4 rounded disabled:bg-gray-300 disabled:text-gray-700 disabled:cursor-not-allowed",
         className
       )}
     >
@@ -79,7 +79,7 @@ export function Button({ label, onClick, loading, Icon, className, ...props }) {
       ) : (
         <>
           {label}
-          {Icon && <Icon className="text-white text-xl" />}
+          {Icon && <Icon className={cn("text-white text-xl", { " text-gray-500": disabled })} />}
         </>
       )}
     </button>
