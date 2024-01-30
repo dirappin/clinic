@@ -8,12 +8,14 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { medicalLaboratoireRecodData } from '../../components/Datas';
 import MedicalLoboratoireRecodModal from '../../components/Modals/MedicalLoboratoireRecodModal';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const LaboratioreRecord = () => {
 
     const [isOpen, setIsOpen] = React.useState(false);
     const [datas, setDatas] = React.useState({});
     const navigate = useNavigate();
+    const { patientId } = useParams();
 
   return (
     <>
@@ -40,7 +42,7 @@ const LaboratioreRecord = () => {
               label="New Record"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/laboratoire/visiting/1`);
+                navigate(`/laboratoire/visiting/${patientId}`);
               }}
             />
           </div>

@@ -5,11 +5,13 @@ import LaboPhoto from "../../images/deo/laboratory.png"
 import Layout from '../../Layout';
 import DoctorCart from '../../components/DoctorCart/DoctorCart';
 import Button from '../../components/Button/Button';
+import { useParams } from 'react-router-dom';
 
 const Laboratoire = () => {
+
   return (
     <Layout>
-        <div className=" p-16">
+      <div className=" p-16">
         <HeroSection
           nameService="Laboratoire"
           name="Laboratoire"
