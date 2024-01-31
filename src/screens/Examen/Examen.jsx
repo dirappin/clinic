@@ -13,6 +13,7 @@ import ExamElement from "./ExamElement";
 import Loader from "../../components/common/Loader";
 import FetchError from "../error/fetchError";
 import DeleteModal from "../../components/Modals/DeleteModal";
+import EmptyResult from "../../components/common/EmptyResult";
 
 const Examen = () => {
   const navigate = useNavigate();
@@ -40,11 +41,12 @@ const Examen = () => {
             />
           </div>
         </div>
+        {data && data.length < 1 && <EmptyResult disableButton={true} />}
         {loading && <Loader className={"h-40"} />}
         {error && <FetchError action={() => mutate()} />}
         {data &&
           data.length > 0 &&
-          data.map((exam) => <ExamElement data={exam} />)}
+          data.map((exam, index) => <ExamElement key={index} data={exam} />)}
       </div>
     </>
   );

@@ -29,7 +29,7 @@ const FormUserProfile = () => {
                     <p className="text-xs text-textGray">{patientData.address}</p>
                     <p className="text-xs">{ }</p>
                     <p className="text-xs text-subMain bg-text font-medium py-1 px-4 rounded-full border-[0.5px] border-subMain">
-                        {birthYearFormater(patientData.birthdate)} yrs
+                        {birthYearFormater(patientData.birthdate)} 
                     </p>
                 </div>
             </>

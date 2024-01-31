@@ -16,7 +16,6 @@ const DectorSelector = ({ formik }) => {
                 </div>
             }
 
-            <label htmlFor="">Doctor</label>
             {loading && <Loader className={'h-40'} />}
             {error && <FetchError description={'Failed to get doctors please try again'} action={() => mutate()} />}
             {doctors && doctors.length > 0 && !error && (
