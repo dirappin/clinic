@@ -15,15 +15,7 @@ import * as Yup from "yup";
 import DectorSelector from "../../components/common/DectorSelector";
 import AxiosInstancence from "../../ axiosInstance";
 
-const doctorsData = memberData.map((item) => {
-  return {
-    id: item.id,
-    name: item.title,
-  };
-});
-
 function NewLoboratoireRecord() {
-  const [doctors, setDoctors] = useState(doctorsData[0]);
   const [isOpen, setIsOpen] = useState(false);
   const { patientId } = useParams();
   const attachedImagesRef = useRef([]);
@@ -51,7 +43,9 @@ function NewLoboratoireRecord() {
     setLoading(true);
     try {
       const attachedImages =
-        attachedImagesRef.current.length < 1 ? [] : cloudinaryMiltifilesUpload();
+        attachedImagesRef.current.length < 1 ? [] : await cloudinaryMiltifilesUpload(attachedImagesRef.current);
+
+
       await AxiosInstancence.post("exams/create-exam-result", {
         patientId: patientId,
         doctorId: values.doctor,
@@ -180,7 +174,7 @@ function NewLoboratoireRecord() {
 
             <FilesUploader
               selectImage={(images) => {
-                attachedImagesRef.current(images);
+                attachedImagesRef.current = [...images];
               }}
             />
 
