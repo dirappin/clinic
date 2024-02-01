@@ -53,7 +53,9 @@ const LaboratioreRecord = () => {
         </div>
 
         {loading && <Loader />}
+
         {data && data.length < 1 && <EmptyResult  disableButton lable={'No record yet'} />}
+
         {error && <FetchError action={() => mutate()} />}
         {data && data.map((data, index) => (
           <LaboratoryElement key={index} data={data} />
