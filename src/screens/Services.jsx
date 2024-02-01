@@ -7,6 +7,11 @@ import { Button, Select } from '../components/Form';
 import { ServiceTable } from '../components/Tables';
 import { servicesData, sortsDatas } from '../components/Datas';
 import AddEditServiceModal from '../components/Modals/AddEditServiceModal';
+import useSWR from 'swr';
+import { backendBaseUrl } from '../constant';
+import FetchError from './error/fetchError';
+import Loader from '../components/common/Loader';
+
 
 function Services() {
   const [isOpen, setIsOpen] = React.useState(false);

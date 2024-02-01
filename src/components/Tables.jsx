@@ -15,6 +15,7 @@ import { MdClose } from "react-icons/md";
 import { PiFolderOpenThin } from "react-icons/pi";
 import EmptyResult from "./common/EmptyResult";
 import { formatDate } from "../util/formatDate";
+import FetchError from "../screens/error/fetchError";
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -272,6 +273,12 @@ export function MedicineTable({ data, onEdit }) {
 
 // service table
 export function ServiceTable({ data, onEdit }) {
+  const { data : servicesData, loading, error, mutate } = useSWR(`${backendBaseUrl}service`);
+
+
+  console.log(servicesData);
+
+
   const DropDown1 = [
     {
       title: "Edit",
@@ -302,9 +309,9 @@ export function ServiceTable({ data, onEdit }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
+        {servicesData && servicesData.map((item, index) => (
           <tr
-            key={item.id}
+            key={item._id}
             className="border-b border-border hover:bg-greyed transitions"
           >
             <td className={tdclass}>
@@ -313,12 +320,12 @@ export function ServiceTable({ data, onEdit }) {
             <td className={tdclass}>{item?.date}</td>
             <td className={`${tdclass} font-semibold`}>{item?.price}</td>
             <td className={tdclass}>
-              <span
+              {/* <span
                 className={`text-xs font-medium ${!item?.status ? "text-red-600" : "text-green-600"
                   }`}
               >
                 {!item?.status ? "Disabled" : "Enabled"}
-              </span>
+              </span> */}
             </td>
             <td className={tdclass}>
               <MenuSelect datas={DropDown1} item={item}>

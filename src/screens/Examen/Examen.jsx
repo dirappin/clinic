@@ -12,6 +12,8 @@ import useSWR from "swr";
 import ExamElement from "./ExamElement";
 import Loader from "../../components/common/Loader";
 import FetchError from "../error/fetchError";
+import EmptyResult from "../../components/common/EmptyResult";
+
 
 const Examen = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -54,6 +56,7 @@ const Examen = () => {
             />
           </div>
         </div>
+        {data && data.length < 1 && <EmptyResult disableButton lable={'No Exams Yet'} />}
         {loading && <Loader className={'h-40'} />}
         {error && <FetchError action={() => mutate()} />}
         {data &&
