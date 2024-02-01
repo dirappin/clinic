@@ -57,7 +57,7 @@ export function Input({
           </button>
         )}
       </div>
-      <span className="text-red-400">{errormessage ? errormessage : ""}</span>
+      <span className="text-red-400 text-[12px]">{errormessage ? errormessage : ""}</span>
     </div>
   );
 }

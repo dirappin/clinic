@@ -41,7 +41,8 @@ const Examen = () => {
             />
           </div>
         </div>
-        {data && data.length < 1 && <EmptyResult disableButton={true} />}
+        {data && data.length < 1 && <EmptyResult disableButton lable={'No Exams Yet'} />}
+        
         {loading && <Loader className={"h-40"} />}
         {error && <FetchError action={() => mutate()} />}
         {data &&
