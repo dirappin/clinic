@@ -40,7 +40,7 @@ export function Input({
           {...props}
           name={name}
           {...register}
-          type={reveal || type !== 'password' ? 'text' : 'password'}
+          type={reveal || type !== 'password' ? type || 'number' : 'password'}
           placeholder={placeholder}
           className={cn(
             "w-full bg-transparent text-sm mt-3 p-4 border  rounded-lg focus:border focus:border-subMain",
@@ -57,7 +57,7 @@ export function Input({
           </button>
         )}
       </div>
-      <span className="text-red-400">{errormessage ? errormessage : ""}</span>
+      <span className="text-red-400 text-[12px]">{errormessage ? errormessage : ""}</span>
     </div>
   );
 }

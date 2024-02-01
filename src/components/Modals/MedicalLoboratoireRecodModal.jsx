@@ -1,30 +1,65 @@
 import React from 'react';
-
+import NoAttachement from '../common/NoAttachement';
 import Modal from './Modal';
+import { formatDate } from '../../util/formatDate';
 
-const MedicalLoboratoireRecodModal = ({ closeModal, isOpen, datas }) => {
-
+const MedicalLoboratoireRecodModal = ({ closeModal, isOpen, data }) => {
   return (
-    
+
     <Modal
       closeModal={closeModal}
       isOpen={isOpen}
-      title="12 May 2021"
+      title={formatDate(data.createdAt)}
       width={'max-w-4xl'}
     >
       <div className="flex-colo gap-6">
-        {datas?.data?.slice(0, 7).map((data) => (
-          <div key={data.id} className="grid grid-cols-12 gap-4 w-full">
-            <div className="col-span-12 md:col-span-3">
-              <p className="text-sm font-medium">{data.title}:</p>
-            </div>
-            <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
-              <p className="text-xs text-main font-light leading-5">
-                {data.value}
-              </p>
-            </div>
+
+        <div key={data.id} className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">doctor:</p>
           </div>
-        ))}
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.doctorId.forstName} {data.doctorId.secondName}
+            </p>
+          </div>
+        </div>
+
+        <div key={data.id} className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Resulta:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.result}
+            </p>
+          </div>
+        </div>
+
+        <div key={data.id} className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Description:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.examenDescription}
+            </p>
+          </div>
+        </div>
+
+
+        <div key={data.id} className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">diagnosis:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {data.diagnosis}
+            </p>
+          </div>
+        </div>
+
+
         {/* attachments */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
@@ -33,7 +68,7 @@ const MedicalLoboratoireRecodModal = ({ closeModal, isOpen, datas }) => {
           <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6 xs:grid-cols-2 md:grid-cols-4 grid gap-4">
             {
               // show attachments
-              datas?.attachments?.map((item) => (
+              data?.attachedImages?.map((item) => (
                 <img
                   key={item}
                   src={item}
@@ -42,9 +77,12 @@ const MedicalLoboratoireRecodModal = ({ closeModal, isOpen, datas }) => {
                 />
               ))
             }
+            {
+              data && data.attachedImages.length < 1 && <NoAttachement />
+            }
           </div>
         </div>
-        
+
       </div>
     </Modal>
   )

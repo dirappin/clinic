@@ -12,10 +12,12 @@ import { IoSearchOutline } from "react-icons/io5";
 import axios from "axios";
 import { backendBaseUrl } from "../constant";
 import { MdClose } from "react-icons/md";
-import { PiFolderOpenThin } from "react-icons/pi";
 import EmptyResult from "./common/EmptyResult";
 import { formatDate } from "../util/formatDate";
 import FetchError from "../screens/error/fetchError";
+import ServiceTableItem from "./ServiceTableItem";
+import Button from "./Button/Button";
+import { MdOutlineCloudDownload } from 'react-icons/md';
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -272,12 +274,13 @@ export function MedicineTable({ data, onEdit }) {
 }
 
 // service table
-export function ServiceTable({ data, onEdit }) {
-  const { data : servicesData, loading, error, mutate } = useSWR(`${backendBaseUrl}service`);
+export function ServiceTable({ mutate: reload }) {
+  const { data: servicesData, loading, error, mutate } = useSWR(`${backendBaseUrl}service`);
+  const [searchValue, setSearchValue] = useState("")
 
-
-  console.log(servicesData);
-
+  useEffect(() => {
+    reload.current = mutate;
+  }, [])
 
   const DropDown1 = [
     {
@@ -295,49 +298,43 @@ export function ServiceTable({ data, onEdit }) {
       },
     },
   ];
+
   return (
-    <table className="table-auto w-full">
-      <thead className="bg-dry rounded-md overflow-hidden">
-        <tr>
-          <th className={thclass}>Name</th>
-          <th className={thclass}>Created At</th>
-          <th className={thclass}>
-            Price <span className="text-xs font-light">(Tsh)</span>
-          </th>
-          <th className={thclass}>Status</th>
-          <th className={thclass}>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {servicesData && servicesData.map((item, index) => (
-          <tr
-            key={item._id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>
-              <h4 className="text-sm font-medium">{item?.name}</h4>
-            </td>
-            <td className={tdclass}>{item?.date}</td>
-            <td className={`${tdclass} font-semibold`}>{item?.price}</td>
-            <td className={tdclass}>
-              {/* <span
-                className={`text-xs font-medium ${!item?.status ? "text-red-600" : "text-green-600"
-                  }`}
-              >
-                {!item?.status ? "Disabled" : "Enabled"}
-              </span> */}
-            </td>
-            <td className={tdclass}>
-              <MenuSelect datas={DropDown1} item={item}>
-                <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                  <BiDotsHorizontalRounded />
-                </div>
-              </MenuSelect>
-            </td>
+    <div className="w-full">
+      <div className="grid md:grid-cols-6 grid-cols-1 gap-2">
+        <div className="md:col-span-5 mb-4 grid lg:grid-cols-4 xs:grid-cols-2 items-center gap-2">
+          <input
+            onChange={(e) => setSearchValue(e.target.value)}
+            type="text"
+            placeholder='Search "teeth cleaning"'
+            className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
+          />
+        </div>
+
+      </div>
+      
+      <table className="table-auto w-full">
+        <thead className="bg-dry rounded-md overflow-hidden">
+          <tr>
+            <th className={thclass}>Name</th>
+            <th className={thclass}>Created At</th>
+            <th className={thclass}>
+              Price <span className="text-xs font-light">(Tsh)</span>
+            </th>
+            <th className={thclass}>
+              Action
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {loading && <Loader className={'h-56'} />}
+          {servicesData && servicesData.filter((item) => item.name.toUpperCase().includes(searchValue.toUpperCase())).map((item, index) => (
+            <ServiceTableItem mutate={mutate} key={index} item={item} />
+          ))}
+        </tbody>
+      </table>
+      {error && <FetchError  description={'Failed to load services'} action={() => mutate()} />}
+    </div>
   );
 }
 

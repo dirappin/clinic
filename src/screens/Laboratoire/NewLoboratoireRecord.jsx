@@ -1,27 +1,75 @@
-import React, { useState } from 'react';
-import Layout from '../../Layout';
-import { Link } from 'react-router-dom';
-import { IoArrowBackOutline } from 'react-icons/io5';
-import { Button, Select, Textarea } from '../../components/Form';
-import { BiChevronDown } from 'react-icons/bi';
-import { memberData } from '../../components/Datas';
-import { toast } from 'react-hot-toast';
-import MedicineDosageModal from '../../components/Modals/MedicineDosage';
-import { FaTimes } from 'react-icons/fa';
-import Uploader from '../../components/Uploader';
-import { HiOutlineCheckCircle } from 'react-icons/hi';
+import React, { useRef, useState } from "react";
+import Layout from "../../Layout";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { IoArrowBackOutline } from "react-icons/io5";
+import { Button, Select, Textarea } from "../../components/Form";
+import { memberData } from "../../components/Datas";
+import { toast } from "react-hot-toast";
+import MedicineDosageModal from "../../components/Modals/MedicineDosage";
+import { HiOutlineCheckCircle } from "react-icons/hi";
+import FormUserProfile from "../../components/common/FormUserProfile";
+import { useFormik } from "formik";
+import { cloudinaryMiltifilesUpload } from "../../util/cloudinary";
+import FilesUploader from "../../components/MultiFilesUploader";
+import * as Yup from "yup";
+import DectorSelector from "../../components/common/DectorSelector";
+import AxiosInstancence from "../../ axiosInstance";
 
-const doctorsData = memberData.map((item) => {
-  return {
-    id: item.id,
-    name: item.title,
-  };
-});
-
-function NewLoboratoireRecord () {
-  const [doctors, setDoctors] = useState(doctorsData[0]);
+function NewLoboratoireRecord() {
   const [isOpen, setIsOpen] = useState(false);
+  const { patientId } = useParams();
+  const attachedImagesRef = useRef([]);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
+
+  const validationSchema = Yup.object({
+    doctor: Yup.string().required("Doctor can not be empty"),
+    resulta: Yup.string().required("Resulta is required"),
+    description: Yup.string().required("Description is required"),
+    diagnosis: Yup.string().required("Diagnosis is required"),
+  });
+
+  // Define initial form values
+  const initialValues = {
+    doctor: "",
+    resulta: "",
+    description: "",
+    diagnosis: "",
+  };
+
+  // Define the form submission function
+  const onSubmit = async (values) => {
+    setLoading(true);
+    try {
+      const attachedImages =
+        attachedImagesRef.current.length < 1 ? [] : await cloudinaryMiltifilesUpload(attachedImagesRef.current);
+
+
+      await AxiosInstancence.post("exams/create-exam-result", {
+        patientId: patientId,
+        doctorId: values.doctor,
+        examenDescription: values.description,
+        diagnosis: values.diagnosis,
+        result: values.resulta,
+        attachedImages: attachedImages,
+      });
+
+      navigate(-1);
+      setLoading(false);
+
+    } catch (error) {
+      setLoading(false);
+      toast.error("Filed to create record");
+    }
+  };
+
+  // Use useFormik hook to manage the form state and validation
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
 
   return (
     <Layout>
@@ -46,28 +94,7 @@ function NewLoboratoireRecord () {
         <h1 className="text-xl font-semibold">New Medical Record</h1>
       </div>
       <div className=" grid grid-cols-12 gap-6 my-8 items-start">
-        <div
-          data-aos="fade-right"
-          data-aos-duration="1000"
-          data-aos-delay="100"
-          data-aos-offset="200"
-          className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
-        >
-          <img
-            src="/images/user7.png"
-            alt="setting"
-            className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-          />
-          <div className="gap-2 flex-colo">
-            <h2 className="text-sm font-semibold">Deogratias Ndayazi</h2>
-            <p className="text-xs text-textGray">deo@gmail.com</p>
-            <p className="text-xs">+256 778 519 051</p>
-            <p className="text-xs text-subMain bg-text font-medium py-1 px-4 rounded-full border-[0.5px] border-subMain">
-              32 yrs{' '}
-            </p>
-          </div>
-        </div>
-        {/* tab panel */}
+        <FormUserProfile />
         <div
           data-aos="fade-left"
           data-aos-duration="1000"
@@ -75,75 +102,91 @@ function NewLoboratoireRecord () {
           data-aos-offset="200"
           className="col-span-12 lg:col-span-8 bg-white rounded-xl border-[1px] border-border p-6"
         >
-          <div className="flex w-full flex-col gap-5">
-            {/* doctor */}
+          <form
+            className="flex w-full flex-col gap-5"
+            onSubmit={formik.handleSubmit}
+          >
             <div className="flex w-full flex-col gap-3">
               <p className="text-black text-sm">Doctor</p>
-              <Select
-                selectedPerson={doctors}
-                setSelectedPerson={setDoctors}
-                datas={doctorsData}
-              >
-                <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-                  {doctors.name} <BiChevronDown className="text-xl" />
-                </div>
-              </Select>
+              <DectorSelector formik={formik} />
+
+              {formik.touched.doctor?.name && formik.errors.doctor?.name && (
+                <span className="text-sm relative bottom-3 text-red-500">
+                  {formik.errors.doctor.name}
+                </span>
+              )}
             </div>
-            {/* Resulta: */}
+
             <Textarea
               label="Resulta"
               color={true}
               rows={3}
-              placeholder={'Bad breath, toothache, ....'}
+              placeholder={"Bad breath, toothache, ...."}
+              id="resulta"
+              name="resulta"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.resulta}
             />
-             {/* Description */}
-             <Textarea
+            {formik.touched.resulta && formik.errors.resulta && (
+              <span className="text-[12px]  relative bottom-4 text-right text-red-500">
+                {formik.errors.resulta}
+              </span>
+            )}
+
+            <Textarea
               label="Description"
               color={true}
               rows={3}
-              placeholder={'Bad breath, toothache, ....'}
+              placeholder={"Bad breath, toothache, ...."}
+              id="description"
+              name="description"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.description}
             />
-            {/* Diagnosis */}
+            {formik.touched.description && formik.errors.description && (
+              <span className="text-[12px]  relative bottom-4 text-right text-red-500">
+                {formik.errors.description}
+              </span>
+            )}
+
             <Textarea
               label="Diagnosis"
               color={true}
               rows={3}
-              placeholder={'Bad breath, toothache, ....'}
+              placeholder={"Bad breath, toothache, ...."}
+              id="diagnosis"
+              name="diagnosis"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.diagnosis}
             />
-           
-            {/* attachment */}
+            {formik.touched.diagnosis && formik.errors.diagnosis && (
+              <span className="text-[12px]  relative bottom-4 text-right text-red-500">
+                {formik.errors.diagnosis}
+              </span>
+            )}
+
             <div className="flex w-full flex-col gap-4">
               <p className="text-black text-sm">Attachments</p>
-              <div className="grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
-                {[1, 2, 3, 4].map((_, i) => (
-                  <div className="relative w-full">
-                    <img
-                      src={`https://placehold.it/300x300?text=${i}`}
-                      alt="patient"
-                      className="w-full  md:h-40 rounded-lg object-cover"
-                    />
-                    <button
-                      onClick={() =>
-                        toast.error('This feature is not available yet.')
-                      }
-                      className="bg-white rounded-full w-8 h-8 flex-colo absolute -top-1 -right-1"
-                    >
-                      <FaTimes className="text-red-500" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-              <Uploader setImage={{}} />
             </div>
-            {/* submit */}
-            <Button
-              label={'Save'}
-              Icon={HiOutlineCheckCircle}
-              onClick={() => {
-                toast.error('This feature is not available yet');
+
+            <FilesUploader
+              selectImage={(images) => {
+                attachedImagesRef.current = [...images];
               }}
             />
-          </div>
+
+            <Button
+              loading={loading}
+              disabled={!formik.isValid}
+              label={"Save"}
+              Icon={HiOutlineCheckCircle}
+              type="submit"
+              onClick={formik.handleSubmit}
+            />
+          </form>
         </div>
       </div>
     </Layout>

@@ -9,5 +9,13 @@ export const formatDate = (date) => {
 export const birthYearFormater = (birthYear) => {
     const currentDate = new Date();
     const birthDate = new Date(birthYear);
-    return currentDate.getFullYear() - birthDate.getFullYear()
+
+    const year = currentDate.getFullYear() - birthDate.getFullYear()
+    if (year === 0 && currentDate.getMonth() - birthDate.getMonth() > 1) {
+        return `${currentDate.getMonth() - birthDate.getMonth()}Months`;
+    } else if (year === 0 && currentDate.getMonth() - birthDate.getMonth() < 1) {
+        return `${currentDate.getDate() - birthDate.getDate()}days`
+    }
+
+    return `${year}yrs`
 }

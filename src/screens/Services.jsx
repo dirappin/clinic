@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { BiChevronDown, BiPlus } from 'react-icons/bi';
@@ -17,24 +17,23 @@ function Services() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [data, setData] = React.useState({});
   const [status, setStatus] = React.useState(sortsDatas.service[0]);
+  const fetchMutateFunction = useRef();
 
   const onCloseModal = () => {
     setIsOpen(false);
     setData({});
   };
 
-  const onEdit = (datas) => {
-    setIsOpen(true);
-    setData(datas);
-  };
-
   return (
     <Layout>
       {isOpen && (
         <AddEditServiceModal
-          datas={data}
+        title={'Add New Service'}
           isOpen={isOpen}
+          method={'post'}
+          url={'service'}
           closeModal={onCloseModal}
+          mutate={fetchMutateFunction.current}
         />
       )}
       {/* add button */}
@@ -51,39 +50,12 @@ function Services() {
         data-aos-duration="1000"
         data-aos-delay="100"
         data-aos-offset="200"
-        className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
+        className="bg-white my-8 rounded-xl border-[1px] border-border px-5"
       >
         {/* datas */}
 
-        <div className="grid md:grid-cols-6 grid-cols-1 gap-2">
-          <div className="md:col-span-5 grid lg:grid-cols-4 xs:grid-cols-2 items-center gap-2">
-            <input
-              type="text"
-              placeholder='Search "teeth cleaning"'
-              className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
-            />
-            <Select
-              selectedPerson={status}
-              setSelectedPerson={setStatus}
-              datas={sortsDatas.service}
-            >
-              <div className="w-full flex-btn text-main text-sm p-4 border bg-dry border-border font-light rounded-lg focus:border focus:border-subMain">
-                {status.name} <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
-          </div>
-
-          {/* export */}
-          <Button
-            label="Export"
-            Icon={MdOutlineCloudDownload}
-            onClick={() => {
-              toast.error('Exporting is not available yet');
-            }}
-          />
-        </div>
         <div className="mt-8 w-full overflow-x-scroll">
-          <ServiceTable data={servicesData.slice(1, 100)} onEdit={onEdit} />
+          <ServiceTable  mutate={fetchMutateFunction} />
         </div>
       </div>
     </Layout>

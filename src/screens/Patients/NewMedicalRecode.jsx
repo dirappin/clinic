@@ -20,12 +20,14 @@ import { cn } from "../../util/cn";
 import FilesUploader from "../../components/MultiFilesUploader";
 import { useNavigate } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
+import FormUserProfile from "../../components/common/FormUserProfile";
+
+
 
 function NewMedicalRecode() {
   const userData = useRecoilValue(user);
   const { patientId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const { data, error } = useSWR(`${backendBaseUrl}patient/${patientId}`);
   const { data: serviceData, error: serviceError } = useSWR(
     `${backendBaseUrl}service`
   );
@@ -161,42 +163,8 @@ function NewMedicalRecode() {
         <h1 className="text-xl font-semibold">New Medical Record</h1>
       </div>
       <div className=" grid grid-cols-12 gap-6 my-8 items-start">
-        <div
-          data-aos="fade-right"
-          data-aos-duration="1000"
-          data-aos-delay="100"
-          data-aos-offset="200"
-          className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
-        >
-          {!error && data && (
-            <>
-              <img
-                src={data.ProfilePicture}
-                alt="setting"
-                className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-              />
-
-              <div className="gap-2 flex-colo">
-                <h2 className="text-sm font-semibold">
-                  {data.firstName + " " + data.secondName}{" "}
-                </h2>
-
-                <p className="text-xs">{data.phoneNumber}</p>
-                <p className="text-xs text-subMain bg-text font-medium py-1 px-4 rounded-full border-[0.5px] border-subMain">
-                  {new Date().getFullYear() -
-                    new Date(data.birthdate).getFullYear()}
-                </p>
-              </div>
-            </>
-          )}
-
-          {error && (
-            <>
-              <FaRegFaceGrimace className="text-4xl text-gray-800" />
-              <h1 className="text-gray-500">Failed to load the user</h1>
-            </>
-          )}
-        </div>
+          <FormUserProfile />
+     
         {/* tab panel */}
 
         <div
