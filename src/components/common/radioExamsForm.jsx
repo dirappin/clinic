@@ -15,7 +15,7 @@ import DectorSelector from './DectorSelector';
 import AxiosInstancence from '../../ axiosInstance';
 
 
-function RadioExamsForm({ url }) {
+function RadioExamsForm({ url,title }) {
     const [isOpen, setIsOpen] = useState(false);
     const attachedImages = useRef([]);
     const [loading, setLoading] = useState(false);
@@ -80,13 +80,7 @@ function RadioExamsForm({ url }) {
                 )
             }
             <div className="flex items-center gap-4">
-                <Link
-                    to={`/patients/preview/1`}
-                    className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
-                >
-                    <IoArrowBackOutline />
-                </Link>
-                <h1 className="text-xl font-semibold">New Medical Record</h1>
+                <h1 className="text-xl font-semibold">{title}</h1>
             </div>
             <div className=" grid grid-cols-12 gap-6 my-8 items-start">
                 <FormUserProfile />
