@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from './Modal';
 import NoAttachement from '../common/NoAttachement'
+import { formatDate } from '../../util/formatDate';
 const MedicalRadiographiRecodModal = ({ closeModal, isOpen, data }) => {
 
   return (
@@ -8,7 +9,7 @@ const MedicalRadiographiRecodModal = ({ closeModal, isOpen, data }) => {
     <Modal
       closeModal={closeModal}
       isOpen={isOpen}
-      title="12 May 2021"
+      title={formatDate(data.createdAt)}
       width={'max-w-4xl'}
     >
       <div className="flex-colo gap-6">

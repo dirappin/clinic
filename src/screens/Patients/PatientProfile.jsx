@@ -100,13 +100,7 @@ function PatientProfile() {
   return (
     <Layout>
       <div className="flex mb-5 items-center gap-4">
-        <Link
-          to="/patients"
-          className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
-        >
-          <IoArrowBackOutline />
-        </Link>
-        <h1 className="text-xl font-semibold">Deogratias</h1>
+        <h1 className="text-xl font-semibold">{data &&    data.firstName + ' ' + data.secondName}</h1>
       </div>
 
       {displayError && <NetworkError callBack={request} />}

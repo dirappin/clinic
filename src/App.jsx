@@ -131,10 +131,10 @@ function App() {
               path="/triage/visiting/:patientId"
               element={<CreateTriage />}
             />
-            
+
             <Route
               path="/radiographie/visiting/:patientId"
-              element={<RadioExamsForm url={'radiographie'} />}
+              element={<RadioExamsForm url={'radiographie'} title={'New Radiographie'} />}
             />
             <Route
               path="/laboratoire/visiting/:patientId"
@@ -143,7 +143,7 @@ function App() {
             <Route path="/examen/visiting/:patientId" element={<NewExamen />} />
             <Route
               path="/echographie/visiting/:patientId"
-              element={<NewEchographieRecord />}
+              element={<RadioExamsForm url={'echographie'} title={'New Echographie Record'} />}
             />
             <Route
               path="/hospitalisation/visiting/:patientId"
