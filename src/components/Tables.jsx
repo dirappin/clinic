@@ -13,11 +13,9 @@ import axios from "axios";
 import { backendBaseUrl } from "../constant";
 import { MdClose } from "react-icons/md";
 import EmptyResult from "./common/EmptyResult";
-import { formatDate } from "../util/formatDate";
+import { birthYearFormater, formatDate } from "../util/formatDate";
 import FetchError from "../screens/error/fetchError";
 import ServiceTableItem from "./ServiceTableItem";
-import Button from "./Button/Button";
-import { MdOutlineCloudDownload } from 'react-icons/md';
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -312,7 +310,7 @@ export function ServiceTable({ mutate: reload }) {
         </div>
 
       </div>
-      
+
       <table className="table-auto w-full">
         <thead className="bg-dry rounded-md overflow-hidden">
           <tr>
@@ -333,7 +331,7 @@ export function ServiceTable({ mutate: reload }) {
           ))}
         </tbody>
       </table>
-      {error && <FetchError  description={'Failed to load services'} action={() => mutate()} />}
+      {error && <FetchError description={'Failed to load services'} action={() => mutate()} />}
     </div>
   );
 }
@@ -424,12 +422,7 @@ export function PatientTable() {
               <th className={thclasse}>Patient</th>
               <th className={thclasse}>Created At</th>
               <th className={thclasse}>Gender</th>
-
-              <>
-                <th className={thclasse}>Blood Group</th>
-                <th className={thclasse}>Age</th>
-              </>
-
+              <th className={thclasse}>Age</th>
               <th className={thclasse}>Actions</th>
             </tr>
           </thead>
@@ -466,7 +459,7 @@ export function PatientTable() {
                     </div>
                   </td>
                   <td className={tdclasse}>
-                    {new Date(item.createdAt).getFullYear()}
+                    {formatDate(item.createdAt)}
                   </td>
 
                   <td className={tdclasse}>
@@ -481,10 +474,8 @@ export function PatientTable() {
                   </td>
 
                   <>
-                    <td className={tdclasse}>{item.blood}</td>
                     <td className={tdclasse}>
-                      {new Date().getFullYear() -
-                        new Date(item.birthdate).getFullYear()}
+                      {birthYearFormater(item.birthdate)}
                     </td>
                   </>
 
@@ -546,7 +537,7 @@ export function PatientTable() {
                     </div>
                   </td>
                   <td className={tdclasse}>
-                    {new Date(item.createdAt).getFullYear()}
+                    {formatDate(item.createdAt)}
                   </td>
 
                   <td className={tdclasse}>
@@ -563,8 +554,7 @@ export function PatientTable() {
                   <>
                     <td className={tdclasse}>{item.blood}</td>
                     <td className={tdclasse}>
-                      {new Date().getFullYear() -
-                        new Date(item.birthdate).getFullYear()}
+                      {birthYearFormater(item.birthdate)}
                     </td>
                   </>
 

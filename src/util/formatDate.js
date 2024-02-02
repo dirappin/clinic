@@ -6,16 +6,27 @@ export const formatDate = (date) => {
     return `${day}, ${month} ${year}`
 }
 
-export const birthYearFormater = (birthYear) => {
+export const birthYearFormater = (birthDate) => {
     const currentDate = new Date();
-    const birthDate = new Date(birthYear);
-
-    const year = currentDate.getFullYear() - birthDate.getFullYear()
-    if (year === 0 && currentDate.getMonth() - birthDate.getMonth() > 1) {
-        return `${currentDate.getMonth() - birthDate.getMonth()}Months`;
-    } else if (year === 0 && currentDate.getMonth() - birthDate.getMonth() < 1) {
-        return `${currentDate.getDate() - birthDate.getDate()}days`
+    const birthDateObj = new Date(birthDate);
+  
+    const years = currentDate.getFullYear() - birthDateObj.getFullYear();
+    const months = currentDate.getMonth() - birthDateObj.getMonth();
+    const days = currentDate.getDate() - birthDateObj.getDate();
+  
+    if (days < 0) {
+      const lastMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+      const remainingDays = lastMonthDays + days;
+      return remainingDays === 1 ? `${remainingDays} day` : `${remainingDays} days`;
     }
-
-    return `${year}yrs`
+  
+    if (years === 0 && months === 0 && days === 1) {
+      return '1 day';
+    } else if (years === 0 && months > 0) {
+      return `${months} month${months > 1 ? 's' : ''}`;
+    } else if (years > 0) {
+      return `${years} year${years > 1 ? 's' : ''}`;
+    }
+  
+    return 'Invalid date';
 }
