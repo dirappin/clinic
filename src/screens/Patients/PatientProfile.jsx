@@ -25,6 +25,7 @@ import Loader from "../../components/common/Loader";
 import toast from "react-hot-toast";
 import NetworkError from "../error/networkError";
 import AxiosInstance from "../../ axiosInstance";
+import { birthYearFormater } from "../../util/formatDate";
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
@@ -95,6 +96,7 @@ function PatientProfile() {
     }
   };
 
+
   return (
     <Layout>
       <div className="flex mb-5 items-center gap-4">
@@ -130,6 +132,11 @@ function PatientProfile() {
               </h2>
               <p className="text-xs text-textGray">{data.gender}</p>
               <p className="text-xs">+{data.phoneNumber}</p>
+              <p className="text-xs"> <span className="text-gray-500">Urgent Contact: </span>  {data.emergencyContact}</p>
+              <p className="text-xs text-subMain bg-text font-medium py-1 px-4 rounded-full border-[0.5px] border-subMain">
+                Age: {birthYearFormater(data.birthdate)}
+              </p>
+
             </div>
             {/* tabs */}
             <div className="flex-colo gap-3 px-2 xl:px-12 w-full">
@@ -138,11 +145,10 @@ function PatientProfile() {
                   onClick={() => setActiveTab(tab.id)}
                   key={index}
                   className={`
-                ${
-                  activeTab === tab.id
-                    ? "bg-text text-subMain"
-                    : "bg-dry text-main hover:bg-text hover:text-subMain"
-                }
+                ${activeTab === tab.id
+                      ? "bg-text text-subMain"
+                      : "bg-dry text-main hover:bg-text hover:text-subMain"
+                    }
                 text-xs gap-4 flex items-center w-full p-4 rounded`}
                 >
                   <tab.icon className="text-lg" /> {tab.title}

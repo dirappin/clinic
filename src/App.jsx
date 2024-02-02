@@ -52,6 +52,7 @@ import { useEffect } from "react";
 import Loader from "./components/common/Loader";
 import SessionEnd from "./screens/error/session-end";
 import AgentProfile from "./screens/Agent/AgentProfile";
+import RadioExamsForm from "./components/common/radioExamsForm";
 
 
 function App() {
@@ -130,9 +131,10 @@ function App() {
               path="/triage/visiting/:patientId"
               element={<CreateTriage />}
             />
+            
             <Route
               path="/radiographie/visiting/:patientId"
-              element={<NewRadiographieRecord />}
+              element={<RadioExamsForm url={'radiographie'} />}
             />
             <Route
               path="/laboratoire/visiting/:patientId"
