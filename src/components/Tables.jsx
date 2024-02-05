@@ -198,14 +198,9 @@ export function InvoiceTable({ data }) {
 
 // prescription table
 export function MedicineTable({ data, onEdit }) {
+  const { data: medcines, loading, error, mutate } = useSWR(backendBaseUrl + 'pharmacy/' + 'find-all-medcine');
+  const [searchString, setSearchString] = useState('');
   const DropDown1 = [
-    {
-      title: "Edit",
-      icon: FiEdit,
-      onClick: (item) => {
-        onEdit(item);
-      },
-    },
     {
       title: "Edit",
       icon: FiEdit,
@@ -222,52 +217,59 @@ export function MedicineTable({ data, onEdit }) {
     },
   ];
   return (
-    <table className="table-auto w-full">
-      <thead className="bg-dry rounded-md overflow-hidden">
-        <tr>
-          <th className={thclass}>Name</th>
-          <th className={thclass}>
-            Price <span className="text-xs font-light">(USD)</span>
-          </th>
-          <th className={thclass}>Status</th>
-          <th className={thclass}>InStock</th>
-          <th className={thclass}>Measure</th>
-          <th className={thclass}>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, index) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>
-              <h4 className="text-sm font-medium">{item?.name}</h4>
-            </td>
-            <td className={`${tdclass} font-semibold`}>{item?.price}</td>
-            <td className={tdclass}>
-              <span
-                className={`text-xs font-medium ${item?.status === "Out of stock"
-                  ? "text-red-600"
-                  : "text-green-600"
-                  }`}
-              >
-                {item?.status}
-              </span>
-            </td>
-            <td className={tdclass}>{item?.stock}</td>
-            <td className={tdclass}>{item?.measure}</td>
-            <td className={tdclass}>
-              <MenuSelect datas={DropDown1} item={item}>
-                <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                  <BiDotsHorizontalRounded />
-                </div>
-              </MenuSelect>
-            </td>
+    <div>
+      <div className="grid md:grid-cols-6 grid-cols-1 gap-2">
+        <div className="md:col-span-5 mb-4 grid lg:grid-cols-4 xs:grid-cols-2 items-center gap-2">
+          <input
+            onChange={(e) => setSearchString(e.target.value)}
+            type="text"
+            placeholder='Search "paracetamol"'
+            className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
+          />
+        </div>
+
+
+      </div>
+      <table className="table-auto w-full">
+        <thead className="bg-dry rounded-md overflow-hidden">
+          <tr>
+            <th className={thclass}>Name</th>
+            <th className={thclass}>
+              Price <span className="text-xs font-light">($)</span>
+            </th>
+            <th className={thclass}>Quantity</th>
+            <th className={thclass}>Total price<span className="text-xs font-light">($)</span></th>
+            <th className={thclass}>Created At</th>
+            <th className={thclass}>Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {medcines && medcines.filter((item) => item.name.toUpperCase().includes(searchString.toUpperCase())).map((item) => (
+            <tr
+              key={item._id}
+              className="border-b border-border hover:bg-greyed transitions"
+            >
+              <td className={tdclass}>
+                <h4 className="text-sm font-medium">{item?.name}</h4>
+              </td>
+              <td className={`${tdclass} font-semibold`}>{item?.price}</td>
+              <td className={tdclass}>{item?.quantity}</td>
+              <td className={tdclass}>{item?.price * item?.quantity}</td>
+              <td className={tdclass + 'text-gray-600'}>{formatDate(item.createdAt)}</td>
+              <td className={tdclass}>
+                <MenuSelect datas={DropDown1} item={item}>
+                  <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                    <BiDotsHorizontalRounded />
+                  </div>
+                </MenuSelect>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {data && data.length < 1 && <EmptyResult disableButton={true} lable={'No medicine yet.'} />}
+      {error && <FetchError action={() => mutate()} description={'Something went wrong.'} loading={loading} />}
+    </div>
   );
 }
 

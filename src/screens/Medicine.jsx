@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { BiChevronDown, BiPlus } from 'react-icons/bi';
@@ -7,11 +7,16 @@ import { Button, Select } from '../components/Form';
 import { MedicineTable } from '../components/Tables';
 import { medicineData, sortsDatas } from '../components/Datas';
 import AddEditMedicineModal from '../components/Modals/AddEditMedicine';
+import { backendBaseUrl } from '../constant';
+import useSWR from 'swr';
 
 function Medicine() {
+  const {mutate } =  useSWR(backendBaseUrl + 'pharmacy/' + 'find-all-medcine');
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [data, setData] = React.useState({});
   const [status, setStatus] = React.useState(sortsDatas.stocks[0]);
+
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -19,8 +24,8 @@ function Medicine() {
   };
 
   const onEdit = (datas) => {
-    setIsOpen(true);
     setData(datas);
+    setIsOpen(true);
   };
 
   return (
@@ -30,6 +35,7 @@ function Medicine() {
           datas={data}
           isOpen={isOpen}
           closeModal={onCloseModal}
+          mutate={mutate}
         />
       )}
       {/* add button */}
@@ -50,34 +56,7 @@ function Medicine() {
       >
         {/* datas */}
 
-        <div className="grid md:grid-cols-6 grid-cols-1 gap-2">
-          <div className="md:col-span-5 grid lg:grid-cols-4 xs:grid-cols-2 items-center gap-2">
-            <input
-              type="text"
-              placeholder='Search "paracetamol"'
-              className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
-            />
-            <Select
-              selectedPerson={status}
-              setSelectedPerson={setStatus}
-              datas={sortsDatas.stocks}
-            >
-              <div className="w-full flex-btn text-main text-sm p-4 border bg-dry border-border font-light rounded-lg focus:border focus:border-subMain">
-                {status.name} <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
-          </div>
-
-          {/* export */}
-          <Button
-            label="Export"
-            Icon={MdOutlineCloudDownload}
-            onClick={() => {
-              toast.error('Exporting is not available yet');
-            }}
-          />
-        </div>
-        <div className="mt-8 w-full overflow-x-scroll">
+        <div className="w-full overflow-x-scroll">
           <MedicineTable data={medicineData} onEdit={onEdit} />
         </div>
       </div>
