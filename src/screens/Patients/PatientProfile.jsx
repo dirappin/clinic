@@ -26,6 +26,9 @@ import toast from "react-hot-toast";
 import NetworkError from "../error/networkError";
 import AxiosInstance from "../../ axiosInstance";
 import { birthYearFormater } from "../../util/formatDate";
+import { Outlet } from "react-router-dom";
+
+
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
@@ -83,14 +86,8 @@ function PatientProfile() {
         return <InvoiceUsed />;
       case 12:
         return <PaymentsUsed doctor={false} />;
-      case 13:
-        return <PatientImages />;
-      case 14:
-        return <DentalChart />;
       case 15:
         return <PersonalInfo titles={false} />;
-      case 16:
-        return <HealthInfomation />;
       default:
         return;
     }
@@ -100,7 +97,7 @@ function PatientProfile() {
   return (
     <Layout>
       <div className="flex mb-5 items-center gap-4">
-        <h1 className="text-xl font-semibold">{data &&    data.firstName + ' ' + data.secondName}</h1>
+        <h1 className="text-xl font-semibold">{data && data.firstName + ' ' + data.secondName}</h1>
       </div>
 
       {displayError && <NetworkError callBack={request} />}
@@ -159,6 +156,7 @@ function PatientProfile() {
             className="col-span-12 lg:col-span-8 bg-white rounded-xl border-[1px] border-border p-6"
           >
             {tabPanel()}
+            <Outlet />
           </div>
         </div>
       )}

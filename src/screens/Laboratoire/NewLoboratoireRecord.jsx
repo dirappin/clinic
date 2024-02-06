@@ -45,7 +45,6 @@ function NewLoboratoireRecord() {
       const attachedImages =
         attachedImagesRef.current.length < 1 ? [] : await cloudinaryMiltifilesUpload(attachedImagesRef.current);
 
-
       await AxiosInstancence.post("exams/create-exam-result", {
         patientId: patientId,
         doctorId: values.doctor,

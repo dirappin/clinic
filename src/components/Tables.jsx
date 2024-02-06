@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { MenuSelect } from "./Form";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { FiEdit, FiEye } from "react-icons/fi";
-import { RiDeleteBin6Line, RiDeleteBinLine } from "react-icons/ri";
+import { RiCompassLine, RiDeleteBin6Line, RiDeleteBinLine } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
@@ -16,6 +16,8 @@ import EmptyResult from "./common/EmptyResult";
 import { birthYearFormater, formatDate } from "../util/formatDate";
 import FetchError from "../screens/error/fetchError";
 import ServiceTableItem from "./ServiceTableItem";
+import { checkAppointmentStatus } from '../util/formatDate.js'
+
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -766,62 +768,72 @@ export function AgentTable({ functions, search = "" }) {
 
 // appointment table
 export function AppointmentTable({ data, functions, doctor }) {
-  return (
-    <table className="table-auto w-full">
-      <thead className="bg-dry rounded-md overflow-hidden">
-        <tr>
-          <th className={thclass}>Date</th>
-          <th className={thclass}>{doctor ? "Patient" : "Doctor"}</th>
-          <th className={thclass}>Status</th>
-          <th className={thclass}>Time</th>
-          <th className={thclass}>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>
-              <p className="text-xs">{item.date}</p>
-            </td>
-            <td className={tdclass}>
-              <h4 className="text-xs font-medium">
-                {doctor ? item.user.title : item.doctor.title}
-              </h4>
-              <p className="text-xs mt-1 text-textGray">
-                {doctor ? item.user.phone : item.doctor.phone}
-              </p>
-            </td>
-            <td className={tdclass}>
-              <span
-                className={`py-1  px-4 ${item.status === "Approved"
-                  ? "bg-subMain text-subMain"
-                  : item.status === "Pending"
-                    ? "bg-orange-500 text-orange-500"
-                    : item.status === "Cancel" && "bg-red-600 text-red-600"
-                  } bg-opacity-10 text-xs rounded-xl`}
-              >
-                {item.status}
-              </span>
-            </td>
-            <td className={tdclass}>
-              <p className="text-xs">{`${item.from} - ${item.to}`}</p>
-            </td>
+  const { patientId } = useParams()
+  const { data: Appointments, loading, error, mutate } = useSWR(backendBaseUrl + `appointments/all/${patientId}`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
 
-            <td className={tdclass}>
-              <button
-                onClick={() => functions.preview(item)}
-                className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
+  console.log(Appointments);
+
+  return (
+    <div>
+      {error && <FetchError description={'Failed To Load Data'} />}
+      {Appointments && Appointments.length < 1 && <EmptyResult description={'No Record Yet'} disableButton />}
+      {loading && <Loader />}
+      {!loading && Appointments && Appointments.length > 0 && !error
+        &&
+        <table className="table-auto w-full">
+          <thead className="bg-dry rounded-md overflow-hidden">
+            <tr>
+              <th className={thclass}>Date</th>
+              <th className={thclass}>{doctor ? "Patient" : "Doctor"}</th>
+              <th className={thclass}>Status</th>
+              <th className={thclass}>Time</th>
+              <th className={thclass}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Appointments && Appointments.map((item) => (
+              <tr
+                key={item._id}
+                className="border-b border-border hover:bg-greyed transitions"
               >
-                <FiEye />
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                <td className={tdclass}>
+                  <p className="text-xs">{formatDate(item.visitDate)}</p>
+                </td>
+                <td className={tdclass}>
+                  <h4 className="text-xs font-medium">
+                    {item.doctor.firstName + ' ' + item.doctor.secondName}
+                  </h4>
+                  <p className="text-xs mt-1 text-textGray">
+                    {item.doctor.phoneNumber}
+                  </p>
+                </td>
+                <td className={tdclass}>
+                  <span
+                  className=""
+                  >
+                    {checkAppointmentStatus(item.visitDate)}
+                  </span>
+                </td>
+                <td className={tdclass}>
+                  <p className="text-xs">{`${item.from} - ${item.to}`}</p>
+                </td>
+
+                <td className={tdclass}>
+                  <button
+                    onClick={() => functions.preview(item)}
+                    className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
+                  >
+                    <FiEye />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>}
+    </div>
   );
 }
 

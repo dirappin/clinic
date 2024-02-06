@@ -123,8 +123,11 @@ function App() {
             <Route path="/patients" element={<Patients />} />
             <Route
               path="patients/preview/:patientId"
-              element={<PatientProfile />}
+              element={
+                <PatientProfile />
+              }
             />
+
             <Route path="/patients/create" element={<CreatePatient />} />
 
             <Route

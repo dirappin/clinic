@@ -1,56 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
-import {
-  Button,
-  Checkbox,
-  DatePickerComp,
-  Input,
-  Select,
-  Textarea,
-  TimePickerComp,
-} from '../Form';
-import { BiChevronDown, BiPlus } from 'react-icons/bi';
-import { memberData, servicesData, sortsDatas } from '../Datas';
-import { HiOutlineCheckCircle } from 'react-icons/hi';
+import { Button, Textarea } from '../Form';
 import { toast } from 'react-hot-toast';
-import PatientMedicineServiceModal from './PatientMedicineServiceModal';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import AxiosInstancence from '../../ axiosInstance';
+import DectorSelector from "../../components/common/DectorSelector";
+import { useParams } from 'react-router-dom';
 
-// edit member data
-const doctorsData = memberData.map((item) => {
-  return {
-    id: item.id,
-    name: item.title,
-  };
-});
 
-function AddAppointmentModal({ closeModal, isOpen, datas }) {
-  const [services, setServices] = useState(servicesData[0]);
-  const [startDate, setStartDate] = useState(new Date());
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
-  const [status, setStatus] = useState(sortsDatas.status[0]);
-  const [doctors, setDoctors] = useState(doctorsData[0]);
-  const [shares, setShares] = useState({
-    email: false,
-    sms: false,
-    whatsapp: false,
+function AddAppointmentModal({ closeModal, isOpen, datas, mutate }) {
+  console.log(datas);
+  const [loading, setLoading] = useState(false);
+  const { patientId } = useParams();
+  const formik = useFormik({
+    initialValues: {
+      appointmentDate: datas?.visitDate ? datas.visitDate : '',
+      startTime: datas?.visitDate ? datas.startTime : '',
+      endTime: datas?.visitDate ? datas.endTime : '',
+      doctor: datas?.visitDate ? datas.doctor._id : '',
+      description: datas?.visitDate ? datas.description : '',
+    },
+    validationSchema: Yup.object({
+      appointmentDate: Yup.string().required('Appointment date is required'),
+      startTime: Yup.string().required('Start time is required'),
+      endTime: Yup.string().required('End time is required'),
+      doctor: Yup.string().required('Doctor is required'),
+      description: Yup.string().required('Description Is Required'),
+    }),
+    onSubmit: async (values) => {
+      // You can handle form submission here
+      await createAppointement(values)
+    },
   });
-  const [open, setOpen] = useState(false);
 
-  // on change share
-  const onChangeShare = (e) => {
-    setShares({ ...shares, [e.target.name]: e.target.checked });
-  };
+  const createAppointement = async (values) => {
+    setLoading(true)
+    try {
+      await AxiosInstancence.post('appointments', {
+        patient: patientId,
+        visitDate: values.appointmentDate,
+        ...values,
+      })
 
-  // set data
-  useEffect(() => {
-    if (datas?.title) {
-      setServices(datas?.service);
-      setStartTime(datas?.start);
-      setEndTime(datas?.end);
-      setShares(datas?.shareData);
+      setTimeout(() => {
+        setLoading(false);
+        mutate && mutate()
+      }, 2000);
+
+    } catch (error) {
+      toast.error('something went wrong')
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     }
-  }, [datas]);
+  }
 
   return (
     <Modal
@@ -59,97 +63,61 @@ function AddAppointmentModal({ closeModal, isOpen, datas }) {
       title={datas?.title ? 'Edit Appointment' : 'New Appointment'}
       width={'max-w-3xl'}
     >
-      {open && (
-        <PatientMedicineServiceModal
-          closeModal={() => setOpen(!isOpen)}
-          isOpen={open}
-          patient={true}
-        />
-      )}
-      <div className="flex-colo gap-6">
-        <div className="grid sm:grid-cols-12 gap-4 w-full items-center">
-          <div className="sm:col-span-10">
-            <Input
-              label="Patient Name"
-              color={true}
-              placeholder={
-                datas?.title
-                  ? datas.title
-                  : 'Select Patient and patient name will appear here'
-              }
+      <form onSubmit={formik.handleSubmit} className="flex-colo gap-6">
+        {/* Appointment Date */}
+        <div className="w-full">
+          <p className='text-sm mb-2'>Appointment Date</p>
+          <input
+            type="date"
+            className='border p-2 rounded-md w-full'
+            {...formik.getFieldProps('appointmentDate')}
+          />
+          {formik.touched.appointmentDate && formik.errors.appointmentDate ? (
+            <div className="text-sm relative top-2 text-red-500">{formik.errors.appointmentDate}</div>
+          ) : null}
+        </div>
+
+        {/* Start and End Time */}
+        <div className="flex items-center gap-4 w-full">
+          <div className="w-full">
+            <p className='text-sm mb-3'>Start Time</p>
+            <input
+              className='border w-full rounded-md p-2'
+              type="time"
+              {...formik.getFieldProps('startTime')}
             />
+            {formik.touched.startTime && formik.errors.startTime ? (
+              <div className="text-sm relative top-2 text-red-500">{formik.errors.startTime}</div>
+            ) : null}
           </div>
-          <button
-            onClick={() => setOpen(!open)}
-            className="text-subMain flex-rows border border-dashed border-subMain text-sm py-3.5 sm:mt-6 sm:col-span-2 rounded"
-          >
-            <BiPlus /> Add
-          </button>
-        </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <div className="flex w-full flex-col gap-3">
-            <p className="text-black text-sm">Purpose of visit</p>
-            <Select
-              selectedPerson={services}
-              setSelectedPerson={setServices}
-              datas={servicesData}
-            >
-              <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-                {services.name} <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
+          <div className="w-full">
+            <p className='text-sm mb-3'>End Time</p>
+            <input
+              className='p-2 border w-full rounded-md'
+              type="time"
+              {...formik.getFieldProps('endTime')}
+            />
+            {formik.touched.endTime && formik.errors.endTime ? (
+              <div className="text-sm relative top-2 text-red-500">{formik.errors.endTime}</div>
+            ) : null}
           </div>
-          {/* date */}
-          <DatePickerComp
-            label="Date of visit"
-            startDate={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <TimePickerComp
-            label="Start time"
-            startDate={startTime}
-            onChange={(date) => setStartTime(date)}
-          />
-          <TimePickerComp
-            label="End time"
-            startDate={endTime}
-            onChange={(date) => setEndTime(date)}
-          />
-        </div>
-
-        {/* status && doctor */}
-        <div className="grid sm:grid-cols-2 gap-4 w-full">
+        {/* Doctor and Status */}
+        <div className="w-full mt-5">
           <div className="flex w-full flex-col gap-3">
             <p className="text-black text-sm">Doctor</p>
-            <Select
-              selectedPerson={doctors}
-              setSelectedPerson={setDoctors}
-              datas={doctorsData}
-            >
-              <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-                {doctors.name} <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
-          </div>
-          <div className="flex w-full flex-col gap-3">
-            <p className="text-black text-sm">Status</p>
-            <Select
-              selectedPerson={status}
-              setSelectedPerson={setStatus}
-              datas={sortsDatas.status}
-            >
-              <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-                {status.name} <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
+            {/* Implement Doctor Selector here */}
+            <DectorSelector formik={formik} />
+
+            {formik.touched.doctor && formik.errors.doctor ? (
+              <p className="text-sm relative text-red-500">{formik.errors.doctor}</p>
+            ) : null}
           </div>
         </div>
 
-        {/* des */}
+        {/* Description */}
         <Textarea
           label="Description"
           placeholder={
@@ -159,49 +127,36 @@ function AddAppointmentModal({ closeModal, isOpen, datas }) {
           }
           color={true}
           rows={5}
+          {...formik.getFieldProps('description')}
+          value={formik.values.description}
         />
 
-        {/* share */}
-        <div className="flex-col flex gap-8 w-full">
-          <p className="text-black text-sm">Share with patient via</p>
-          <div className="flex flex-wrap sm:flex-nowrap gap-4">
-            <Checkbox
-              name="email"
-              checked={shares.email}
-              onChange={onChangeShare}
-              label="Email"
-            />
-            <Checkbox
-              name="sms"
-              checked={shares.sms}
-              onChange={onChangeShare}
-              label="SMS"
-            />
-            <Checkbox
-              checked={shares.whatsapp}
-              name="whatsapp"
-              onChange={onChangeShare}
-              label="WhatsApp"
-            />
-          </div>
+        <div className="w-full">
+          {formik.touched.description && formik.errors.description ? (
+            <p className="text-sm bottom-5 relative text-red-500">{formik.errors.description}</p>
+          ) : null}
         </div>
-        {/* buttones */}
+
+        {/* Buttons */}
         <div className="grid sm:grid-cols-2 gap-4 w-full">
           <button
+            type="button"
             onClick={closeModal}
             className="bg-red-600 bg-opacity-5 text-red-600 text-sm p-4 rounded-lg font-light"
           >
             {datas?.title ? 'Discard' : 'Cancel'}
           </button>
           <Button
-            label="Save"
-            Icon={HiOutlineCheckCircle}
-            onClick={() => {
-              toast.error('This feature is not available yet');
-            }}
-          />
+            disabled={!formik.isValid}
+            label={'Save'}
+            loading={loading}
+            type="submit"
+            className="bg-blue-600 text-blue-100 text-sm p-4 rounded-lg font-light"
+          >
+            Save
+          </Button>
         </div>
-      </div>
+      </form>
     </Modal>
   );
 }

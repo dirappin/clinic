@@ -170,13 +170,13 @@ export const MenuDatas = [
     title: 'Payments',
     path: '/payments',
     icon: MdListAlt,
-    permission: ['comptable']
+    permission: ['comptable', 'admin']
   },
   {
     title: 'Invoices',
     path: '/invoices',
     icon: TbFileInvoice,
-    permission: ['comptable']
+    permission: ['comptable','admin']
   },
   {
     title: 'Services',
@@ -1375,19 +1375,9 @@ export const patientTab = [
     icon: LuCopyPlus,
   },
   {
-    id: 4,
-    title: 'Chirurgie',
-    icon: LuSwords,
-  },
-  {
     id: 5,
     title: 'Echographie',
     icon: LuBath,
-  },
-  {
-    id: 6,
-    title: 'Maternite',
-    icon: LuBaby,
   },
   {
     id: 7,
@@ -1418,26 +1408,6 @@ export const patientTab = [
     id: 12,
     title: 'Payments',
     icon: RiMoneyDollarCircleLine,
-  },
-  {
-    id: 13,
-    title: 'Images',
-    icon: RiImageLine,
-  },
-  {
-    id: 14,
-    title: 'Dental Chart',
-    icon: RiStethoscopeLine,
-  },
-  {
-    id: 15,
-    title: 'Patient Information',
-    icon: RiUserLine,
-  },
-  {
-    id: 16,
-    title: 'Health Information',
-    icon: RiHeartLine,
   },
 ];
 
