@@ -10,8 +10,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import instance from "../../ axiosInstance";
 import { cloudinaryUploadFile } from "../../util/cloudinary";
-import { backendBaseUrl } from "../../constant";
-import { usersRole } from "../../constant";
+
 
 function PersonalInfo({ titles }) {
   const [title, setTitle] = React.useState(sortsDatas.title[0]);
