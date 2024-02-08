@@ -1467,16 +1467,6 @@ export const AgentTab = [
     title: 'Invoices',
     icon: RiFileList3Line,
   },
-  {
-    id: 6,
-    title: 'Access Control',
-    icon: TbLockAccess,
-  },
-  {
-    id: 7,
-    title: 'Change Password',
-    icon: RiLockPasswordLine,
-  },
 ];
 
 

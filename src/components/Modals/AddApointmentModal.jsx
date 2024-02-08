@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 
 
 function AddAppointmentModal({ closeModal, isOpen, datas, mutate }) {
-  console.log(datas);
   const [loading, setLoading] = useState(false);
   const { patientId } = useParams();
   const formik = useFormik({
@@ -37,7 +36,7 @@ function AddAppointmentModal({ closeModal, isOpen, datas, mutate }) {
   const createAppointement = async (values) => {
     setLoading(true)
     try {
-      await AxiosInstancence.post('appointments', {
+      await AxiosInstancence[datas.visitDate ? 'put' : 'post'](datas && datas.visitDate ? `appointments/update/${datas._id}` : 'appointments', {
         patient: patientId,
         visitDate: values.appointmentDate,
         ...values,
@@ -46,7 +45,8 @@ function AddAppointmentModal({ closeModal, isOpen, datas, mutate }) {
       setTimeout(() => {
         setLoading(false);
         mutate && mutate()
-      }, 2000);
+        closeModal();
+      }, 1000);
 
     } catch (error) {
       toast.error('something went wrong')
@@ -148,12 +148,12 @@ function AddAppointmentModal({ closeModal, isOpen, datas, mutate }) {
           </button>
           <Button
             disabled={!formik.isValid}
-            label={'Save'}
+            label={datas && datas.visitDate ? 'update' : 'create'}
             loading={loading}
             type="submit"
             className="bg-blue-600 text-blue-100 text-sm p-4 rounded-lg font-light"
           >
-            Save
+
           </Button>
         </div>
       </form>

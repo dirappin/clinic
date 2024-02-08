@@ -8,10 +8,13 @@ import NotificationComp from '../components/NotificationComp';
 import { useNavigate } from 'react-router-dom';
 import { BiMenu } from 'react-icons/bi';
 import MenuDrawer from '../components/Drawer/MenuDrawer';
+import user from '../state/user';
+import { useRecoilState } from 'recoil';
 
 
 function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [useratom, setUserAtom] = useRecoilState(user);
 
   // toggle drawer
   const toggleDrawer = () => {
@@ -32,6 +35,8 @@ function Header() {
       icon: AiOutlinePoweroff,
       onClick: () => {
         navigate('/login');
+        setUserAtom({});
+        localStorage.removeItem('token');
       },
     },
   ];
@@ -78,11 +83,11 @@ function Header() {
               <MenuSelect datas={DropDown1}>
                 <div className="flex gap-4 items-center p-4 rounded-lg">
                   <img
-                    src="/images/user1.png"
+                    src={useratom.profileImageUrl}
                     alt="user"
                     className="w-12 border border-border object-cover h-12 rounded-full"
                   />
-                  <p className="text-sm text-textGray font-medium">Dr. Daudi</p>
+                  <p className="text-sm text-textGray font-medium">{useratom.firstName} {useratom.secondName}</p>
                 </div>
               </MenuSelect>
             </div>

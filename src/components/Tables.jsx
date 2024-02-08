@@ -17,6 +17,9 @@ import { birthYearFormater, formatDate } from "../util/formatDate";
 import FetchError from "../screens/error/fetchError";
 import ServiceTableItem from "./ServiceTableItem";
 import { checkAppointmentStatus } from '../util/formatDate.js'
+import { useRecoilValue } from "recoil";
+import user from "../state/user.js";
+import { cn } from "../util/cn.js";
 
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
@@ -679,8 +682,9 @@ export function DoctorsTable({ data, functions, doctor }) {
 }
 
 // agent table
-export function AgentTable({ functions, search = "" }) {
-  const { data, error, isLoading } = useSWR(`${backendBaseUrl}user/find/all`);
+export function AgentTable({ functions, search = "", url = "user/find/all" }) {
+  const { data, error, isLoading } = useSWR(`${backendBaseUrl}${url}`);
+  const userAtom = useRecoilValue(user);
   const navigate = useNavigate();
 
   const DropDown1 = [
@@ -713,7 +717,7 @@ export function AgentTable({ functions, search = "" }) {
               <th className={thclass}>Role</th>
               <th className={thclass}>Created At</th>
               <th className={thclass}>Phone</th>
-              <th className={thclass}>Salary</th>
+              {userAtom.role === 'admin' ? <th className={thclass}>Salary</th> : ""}
               <th className={thclass}>Actions</th>
             </tr>
           </thead>
@@ -750,8 +754,7 @@ export function AgentTable({ functions, search = "" }) {
                     <td className={tdclass}>
                       <p className="text-textGray">+{agent.phoneNumber}</p>
                     </td>
-                    <td className={tdclass}>{agent.salary}</td>
-
+                    {userAtom.role === 'admin' && <td className={tdclass}>{agent.salary}</td>}
                     <td className={tdclass}>
                       <MenuSelect datas={DropDown1} item={agent}>
                         <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
@@ -775,8 +778,6 @@ export function AppointmentTable({ data, functions, doctor }) {
     revalidateOnFocus: true,
     revalidateOnMount: true,
   });
-
-  console.log(Appointments);
 
   return (
     <div>
@@ -814,13 +815,16 @@ export function AppointmentTable({ data, functions, doctor }) {
                 </td>
                 <td className={tdclass}>
                   <span
-                  className=""
+                    className={cn('text-sm px-4 py-1 rounded-full', {
+                      'bg-green-300 text-gray-800 ': checkAppointmentStatus(item.visitDate) === 'pending',
+                      'bg-red-300 text-gray-800 ': checkAppointmentStatus(item.visitDate) === 'passed'
+                    })}
                   >
                     {checkAppointmentStatus(item.visitDate)}
                   </span>
                 </td>
                 <td className={tdclass}>
-                  <p className="text-xs">{`${item.from} - ${item.to}`}</p>
+                  <p className="text-xs">{`${item.startTime}`}</p>
                 </td>
 
                 <td className={tdclass}>

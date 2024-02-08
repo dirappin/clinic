@@ -18,7 +18,6 @@ import NetworkError from "../error/networkError";
 import { FaRegFaceFrown } from "react-icons/fa6";
 
 
-
 function AgentProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
   const [access, setAccess] = React.useState({});
