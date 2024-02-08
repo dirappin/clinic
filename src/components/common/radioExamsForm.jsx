@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Layout from '../../Layout';
-import { Link, useParams } from 'react-router-dom';
-import { IoArrowBackOutline } from 'react-icons/io5';
+import {useParams } from 'react-router-dom';
 import { Button, Textarea } from '../Form';
 import { toast } from 'react-hot-toast';
 import MedicineDosageModal from '../Modals/MedicineDosage';

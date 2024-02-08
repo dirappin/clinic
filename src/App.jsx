@@ -116,7 +116,7 @@ function App() {
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/invoices/create" element={<CreateInvoice />} />
             <Route path="/invoices/edit/:id" element={<EditInvoice />} />
-            <Route path="/invoices/preview/:id" element={<PreviewInvoice />} />
+            <Route path="/invoices/preview/:patientId" element={<PreviewInvoice />} />
             {/* payments */}
             <Route path="/payments" element={<Payments />} />
             <Route path="/payments/edit/:id" element={<EditPayment />} />

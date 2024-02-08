@@ -20,9 +20,6 @@ function Doctors() {
     setIsOpen(false);
   };
 
-  const preview = (data) => {
-    navigate(`/doctors/preview/${data.id}`);
-  };
 
   return (
     <Layout>

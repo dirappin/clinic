@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createElement, useRef, useState } from 'react';
 import Layout from '../../Layout';
 import { invoicesData } from '../../components/Datas';
 import { toast } from 'react-hot-toast';
@@ -12,16 +12,53 @@ import { RiShareBoxLine } from 'react-icons/ri';
 import ShareModal from '../../components/Modals/ShareModal';
 import SenderReceverComp from '../../components/SenderReceverComp';
 import { InvoiceProductsTable } from '../../components/Tables';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+
 
 function PreviewInvoice() {
-  const { id } = useParams();
+  const { patientId } = useParams();
   const [isOpen, setIsoOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const invoiceContainer = useRef(null);
+  const imageRef = useRef();
 
   const buttonClass =
     'bg-subMain flex-rows gap-3 bg-opacity-5 text-subMain rounded-lg border border-subMain border-dashed px-4 py-3 text-sm';
 
-  const invoice = invoicesData.find((invoice) => invoice.id.toString() === id);
+  const invoice = invoicesData.find((invoice) => invoice.id.toString() === patientId);
+
+  const createInvoiceContainer = () => {
+    toPng(invoiceContainer.current).then((imageData)=>{
+      const link = document.createElement('a');
+      imageRef.current.src = imageData;
+      imageRef.current.src = imageData;
+      link.href = imageRef.current;     
+      link.download = 'invoice().png';
+
+      imageRef.current.addEventListener('load',()=>{
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+    
+        canvas.width = imageRef.current.width;
+        canvas.height = imageRef.current.height + 50;
+
+        context.drawImage(imageRef.current, 0, 0,imageRef.current.width,imageRef.current.height);
+    
+        // Convert canvas to data URL
+        const dataUrl = canvas.toDataURL('image/png');
+    
+        // Create anchor element
+        const anchor = document.createElement('a');
+        anchor.href = dataUrl;
+        anchor.download = 'image.png';
+        
+        // Trigger download
+        anchor.click();
+      })
+
+  
+    })
+  }
 
   return (
     <Layout>
@@ -52,31 +89,15 @@ function PreviewInvoice() {
           <h1 className="text-xl font-semibold">Preview Invoice</h1>
         </div>
         <div className="flex flex-wrap items-center gap-4">
-          {/* button */}
           <button
             onClick={() => {
-              setIsShareOpen(true);
-            }}
-            className={buttonClass}
-          >
-            Share <RiShareBoxLine />
-          </button>
-          <button
-            onClick={() => {
-              toast.error('This feature is not available yet');
+              createInvoiceContainer();
             }}
             className={buttonClass}
           >
             Download <MdOutlineCloudDownload />
           </button>
-          <button
-            onClick={() => {
-              toast.error('This feature is not available yet');
-            }}
-            className={buttonClass}
-          >
-            Print <AiOutlinePrinter />
-          </button>
+
           <Link to={`/invoices/edit/` + invoice?.id} className={buttonClass}>
             Edit <FiEdit />
           </Link>
@@ -91,6 +112,7 @@ function PreviewInvoice() {
         </div>
       </div>
       <div
+        ref={invoiceContainer}
         data-aos="fade-up"
         data-aos-duration="1000"
         data-aos-delay="100"
@@ -121,7 +143,7 @@ function PreviewInvoice() {
           </div>
         </div>
         {/* sender and recever */}
-        <SenderReceverComp item={invoice.to} functions={{}} button={false} />
+        <SenderReceverComp  functions={{}} button={false} />
         {/* products */}
         <div className="grid grid-cols-6 gap-6 mt-8">
           <div className="lg:col-span-4 col-span-6 p-6 border border-border rounded-xl overflow-hidden">
@@ -164,6 +186,7 @@ function PreviewInvoice() {
           </div>
         </div>
       </div>
+      <img hidden  ref={imageRef} alt="" />
     </Layout>
   );
 }

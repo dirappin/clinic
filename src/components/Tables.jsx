@@ -203,7 +203,10 @@ export function InvoiceTable({ data }) {
 
 // prescription table
 export function MedicineTable({ data, onEdit }) {
-  const { data: medcines, loading, error, mutate } = useSWR(backendBaseUrl + 'pharmacy/' + 'find-all-medcine');
+  const { data: medcines, loading, error, mutate } = useSWR(backendBaseUrl + 'pharmacy/' + 'find-all-medcine', {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
   const [searchString, setSearchString] = useState('');
   const DropDown1 = [
     {
@@ -280,7 +283,10 @@ export function MedicineTable({ data, onEdit }) {
 
 // service table
 export function ServiceTable({ mutate: reload }) {
-  const { data: servicesData, loading, error, mutate } = useSWR(`${backendBaseUrl}service`);
+  const { data: servicesData, loading, error, mutate } = useSWR(`${backendBaseUrl}service`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
   const [searchValue, setSearchValue] = useState("")
 
   useEffect(() => {
@@ -354,7 +360,11 @@ export function PatientTable() {
   const [showNotFountResult, setShowNotFountResult] = useState(false);
 
   const { data, error, isLoading } = useSWR(
-    `${backendBaseUrl}patient/?skip=${1}`
+    `${backendBaseUrl}patient/?skip=${1}`,
+    {
+      revalidateOnFocus: true,
+      revalidateOnMount: true,
+    }
   );
 
   const thclasse = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
@@ -683,7 +693,10 @@ export function DoctorsTable({ data, functions, doctor }) {
 
 // agent table
 export function AgentTable({ functions, search = "", url = "user/find/all" }) {
-  const { data, error, isLoading } = useSWR(`${backendBaseUrl}${url}`);
+  const { data, error, isLoading } = useSWR(`${backendBaseUrl}${url}`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
   const userAtom = useRecoilValue(user);
   const navigate = useNavigate();
 
@@ -907,56 +920,90 @@ export function PaymentTable({ data, functions, doctor }) {
 
 // invoice used table
 export function InvoiceUsedTable({ data, functions }) {
+  const { patientId } = useParams()
+  const [totalPrice, setTotalPrice] = useState(0);
+  const { loading, mutate, data: invoices, error } = useSWR(`${backendBaseUrl}medical-record/invoices/all/${patientId}`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
+
+
+  useEffect(() => {
+    let accumaltor = 0;
+    const calculateTotalaAmount = () => {
+
+      if (invoices) {
+        invoices.forEach((item) => {
+          const accumilatedPrices = item.Treatments.reduce((ReduceAccumilator, currentItem) => (ReduceAccumilator + currentItem.price), 0);
+          console.log(accumilatedPrices)
+          accumaltor += accumilatedPrices;
+        });
+
+
+        invoices.forEach((item) => {
+          const accumilatedPrices = item.prescribeMedecin.reduce((ReduceAccumilator, currentItem) => parseFloat(currentItem.id.price + ReduceAccumilator), 0);
+          console.log(accumilatedPrices);
+          accumaltor += accumilatedPrices;
+        });
+
+        setTotalPrice(accumaltor)
+      }
+    }
+    calculateTotalaAmount();
+  }, [invoices])
+
+
+
   return (
-    <table className="table-auto w-full">
-      <thead className="bg-dry rounded-md overflow-hidden">
-        <tr>
-          <th className={thclass}>Invoice ID</th>
-          <th className={thclass}>Create Date</th>
-          <th className={thclass}>Due Date</th>
-          <th className={thclass}>Amount</th>
-          <th className={thclass}>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>
-              <p className="text-xs">#{item.id}</p>
-            </td>
-            <td className={tdclass}>
-              <p className="text-xs">{item.createdDate}</p>
-            </td>
-            <td className={tdclass}>
-              <p className="text-xs">{item.dueDate}</p>
-            </td>
-
-            <td className={tdclass}>
-              <p className="text-xs font-semibold">{`$${item.total}`}</p>
-            </td>
-
-            <td className={tdclass}>
-              <button
-                onClick={() => functions.preview(item.id)}
-                className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
-              >
-                <FiEye />
-              </button>
-            </td>
+    <div>
+      {error && <FetchError loading={loading} action={() => mutate()} />}
+      <table className="table-auto w-full">
+        <thead className="bg-dry rounded-md overflow-hidden">
+          <tr>
+            <th className={thclass}>Invoice ID</th>
+            <th className={thclass}>Created Date</th>
+            <th className={thclass}>Amount</th>
+            <th className={thclass}>Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {invoices && invoices.map((item) => (
+            <tr
+              key={item._id}
+              className="border-b border-border hover:bg-greyed transitions"
+            >
+              <td className={tdclass}>
+                <p className="text-xs">#{item._id}</p>
+              </td>
+
+              <td className={tdclass}>
+                <p className="text-xs">{formatDate(item.createdAt)}</p>
+              </td>
+
+              <td className={tdclass}>
+                <p className="text-xs font-semibold">{`$${totalPrice}`}</p>
+              </td>
+
+              <td className={tdclass}>
+                <button
+                  onClick={() => functions.preview(item._id)}
+                  className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
+                >
+                  <FiEye />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
 // invoice table
 export function InvoiceProductsTable({ data, functions, button }) {
   return (
-    <table className="table-auto w-full">
+    <table className="w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>Item</th>
