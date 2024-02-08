@@ -15,7 +15,6 @@ import { BiDollar } from "react-icons/bi";
 
 
 function AgentPersonalInfo({ titles, data = {} }) {
-  const [title, setTitle] = React.useState(sortsDatas.title[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -48,13 +47,13 @@ function AgentPersonalInfo({ titles, data = {} }) {
 
     try {
       const imageUrl = selectedProfileImage ? await cloudinaryUploadFile(selectedProfileImage) : data.user.profileImageUrl;
-      const request = await AxiosInstancence.post("user/update/profile/" + data.user._id, {
+      await AxiosInstancence.post("user/update/profile/" + data.user._id, {
         ...values,
         profileImageUrl: imageUrl,
       });
 
       setLoading(false);
-      navigate("/agents");
+      navigate(-1);
     } catch (error) {
 
       setError(

@@ -1,5 +1,5 @@
 import { Listbox, Menu, Switch } from "@headlessui/react";
-import React from "react";
+import React, { useRef } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 import DatePicker from "react-datepicker";
 import { FaCheck } from "react-icons/fa";
@@ -22,7 +22,7 @@ export function Input({
   errormessage,
   ...props
 }) {
-
+  const input = useRef(null);
   const [reveal, setReveal] = useState(false);
   return (
     <div className={cn("text-sm w-full")}>
@@ -37,10 +37,11 @@ export function Input({
         "flex items-center gap-2": type === "password"
       })}>
         <input
+          ref={input}
           {...props}
           name={name}
           {...register}
-          type={reveal || type !== 'password' ? type || 'number' : 'password'}
+          type={type}
           placeholder={placeholder}
           className={cn(
             "w-full bg-transparent text-sm mt-3 p-4 border  rounded-lg focus:border focus:border-subMain",
@@ -52,7 +53,10 @@ export function Input({
         />
 
         {type === 'password' && (
-          <button type="button" onClick={() => setReveal(!reveal)} className="h-[3.2rem] w-20 bg-gray-100 rounded-md border relative top-1 border-gray-300 flex items-center text-2xl justify-center">
+          <button type="button" onClick={() => {
+            setReveal(!reveal)
+            input.current.type = reveal ? 'password' : 'text' ;
+          }} className="h-[3.2rem] w-20 bg-gray-100 rounded-md border relative top-1 border-gray-300 flex items-center text-2xl justify-center">
             {!reveal ? <VscEye className="text-gray-600 " /> : <VscEyeClosed className="text-gray-600 " />}
           </button>
         )}

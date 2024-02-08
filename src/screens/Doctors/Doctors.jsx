@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { BiPlus } from 'react-icons/bi';
@@ -8,10 +8,13 @@ import { DoctorsTable } from '../../components/Tables';
 import { doctorsData } from '../../components/Datas';
 import { useNavigate } from 'react-router-dom';
 import AddDoctorModal from '../../components/Modals/AddDoctorModal';
+import { AgentTable } from '../../components/Tables';
+
 
 function Doctors() {
   const [isOpen, setIsOpen] = React.useState(false);
   const navigate = useNavigate();
+  const [searchString, setSearchString] = useState("");
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -53,30 +56,20 @@ function Doctors() {
         {/* datas */}
 
         <div className="grid md:grid-cols-6 sm:grid-cols-2 grid-cols-1 gap-2">
-          <div className="md:col-span-5 grid lg:grid-cols-4 items-center gap-6">
+          <div className="md:col-span-6 grid lg:grid-cols-2 items-center gap-6">
             <input
+              onChange={((e) => setSearchString(e.target.value))}
               type="text"
               placeholder='Search "daudi mburuge"'
               className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
             />
           </div>
 
-          {/* export */}
-          <Button
-            label="Export"
-            Icon={MdOutlineCloudDownload}
-            onClick={() => {
-              toast.error('Exporting is not available yet');
-            }}
-          />
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
-          <DoctorsTable
-            doctor={true}
-            data={doctorsData}
-            functions={{
-              preview: preview,
-            }}
+          <AgentTable
+            search={searchString}
+            url='user/doctors'
           />
         </div>
       </div>
