@@ -6,9 +6,14 @@ import { toast } from 'react-hot-toast';
 import { InvoiceTable } from '../../components/Tables';
 import { invoicesData } from '../../components/Datas';
 import { BiPlus } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import useSWR from 'swr';
+import { backendBaseUrl } from '../../constant';
 
 function Invoices() {
+  const {patietnId} = useParams()
+  const { loading, mutate, data,error } = useSWR(`${backendBaseUrl}/medical-record/invoices/all/${patietnId}`);
+
   return (
     <Layout>
       {/* add button */}
@@ -49,6 +54,7 @@ function Invoices() {
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
           <InvoiceTable data={invoicesData} />
+          kedekdlekl
         </div>
       </div>
     </Layout>

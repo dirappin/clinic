@@ -36,7 +36,6 @@ export const birthYearFormater = (birthDate) => {
 
 export const checkAppointmentStatus = (appointmentDate) => {
   const serializeAppointmentDate = new Date(appointmentDate);
-  console.log(serializeAppointmentDate);
   const currentDate = new Date();
 
   if (currentDate < serializeAppointmentDate) return 'pending'
