@@ -11,11 +11,11 @@ const MedicalRecordItem = ({ item }) => {
   useEffect(() => {
     let accumulator = 0;
     item.Treatments.forEach((item) => {
-      accumulator += +item.price;
+      accumulator += parseFloat(item.price) ;
     });
 
     item.prescribeMedecin.forEach((item) => {
-      accumulator += +item.id.price;
+      accumulator +=  parseFloat(item.id.price) ;
     });
 
     setTotalPrice(accumulator);

@@ -3,7 +3,7 @@ import { CiWifiOff } from "react-icons/ci";
 import { Button } from "../../components/Form";
 import { TbFaceIdError } from "react-icons/tb";
 
-const networkError = ({ callBack, label }) => {
+const networkError = ({ callBack, label, loading }) => {
   return (
     <div className="w-full flex justify-center items-center flex-col py-10">
       <div className="">
@@ -15,6 +15,7 @@ const networkError = ({ callBack, label }) => {
           : label}
       </p>
       <Button
+        loading={loading}
         onClick={() => (callBack ? callBack() : () => window.location.reload())}
         className="w-[200px] text-white mt-5"
         label={"Reload"}
