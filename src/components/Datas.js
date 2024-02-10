@@ -437,10 +437,6 @@ export const memberAgentsData = [
 export const sortsDatas = {
   status: [
     {
-      id: 1,
-      name: 'Status...',
-    },
-    {
       id: 2,
       name: 'Pending',
     },
@@ -455,12 +451,8 @@ export const sortsDatas = {
   ],
   method: [
     {
-      id: 1,
-      name: 'Payment method',
-    },
-    {
       id: 2,
-      name: 'Cash',
+      name: 'cash',
     },
     {
       id: 3,

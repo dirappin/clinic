@@ -20,12 +20,22 @@ import { checkAppointmentStatus } from '../util/formatDate.js'
 import { useRecoilValue } from "recoil";
 import user from "../state/user.js";
 import { cn } from "../util/cn.js";
-
+import InvoiceItem from "./InvoiceItem.jsx";
+import PayementItem from "./PayementItem.jsx";
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
 
 export function Transactiontable({ data, action, functions }) {
+  const { patientId } = useParams()
+  const { loading, mutate, data: payements, error } = useSWR(`${backendBaseUrl}medical-record/invoices/all/${patientId}`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
+
+  console.log(payements, error);
+
+
   const DropDown1 = [
     {
       title: "Edit",
@@ -49,6 +59,8 @@ export function Transactiontable({ data, action, functions }) {
       },
     },
   ];
+
+
   return (
     <table className="table-auto w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
@@ -858,147 +870,78 @@ export function AppointmentTable({ data, functions, doctor }) {
 
 // payment table
 export function PaymentTable({ data, functions, doctor }) {
-  return (
-    <table className="table-auto w-full">
-      <thead className="bg-dry rounded-md overflow-hidden">
-        <tr>
-          <th className={thclass}>Date</th>
-          <th className={thclass}>{doctor ? "Patient" : "Doctor"}</th>
-          <th className={thclass}>Status</th>
-          <th className={thclass}>Amount</th>
-          <th className={thclass}>Method</th>
-          <th className={thclass}>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>
-              <p className="text-xs">{item.date}</p>
-            </td>
-            <td className={tdclass}>
-              <h4 className="text-xs font-medium">
-                {doctor ? item.user.title : item.doctor.title}
-              </h4>
-              <p className="text-xs mt-1 text-textGray">
-                {doctor ? item.user.phone : item.doctor.phone}
-              </p>
-            </td>
-            <td className={tdclass}>
-              <span
-                className={`py-1  px-4 ${item.status === "Paid"
-                  ? "bg-subMain text-subMain"
-                  : item.status === "Pending"
-                    ? "bg-orange-500 text-orange-500"
-                    : item.status === "Cancel" && "bg-red-600 text-red-600"
-                  } bg-opacity-10 text-xs rounded-xl`}
-              >
-                {item.status}
-              </span>
-            </td>
-            <td className={tdclass}>
-              <p className="text-xs font-semibold">{`$${39}`}</p>
-            </td>
-
-            <td className={tdclass}>
-              <button
-                onClick={() => functions.preview(item.id)}
-                className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
-              >
-                <FiEye />
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-// invoice used table
-export function InvoiceUsedTable({ data, functions }) {
   const { patientId } = useParams()
-  const [totalPrice, setTotalPrice] = useState(0);
-  const { loading, mutate, data: invoices, error } = useSWR(`${backendBaseUrl}medical-record/invoices/all/${patientId}`, {
+  const { loading, mutate, data: payements, error } = useSWR(`${backendBaseUrl}medical-record/payements/${patientId}`, {
     revalidateOnFocus: true,
     revalidateOnMount: true,
   });
 
 
-  useEffect(() => {
-    let accumaltor = 0;
-    const calculateTotalaAmount = () => {
+  return (
+    <div>
+      {loading && <FetchError loading={loading} description={'Failed to get records'} action={() => mutate()} />}
+      {loading && <Loader className={'h-48'} />}
+      {payements && payements.length < 1 && <EmptyResult lable={'No records yet'} />}
 
-      if (invoices) {
-        invoices.forEach((item) => {
-          const accumilatedPrices = item.Treatments.reduce((ReduceAccumilator, currentItem) => (ReduceAccumilator + currentItem.price), 0);
-          accumaltor += accumilatedPrices;
-        });
-
-        invoices.forEach((item) => {
-          const accumilatedPrices = item.prescribeMedecin.reduce((ReduceAccumilator, currentItem) => parseFloat(currentItem.id.price + ReduceAccumilator), 0);
-          accumaltor += accumilatedPrices;
-        });
-
-        setTotalPrice(accumaltor)
+      {payements && payements.length > 0 &&
+        <table className="table-auto w-full">
+          <thead className="bg-dry rounded-md overflow-hidden">
+            <tr>
+              <th className={thclass}>Date</th>
+              <th className={thclass}>{doctor ? "Patient" : "Doctor"}</th>
+              <th className={thclass}>Amount</th>
+              <th className={thclass}>Method</th>
+              <th className={thclass}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {payements.map((item) => (
+              <PayementItem item={item} />
+            ))}
+          </tbody>
+        </table>
       }
-    }
-    calculateTotalaAmount();
-  }, [invoices])
+    </div>
+  );
+}
 
-
+// invoice used table
+export function InvoiceUsedTable() {
+  const { patientId } = useParams()
+  const { loading, mutate, data: invoices, error } = useSWR(`${backendBaseUrl}medical-record/invoices/all/${patientId}`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
 
   return (
     <div>
+      {loading && <Loader />}
       {error && <FetchError loading={loading} action={() => mutate()} />}
-      <table className="table-auto w-full">
-        <thead className="bg-dry rounded-md overflow-hidden">
-          <tr>
-            <th className={thclass}>Invoice ID</th>
-            <th className={thclass}>Created Date</th>
-            <th className={thclass}>Amount</th>
-            <th className={thclass}>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {invoices && invoices.map((item) => (
-            <tr
-              key={item._id}
-              className="border-b border-border hover:bg-greyed transitions"
-            >
-              <td className={tdclass}>
-                <p className="text-xs">#{item._id}</p>
-              </td>
-
-              <td className={tdclass}>
-                <p className="text-xs">{formatDate(item.createdAt)}</p>
-              </td>
-
-              <td className={tdclass}>
-                <p className="text-xs font-semibold">{`$${totalPrice}`}</p>
-              </td>
-
-              <td className={tdclass}>
-                <button
-                  onClick={() => functions.preview(item._id)}
-                  className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
-                >
-                  <FiEye />
-                </button>
-              </td>
+      {invoices && invoices.length < 1 && <EmptyResult disableButton lable={'No invoices yet'} />}
+      {invoices && invoices.length > 1 &&
+        <table className="table-auto w-full">
+          <thead className="bg-dry rounded-md overflow-hidden">
+            <tr>
+              <th className={thclass}>Invoice ID</th>
+              <th className={thclass}>Created Date</th>
+              <th className={thclass}>Amount</th>
+              <th className={thclass}>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {invoices && invoices.map((item) => (
+              <InvoiceItem item={item} key={item._id} />
+            ))}
+          </tbody>
+        </table>
+      }
     </div>
   );
 }
 
 // invoice table
-export function InvoiceProductsTable({ data, functions, button }) {
+export function InvoiceProductsTable({ data }) {
   return (
     <table className="w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
@@ -1014,6 +957,7 @@ export function InvoiceProductsTable({ data, functions, button }) {
           </th>
         </tr>
       </thead>
+
       <tbody>
         {data?.map((item) => (
           <tr
