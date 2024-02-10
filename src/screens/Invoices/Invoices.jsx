@@ -54,7 +54,6 @@ function Invoices() {
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
           <InvoiceTable data={invoicesData} />
-          kedekdlekl
         </div>
       </div>
     </Layout>

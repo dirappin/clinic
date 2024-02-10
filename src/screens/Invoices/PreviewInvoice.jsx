@@ -20,10 +20,7 @@ import { formatDate } from '../../util/formatDate';
 import Loader from '../../components/common/Loader';
 
 
-
-
 function PreviewInvoice() {
-  const { patientId } = useParams();
   const [isOpen, setIsoOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const invoiceContainer = useRef(null);
@@ -92,6 +89,7 @@ function PreviewInvoice() {
     <Layout>
       {isOpen && (
         <PaymentModal
+          data={invoice}
           isOpen={isOpen}
           closeModal={() => {
             setIsoOpen(false);
@@ -142,7 +140,7 @@ function PreviewInvoice() {
 
       {loading && <Loader />}
       {error && <NetworkError loading={loading} callBack={() => mutate()} />}
-      {invoice &&
+      {!error && invoice &&
         <div ref={invoiceContainer} className="p-3">
           <div
             data-aos="fade-up"
@@ -171,7 +169,7 @@ function PreviewInvoice() {
               </div>
             </div>
             {/* sender and recever */}
-            <SenderReceverComp item={invoice.senderId}  button={false} />
+            <SenderReceverComp item={invoice.senderId} button={false} />
             {/* products */}
             <div className="grid grid-cols-6 gap-6 mt-8">
               <div className="lg:col-span-4 col-span-6 p-6 border border-border rounded-xl overflow-hidden">
@@ -192,7 +190,7 @@ function PreviewInvoice() {
                 </div>
                 <div className="flex-btn gap-4">
                   <p className="text-sm font-extralight">Discount:</p>
-                  <h6 className="text-sm font-medium">{0}</h6>
+                  <h6 className="text-sm font-medium">${0}</h6>
                 </div>
 
 

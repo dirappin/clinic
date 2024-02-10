@@ -19,6 +19,16 @@ function Payments() {
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
   const [startDate, endDate] = dateRange;
   const navigate = useNavigate();
+  const { patientId } = useParams()
+
+
+  const { loading, mutate, data: payements, error } = useSWR(`${backendBaseUrl}medical-record/invoices/all/${patientId}`, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+  });
+
+  console.log(payements,loading,error);
+
 
   const sorts = [
     {
@@ -153,6 +163,7 @@ function Payments() {
           />
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis, quas laboriosam sapiente autem deleniti debitis doloribus quia fugit animi id eaque, aperiam cumque rem ullam ipsam accusantium? Ipsam, error eligendi?
           <Transactiontable
             data={transactionData}
             action={true}

@@ -191,7 +191,7 @@ function PreviewInvoice() {
                 </div>
                 <div className="flex-btn gap-4">
                   <p className="text-sm font-extralight">Discount:</p>
-                  <h6 className="text-sm font-medium">{invoice.discount}</h6>
+                  <h6 className="text-sm font-medium">${invoice.discount || 0}</h6>
                 </div>
 
                 <Button loading={updateDiscountLoading} onClick={() => updateDiscount()} label={'update Discount'} className={'text-sm'}></Button>
