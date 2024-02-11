@@ -54,10 +54,6 @@ function Patients() {
     },
   ];
 
-  // preview
-  const previewPayment = (id) => {
-    navigate(`/patients/preview/${id}`);
-  };
 
   return (
     <Layout>

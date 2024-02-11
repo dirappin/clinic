@@ -4,22 +4,41 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEye } from "react-icons/fi";
 import MedicalRecodModal from "../../components/Modals/MedicalRecodModal";
 import { medicalRecodData } from "../../components/Datas";
+import DeleteModal from "../../components/Modals/DeleteModal";
+import AxiosInstancence from "../../ axiosInstance";
+import toast from "react-hot-toast";
 
-const MedicalRecordItem = ({ item }) => {
+const MedicalRecordItem = ({ item,request }) => {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [openDeleteModal, setDeleteModal] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
+  const [loading,setLoading] = useState(false);
+
   useEffect(() => {
     let accumulator = 0;
     item.Treatments.forEach((item) => {
-      accumulator += parseFloat(item.price) ;
+      accumulator += parseFloat(item.price);
     });
 
     item.prescribeMedecin.forEach((item) => {
-      accumulator +=  parseFloat(item.id.price) ;
+      accumulator += parseFloat(item.id.price);
     });
 
     setTotalPrice(accumulator);
   }, []);
+
+
+  const deleteModal = async () => {
+    setLoading(true)
+    try {
+      await AxiosInstancence.delete(`medical-record/${item._id}`);
+      setLoading(false)
+      request();
+    } catch (error) {
+      toast.error('Failed to delete the record');
+      setLoading(false)
+    }
+  }
 
   return (
     <>
@@ -29,6 +48,15 @@ const MedicalRecordItem = ({ item }) => {
           closeModal={() => setOpenDetail(false)}
           isOpen={true}
           datas={item}
+        />
+      )}
+
+      {openDeleteModal && (
+        <DeleteModal
+          close={() => setDeleteModal(false)}
+          action={deleteModal}
+          isOpen={openDeleteModal}
+          loading={loading}
         />
       )}
 
@@ -113,7 +141,7 @@ const MedicalRecordItem = ({ item }) => {
           </button>
           <button
             onClick={() => {
-              toast.error("This feature is not available yet");
+              setDeleteModal(true);
             }}
             className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
           >

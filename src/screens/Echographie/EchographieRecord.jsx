@@ -12,10 +12,6 @@ import RadioExamRecord from '../../components/common/RadioExamRecord';
 
 const EchographieRecord = () => {
 
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [datas, setDatas] = React.useState({});
-  const navigate = useNavigate();
-  const { patientId } = useParams();
 
   return (
 

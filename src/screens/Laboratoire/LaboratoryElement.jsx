@@ -4,9 +4,28 @@ import MedicalLoboratoireRecodModal from '../../components/Modals/MedicalLoborat
 import { FiEye } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { useState } from 'react';
+import AxiosInstancence from '../../ axiosInstance';
+import DeleteModal from '../../components/Modals/DeleteModal';
 
-const LaboratoryElement = ({ data }) => {
+
+const LaboratoryElement = ({ data,mutate }) => {
     const [isOpen, setIsOpen] = React.useState(false);
+    const [loading, setLoading] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+    const changeRecord = async () => {
+        setLoading(true)
+        try {
+            await AxiosInstancence.delete(`radiographie/${data._id}`);
+            setLoading(false)
+            mutate();
+            setOpenDeleteModal(false);
+        } catch (error) {
+            setLoading(false)
+            toast.error('Failed to delete the record');
+        }
+    }
 
     return (
         <>
@@ -66,7 +85,7 @@ const LaboratoryElement = ({ data }) => {
                     </button>
                     <button
                         onClick={() => {
-                            toast.error('This feature is not available yet');
+                            setOpenDeleteModal(true);
                         }}
                         className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
                     >
@@ -74,6 +93,14 @@ const LaboratoryElement = ({ data }) => {
                     </button>
                 </div>
             </div>
+            {
+                openDeleteModal &&
+                <DeleteModal
+                    action={async () => await changeRecord()}
+                    loading={loading}
+                    isOpen={openDeleteModal}
+                    close={() => setOpenDeleteModal(false)} />
+            }
         </>
     )
 }

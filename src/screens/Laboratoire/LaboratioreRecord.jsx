@@ -58,7 +58,7 @@ const LaboratioreRecord = () => {
 
         {error && <FetchError action={() => mutate()} />}
         {data && data.map((data, index) => (
-          <LaboratoryElement key={index} data={data} />
+          <LaboratoryElement key={index} data={data}  mutate={mutate} />
         ))}
       </div>
     </>

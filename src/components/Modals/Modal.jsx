@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { cn } from '../../util/cn';
 
-export default function Modal({ closeModal, isOpen, width, children, title, disableDeleteButton }) {
+export default function Modal({ closeModal, isOpen, width, children, title, disableDeleteButton, hiddeCloseBtn }) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -35,14 +35,17 @@ export default function Modal({ closeModal, isOpen, width, children, title, disa
                   className={` w-full ${width ? width : 'max-w-4xl'
                     } transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
                 >
-                  <div className="w-full flex-btn gap-2 mb-8">
+                  <div className="w-full  flex-btn gap-2 mb-8">
                     <div>{title}</div>
-                    {disableDeleteButton && <button
-                      onClick={closeModal}
-                      className={cn("w-14 h-12 bg-dry text-red-600 rounded-md flex-colo")}
-                    >
-                      <FaTimes />
-                    </button>
+                    {disableDeleteButton &&
+                      <button
+                        onClick={closeModal}
+                        className={cn("w-14 h-12  bg-dry text-red-600 rounded-md flex-colo", {
+                          'opacity-0': hiddeCloseBtn
+                        })}
+                      >
+                        <FaTimes />
+                      </button>
                     }
                   </div>
 

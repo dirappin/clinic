@@ -73,7 +73,7 @@ function MedicalRecord() {
         )}
         {loading && <Loader />}
         {data.map((item) => (
-          <MedicalRecordItem item={item} />
+          <MedicalRecordItem key={item._id} item={item} request={request} />
         ))}
       </div>
     </>
