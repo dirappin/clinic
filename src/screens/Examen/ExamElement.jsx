@@ -3,12 +3,29 @@ import MedicalRecodExamenModal from "../../components/Modals/MedicalRecodExamenM
 import { FiEye } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { medicalRecodExamengeData } from "../../components/Datas";
 import { formatDate } from "../../util/formatDate";
+import AxiosInstancence from "../../ axiosInstance";
+import { useState } from "react";
+import DeleteModal from "../../components/Modals/DeleteModal";
 
 
-const ExamElement = ({ data }) => {
+const ExamElement = ({ data,mutate }) => {
     const [isOpen, setIsOpen] = React.useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const deleteRecord = async () => {
+        setLoading(true)
+        try {
+            await AxiosInstancence.delete(`exams/${data._id}`);
+            setLoading(false)
+            mutate();
+            setOpenDeleteModal(false);
+        } catch (error) {
+            setLoading(false)
+            toast.error('Failed to delete the record');
+        }
+    }
 
     return (
         <>
@@ -58,7 +75,7 @@ const ExamElement = ({ data }) => {
                     </button>
                     <button
                         onClick={() => {
-                            toast.error("This feature is not available yet");
+                            setOpenDeleteModal(true);
                         }}
                         className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
                     >
@@ -66,6 +83,14 @@ const ExamElement = ({ data }) => {
                     </button>
                 </div>
             </div>
+            {
+                openDeleteModal &&
+                <DeleteModal
+                    action={async () => await deleteRecord()}
+                    loading={loading}
+                    isOpen={openDeleteModal}
+                    close={() => setOpenDeleteModal(false)} />
+            }
         </>
     );
 };

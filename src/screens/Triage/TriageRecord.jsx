@@ -62,7 +62,7 @@ const TriageRecord = () => {
         {data && data.length < 1 && <EmptyResult lable={'No triage Yet'} disableButton />}
         {error && <FetchError loading={loading} action={() => mutate()} />}
         {data?.map((data) => (
-          <TriageRecordElement data={data} />
+          <TriageRecordElement mutate={mutate} data={data} />
         ))}
       </div>
     </>

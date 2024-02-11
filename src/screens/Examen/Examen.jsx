@@ -47,7 +47,7 @@ const Examen = () => {
         {error && <FetchError action={() => mutate()} />}
         {data &&
           data.length > 0 &&
-          data.map((exam, index) => <ExamElement key={index} data={exam} />)}
+          data.map((exam, index) => <ExamElement key={index} data={exam} mutate={mutate} />)}
       </div>
     </>
   );

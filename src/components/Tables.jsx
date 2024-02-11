@@ -5,7 +5,7 @@ import { FiEdit, FiEye } from "react-icons/fi";
 import { RiCompassLine, RiDeleteBin6Line, RiDeleteBinLine } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import Loader from "./common/Loader";
 import NetworkError from "../screens/error/networkError";
 import { IoSearchOutline } from "react-icons/io5";
@@ -22,6 +22,7 @@ import user from "../state/user.js";
 import { cn } from "../util/cn.js";
 import InvoiceItem from "./InvoiceItem.jsx";
 import PayementItem from "./PayementItem.jsx";
+import PatientListItem from "./PatientListItem.jsx";
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -32,8 +33,6 @@ export function Transactiontable({ data, action, functions }) {
     revalidateOnFocus: true,
     revalidateOnMount: true,
   });
-
-  console.log(payements, error);
 
 
   const DropDown1 = [
@@ -62,73 +61,77 @@ export function Transactiontable({ data, action, functions }) {
 
 
   return (
-    <table className="table-auto w-full">
-      <thead className="bg-dry rounded-md overflow-hidden">
-        <tr>
-          <th className={thclass}>#</th>
-          <th className={thclass}>Patient</th>
-          <th className={thclass}>Date</th>
-          <th className={thclass}>Status</th>
-          <th className={thclass}>
-            Amout <span className="text-xs font-light">(Tsh)</span>
-          </th>
-          <th className={thclass}>Method</th>
-          {action && <th className={thclass}>Actions</th>}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, index) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>{index + 1}</td>
-            <td className={tdclass}>
-              <div className="flex gap-4 items-center">
-                <span className="w-12">
-                  <img
-                    src={item.user.image}
-                    alt={item.user.title}
-                    className="w-full h-12 rounded-full object-cover border border-border"
-                  />
-                </span>
-
-                <div>
-                  <h4 className="text-sm font-medium">{item.user.title}</h4>
-                  <p className="text-xs mt-1 text-textGray">
-                    {item.user.phone}
-                  </p>
-                </div>
-              </div>
-            </td>
-            <td className={tdclass}>{item.date}</td>
-            <td className={tdclass}>
-              <span
-                className={`py-1 px-4 ${item.status === "Paid"
-                  ? "bg-subMain text-subMain"
-                  : item.status === "Pending"
-                    ? "bg-orange-500 text-orange-500"
-                    : item.status === "Cancel" && "bg-red-600 text-red-600"
-                  } bg-opacity-10 text-xs rounded-xl`}
-              >
-                {item.status}
-              </span>
-            </td>
-            <td className={`${tdclass} font-semibold`}>{item.amount}</td>
-            <td className={tdclass}>{item.method}</td>
-            {action && (
-              <td className={tdclass}>
-                <MenuSelect datas={DropDown1} item={item}>
-                  <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                    <BiDotsHorizontalRounded />
-                  </div>
-                </MenuSelect>
-              </td>
-            )}
+    <div>
+      {loading && <Loader className={'h-56'} />}
+      {payements && <table className="table-auto w-full">
+        {error && <FetchError action={mutate} loading={loading} description={'Failed to load recors'} />}
+        <thead className="bg-dry rounded-md overflow-hidden">
+          <tr>
+            <th className={thclass}>#</th>
+            <th className={thclass}>Patient</th>
+            <th className={thclass}>Date</th>
+            <th className={thclass}>Status</th>
+            <th className={thclass}>
+              Amout <span className="text-xs font-light">(Tsh)</span>
+            </th>
+            <th className={thclass}>Method</th>
+            {action && <th className={thclass}>Actions</th>}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr
+              key={item.id}
+              className="border-b border-border hover:bg-greyed transitions"
+            >
+              <td className={tdclass}>{index + 1}</td>
+              <td className={tdclass}>
+                <div className="flex gap-4 items-center">
+                  <span className="w-12">
+                    <img
+                      src={item.user.image}
+                      alt={item.user.title}
+                      className="w-full h-12 rounded-full object-cover border border-border"
+                    />
+                  </span>
+
+                  <div>
+                    <h4 className="text-sm font-medium">{item.user.title}</h4>
+                    <p className="text-xs mt-1 text-textGray">
+                      {item.user.phone}
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td className={tdclass}>{item.date}</td>
+              <td className={tdclass}>
+                <span
+                  className={`py-1 px-4 ${item.status === "Paid"
+                    ? "bg-subMain text-subMain"
+                    : item.status === "Pending"
+                      ? "bg-orange-500 text-orange-500"
+                      : item.status === "Cancel" && "bg-red-600 text-red-600"
+                    } bg-opacity-10 text-xs rounded-xl`}
+                >
+                  {item.status}
+                </span>
+              </td>
+              <td className={`${tdclass} font-semibold`}>{item.amount}</td>
+              <td className={tdclass}>{item.method}</td>
+              {action && (
+                <td className={tdclass}>
+                  <MenuSelect datas={DropDown1} item={item}>
+                    <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                      <BiDotsHorizontalRounded />
+                    </div>
+                  </MenuSelect>
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>}
+    </div>
   );
 }
 
@@ -371,7 +374,7 @@ export function PatientTable() {
   const searchInput = useRef();
   const [showNotFountResult, setShowNotFountResult] = useState(false);
 
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     `${backendBaseUrl}patient/?skip=${1}`,
     {
       revalidateOnFocus: true,
@@ -383,7 +386,10 @@ export function PatientTable() {
   const tdclasse = "text-start text-xs py-4 px-2 whitespace-nowrap";
 
   const searchPatient = async () => {
-    if (searchInput.current.value.trim() === "") return;
+    if (searchInput.current.value.trim() === "") {
+      searchInput.current.focus();
+      return
+    }
     setSearchLoading(true);
     setShowNotFountResult(false);
 
@@ -419,7 +425,7 @@ export function PatientTable() {
             defaultChecked={name}
             type="text"
             placeholder='Search "Patients"'
-            className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
+            className="h-14 text-sm focus:border-gray-400 text-main rounded-md bg-dry border border-border px-4"
           />
 
           <button
@@ -461,157 +467,14 @@ export function PatientTable() {
               searchResult.length < 1 &&
               !showNotFountResult &&
               data.patients.map((item, index) => (
-                <tr
-                  key={item.id}
-                  className="border-b border-border hover:bg-greyed transitions"
-                >
-                  <td className={tdclasse}>{index + 1}</td>
-                  <td className={tdclasse}>
-                    <div className="flex gap-4 items-center">
-                      <span className="w-12">
-                        <img
-                          src={item.ProfilePicture}
-                          alt={item.firstName}
-                          className="w-full h-12 rounded-full object-cover border border-border"
-                        />
-                      </span>
-
-                      <div>
-                        <h4 className="text-sm font-medium">
-                          {item.firstName + " "}
-                          {item.secondName}{" "}
-                        </h4>
-                        <p className="text-xs mt-1 text-textGray">
-                          {item.phoneNumber}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className={tdclasse}>
-                    {formatDate(item.createdAt)}
-                  </td>
-
-                  <td className={tdclasse}>
-                    <span
-                      className={`py-1 px-4 ${item.gender === "Male"
-                        ? "bg-subMain text-subMain"
-                        : "bg-orange-500 text-orange-500"
-                        } bg-opacity-10 text-xs rounded-xl`}
-                    >
-                      {item.gender}
-                    </span>
-                  </td>
-
-                  <>
-                    <td className={tdclasse}>
-                      {birthYearFormater(item.birthdate)}
-                    </td>
-                  </>
-
-                  <td className={tdclasse}>
-                    <MenuSelect
-                      datas={[
-                        {
-                          title: "View",
-                          icon: FiEye,
-                          onClick: () => {
-                            navigate("/patients/preview/" + item._id);
-                          },
-                        },
-                        {
-                          title: "Delete",
-                          icon: RiDeleteBin6Line,
-                          onClick: () => {
-                            toast.error("This feature is not available yet");
-                          },
-                        },
-                      ]}
-                    >
-                      <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                        <BiDotsHorizontalRounded />
-                      </div>
-                    </MenuSelect>
-                  </td>
-                </tr>
+                <PatientListItem key={item._id} item={item} index={index} mutate={mutate} />
               ))}
 
             {/* search result */}
             {searchResult.length > 0 &&
               !showNotFountResult &&
               searchResult.map((item, index) => (
-                <tr
-                  key={item.id}
-                  className="border-b border-border hover:bg-greyed transitions"
-                >
-                  <td className={tdclasse}>{index + 1}</td>
-                  <td className={tdclasse}>
-                    <div className="flex gap-4 items-center">
-                      <span className="w-12">
-                        <img
-                          src={item.ProfilePicture}
-                          alt={item.firstName}
-                          className="w-full h-12 rounded-full object-cover border border-border"
-                        />
-                      </span>
-
-                      <div>
-                        <h4 className="text-sm font-medium">
-                          {item.firstName + " "}
-                          {item.secondName}{" "}
-                        </h4>
-                        <p className="text-xs mt-1 text-textGray">
-                          {item.phoneNumber}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className={tdclasse}>
-                    {formatDate(item.createdAt)}
-                  </td>
-
-                  <td className={tdclasse}>
-                    <span
-                      className={`py-1 px-4 ${item.gender === "Male"
-                        ? "bg-subMain text-subMain"
-                        : "bg-orange-500 text-orange-500"
-                        } bg-opacity-10 text-xs rounded-xl`}
-                    >
-                      {item.gender}
-                    </span>
-                  </td>
-
-                  <>
-                    <td className={tdclasse}>{item.blood}</td>
-                    <td className={tdclasse}>
-                      {birthYearFormater(item.birthdate)}
-                    </td>
-                  </>
-
-                  <td className={tdclasse}>
-                    <MenuSelect
-                      datas={[
-                        {
-                          title: "View",
-                          icon: FiEye,
-                          onClick: () => {
-                            navigate("/patients/preview/" + item._id);
-                          },
-                        },
-                        {
-                          title: "Delete",
-                          icon: RiDeleteBin6Line,
-                          onClick: () => {
-                            toast.error("This feature is not available yet");
-                          },
-                        },
-                      ]}
-                    >
-                      <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                        <BiDotsHorizontalRounded />
-                      </div>
-                    </MenuSelect>
-                  </td>
-                </tr>
+                <PatientListItem key={item._id} item={item} index={index} mutate={mutate} />
               ))}
           </tbody>
         </table>
@@ -879,9 +742,9 @@ export function PaymentTable({ data, functions, doctor }) {
 
   return (
     <div>
-      {loading && <FetchError loading={loading} description={'Failed to get records'} action={() => mutate()} />}
+      {error && <FetchError loading={loading} description={'Failed to get records'} action={() => mutate()} />}
       {loading && <Loader className={'h-48'} />}
-      {payements && payements.length < 1 && <EmptyResult lable={'No records yet'} />}
+      {payements && payements.length < 1 && <EmptyResult lable={'No records yet'} disableButton />}
 
       {payements && payements.length > 0 &&
         <table className="table-auto w-full">

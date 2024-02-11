@@ -13,8 +13,6 @@ import RadioExamRecordElement from './RadioExamRecordElement';
 
 
 const RadioExamRecord = ({ url }) => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [datas, setDatas] = React.useState({});
     const navigate = useNavigate();
     const { patientId } = useParams()
     const { data, loading, error, mutate } = useSWR(`${backendBaseUrl}${url}/all/${patientId}`)
@@ -42,7 +40,7 @@ const RadioExamRecord = ({ url }) => {
                 {data && data.length < 1 && <EmptyResult disableButton lable={'No Record Yet'} />}
 
                 {data && data.map((data) => (
-                    <RadioExamRecordElement key={data._id} data={data} />
+                    <RadioExamRecordElement mutate={mutate} url={url} key={data._id} data={data} />
                 ))}
             </div>
         </>

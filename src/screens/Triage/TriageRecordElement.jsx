@@ -3,11 +3,31 @@ import { FiEye } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { formatDate } from '../../util/formatDate';
+import DeleteModal from '../../components/Modals/DeleteModal';
+import AxiosInstancence from '../../ axiosInstance';
 import MedicalRecodTriageModal from '../../components/Modals/MedicalRecodTriageModal';
+import { useState } from 'react';
 
-
-const TriageRecordElement = ({ data }) => {
+const TriageRecordElement = ({ data, mutate }) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
+  const deleteTriage = async () => {
+    setLoading(true)
+    try {
+      await AxiosInstancence.delete(`triages/${data._id}`);
+      setLoading(false)
+      mutate();
+      setOpenDeleteModal(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+      toast.error('Failed to delete the record');
+    }
+  }
+
   return (
     <div
       key={data._id}
@@ -86,13 +106,22 @@ const TriageRecordElement = ({ data }) => {
         </button>
         <button
           onClick={() => {
-            toast.error('This feature is not available yet');
+            setOpenDeleteModal(true);
           }}
           className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
         >
           <RiDeleteBin6Line />
         </button>
       </div>
+
+      {
+        openDeleteModal &&
+        <DeleteModal
+          action={async () => await deleteTriage()}
+          loading={loading}
+          isOpen={openDeleteModal}
+          close={() => setOpenDeleteModal(false)} />
+      }
     </div>
   )
 }
