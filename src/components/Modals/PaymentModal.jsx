@@ -17,6 +17,7 @@ function PaymentModal({ closeModal, isOpen, data }) {
   const navigate = useNavigate();
   const patient = data;
   const [loading, setloading] = useState();
+
   const formik = useFormik({
     onSubmit: async (values) => await createPatient(values),
     initialValues: {
@@ -30,14 +31,14 @@ function PaymentModal({ closeModal, isOpen, data }) {
   const createPatient = async (values) => {
     setloading(true);
     try {
-      const request = await AxiosInstancence.post(`${backendBaseUrl}medical-record/payement`, {
-        invoiceId: invoiceId,
+      await AxiosInstancence.post(`${backendBaseUrl}medical-record/payement`, {
+        invoiceId: data._id,
         patientId: patient.patientId._id,
         payementMethod: values.payementMethod
       });
 
       setloading(false);
-      navigate()
+      navigate('/payments/preview/' + data.attachedMedicalRecordId)
     } catch (error) {
       toast.error('something went wrong');
       setloading(false);

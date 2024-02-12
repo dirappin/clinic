@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
 import { formatDate } from '../util/formatDate';
 import { useEffect } from 'react';
@@ -22,7 +21,6 @@ const InvoiceItem = ({ item }) => {
 
                 const accumilatedPrices2 = item.prescribeMedecin.reduce((ReduceAccumilator, currentItem) => parseFloat(currentItem.id.price) + ReduceAccumilator, 0);
                 accumaltor += accumilatedPrices2;
-
 
                 setTotalPrice(accumaltor)
             }
@@ -50,7 +48,7 @@ const InvoiceItem = ({ item }) => {
 
             <td className={tdclass}>
                 <button
-                    onClick={() => navigate('/invoices/preview/' + item._id)}
+                    onClick={() => navigate('/invoices/preview/' + item.attachedMedicalRecordId)}
                     className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
                 >
                     <FiEye />

@@ -56,7 +56,7 @@ const PayementItem = ({ item }) => {
 
             <td className={tdclass}>
                 <button
-                    onClick={() => navigate(`/payments/preview/${item._id}`)}
+                    onClick={() => navigate(`/payments/preview/${item.attachedMedicalRecordId}`)}
                     className="text-sm flex-colo bg-white text-subMain border rounded-md w-10 h-10"
                 >
                     <FiEye />

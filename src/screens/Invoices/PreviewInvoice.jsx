@@ -18,6 +18,9 @@ import { backendBaseUrl } from '../../constant';
 import NetworkError from '../error/networkError';
 import { formatDate } from '../../util/formatDate';
 import Loader from '../../components/common/Loader';
+import { Button } from '../../components/Form';
+import { FiLock } from "react-icons/fi";
+import { cn } from '../../util/cn';
 
 
 function PreviewInvoice() {
@@ -114,27 +117,14 @@ function PreviewInvoice() {
           </Link>
           <h1 className="text-xl font-semibold">Preview Invoice</h1>
         </div>
-        <div className="flex flex-wrap items-center gap-4">
-          <button
-            onClick={() => {
-              createInvoiceContainer();
-            }}
-            className={buttonClass}
-          >
-            Download <MdOutlineCloudDownload />
-          </button>
 
-          <Link to={`/invoices/edit/` + invoice?._id} className={buttonClass}>
-            Edit <FiEdit />
-          </Link>
-          <button
-            onClick={() => {
-              setIsoOpen(true);
-            }}
-            className="bg-subMain text-white rounded-lg px-6 py-3 text-sm"
-          >
-            Generate To Payment
-          </button>
+
+        <div className="flex  items-center gap-4">
+          {invoice && (
+            <>
+              <Button disabled={invoice.locked} onClick={() => setIsoOpen(true)} Icon={invoice.locked ? FiLock : ''} label={'generate payment'} className={'px-5 min-w-max'} />
+              <Button label={'Edit'} disabled={invoice.locked} Icon={invoice.locked ? FiLock : FiEdit} to={`/invoices/edit/` + invoice?.attachedMedicalRecordId} className={cn(buttonClass, ' border-dotted disabled:border-gray-500')} />
+            </>)}
         </div>
       </div>
 

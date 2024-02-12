@@ -23,6 +23,7 @@ import { cn } from "../util/cn.js";
 import InvoiceItem from "./InvoiceItem.jsx";
 import PayementItem from "./PayementItem.jsx";
 import PatientListItem from "./PatientListItem.jsx";
+import { data } from "autoprefixer";
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -137,6 +138,7 @@ export function Transactiontable({ data, action, functions }) {
 
 // invoice table
 export function InvoiceTable({ data }) {
+  console.log(data);
   const navigate = useNavigate();
   const DropDown1 = [
     {
@@ -150,7 +152,7 @@ export function InvoiceTable({ data }) {
       title: "View",
       icon: FiEye,
       onClick: (item) => {
-        navigate(`/invoices/preview/${item.id}`);
+        navigate(`/invoices/preview/${item._id}`);
       },
     },
     {
@@ -178,7 +180,7 @@ export function InvoiceTable({ data }) {
       <tbody>
         {data.map((item) => (
           <tr
-            key={item.id}
+            key={item._id}
             className="border-b border-border hover:bg-greyed transitions"
           >
             <td className={tdclass}>#{item?.id}</td>
@@ -759,7 +761,7 @@ export function PaymentTable({ data, functions, doctor }) {
           </thead>
           <tbody>
             {payements.map((item) => (
-              <PayementItem item={item} />
+              <PayementItem key={item._id} item={item} />
             ))}
           </tbody>
         </table>
@@ -776,12 +778,13 @@ export function InvoiceUsedTable() {
     revalidateOnMount: true,
   });
 
+
   return (
     <div>
       {loading && <Loader />}
       {error && <FetchError loading={loading} action={() => mutate()} />}
       {invoices && invoices.length < 1 && <EmptyResult disableButton lable={'No invoices yet'} />}
-      {invoices && invoices.length > 1 &&
+      {invoices && invoices.length > 0 &&
         <table className="table-auto w-full">
           <thead className="bg-dry rounded-md overflow-hidden">
             <tr>

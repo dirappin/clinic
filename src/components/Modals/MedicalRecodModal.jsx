@@ -182,7 +182,7 @@ function MedicalRecodModal({ closeModal, isOpen, item }) {
               Icon={FiEye}
               onClick={() => {
                 closeModal();
-                navigate(`/invoices/preview/198772`);
+                navigate(`/invoices/preview/${item._id}`);
               }}
             />
           </div>

@@ -83,7 +83,7 @@ export function Button({ label, onClick, loading, Icon, className, disabled, ...
       ) : (
         <>
           {label}
-          {Icon && <Icon className={cn("text-white text-xl", { " text-gray-500": disabled })} />}
+          {Icon && <Icon className={cn("text-xl", { " text-gray-500": disabled })} />}
         </>
       )}
     </button>
