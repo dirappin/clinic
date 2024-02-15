@@ -15,7 +15,7 @@ import { useRecoilState } from 'recoil';
 function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [useratom, setUserAtom] = useRecoilState(user);
-
+ 
   // toggle drawer
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
@@ -27,16 +27,16 @@ function Header() {
       title: 'Profile',
       icon: TbUser,
       onClick: () => {
-        navigate('/settings');
+        navigate(`/agents/preview/${useratom._id}`);
       },
     },
     {
       title: 'Logout',
       icon: AiOutlinePoweroff,
       onClick: () => {
-        navigate('/login');
         setUserAtom({});
         localStorage.removeItem('token');
+        navigate('/login');
       },
     },
   ];

@@ -1449,16 +1449,7 @@ export const AgentTab = [
     title: 'Appointments',
     icon: BiCalendar,
   },
-  {
-    id: 4,
-    title: 'Payments',
-    icon: RiMoneyDollarCircleLine,
-  },
-  {
-    id: 5,
-    title: 'Invoices',
-    icon: RiFileList3Line,
-  },
+
 ];
 
 

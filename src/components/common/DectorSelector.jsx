@@ -7,6 +7,10 @@ import { MdFilterListOff } from "react-icons/md";
 
 const DectorSelector = ({ formik }) => {
     const { loading, data: doctors, mutate, error } = useSWR(`${backendBaseUrl}user/doctors`);
+
+
+    console.log(formik.values);
+
     return (
         <div className="flex flex-col gap-3">
             {doctors && doctors.length < 1 &&

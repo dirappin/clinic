@@ -12,13 +12,18 @@ import AxiosInstancence from "../../ axiosInstance";
 import { cloudinaryUploadFile } from "../../util/cloudinary";
 import { usersRole } from "../../constant";
 import { BiDollar } from "react-icons/bi";
-
+import user from "../../state/user";
+import { useRecoilValue } from "recoil";
 
 function AgentPersonalInfo({ titles, data = {} }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [selectedProfileImage, SetSelectedProfileImage] = useState();
+  const userData = useRecoilValue(user);
+
+
+  console.log(userData.role)
 
 
   const formik = useFormik({
@@ -77,13 +82,14 @@ function AgentPersonalInfo({ titles, data = {} }) {
       {/* uploader */}
       <div className="flex gap-3 flex-col w-full col-span-6">
         <p className="text-sm">Profile Image</p>
-        <Uploder selectImage={(file) => SetSelectedProfileImage(file)} />
+        {userData.role === 'admin' && <Uploder selectImage={(file) => SetSelectedProfileImage(file)} />}
       </div>
       {/* select  */}
 
       {/* fullName */}
       <div className="w-full flex gap-4">
         <Input
+          readOnly={userData.role !== 'admin'}
           value={formik.values.firstName}
           name="First name"
           onChange={formik.handleChange}
@@ -99,6 +105,7 @@ function AgentPersonalInfo({ titles, data = {} }) {
         />
 
         <Input
+          readOnly={userData.role !== 'admin'}
           value={formik.values.secondName}
           name="secondName"
           onChange={formik.handleChange}
@@ -120,6 +127,7 @@ function AgentPersonalInfo({ titles, data = {} }) {
             <BiDollar className="text-gray-500" />
           </div>
           <Input
+            readOnly={userData.role !== 'admin'}
             value={formik.values.salary}
             label="Salary"
             color={true}
@@ -138,7 +146,7 @@ function AgentPersonalInfo({ titles, data = {} }) {
         <div className="w-full">
           <label htmlFor="" className="text-sm pb-4">Role</label>
           <select className="w-full py-3.5 px-2  border rounded-lg" onBlur={formik.handleBlur} onChange={formik.handleChange} defaultValue={data.user.role} name="" id="">
-            {usersRole.map((role) => (<option className="bg-red-300 w-full" value={role}>{role}</option>))}
+            {usersRole.map((role) => (<option disabled={userData.role !== 'admin'} className="bg-red-300 w-full" value={role}>{role}</option>))}
           </select>
         </div>
       </div>
@@ -146,6 +154,7 @@ function AgentPersonalInfo({ titles, data = {} }) {
       {/* phone */}
       <div className="w-full">
         <Input
+          readOnly={userData.role !== 'admin'}
           value={formik.values.phoneNumber}
           label="Phone Number"
           color={true}
@@ -167,6 +176,7 @@ function AgentPersonalInfo({ titles, data = {} }) {
 
           <div className="w-full">
             <Input
+              readOnly={userData.role !== 'admin'}
               errormessage={
                 formik.errors.emergencyContact &&
                 formik.touched.emergencyContact &&
@@ -186,6 +196,7 @@ function AgentPersonalInfo({ titles, data = {} }) {
           <div className="w-full flex items-center gap-2">
             <label htmlFor="">birthdate</label>
             <input
+              readOnly={userData.role !== 'admin'}
               name="birthdate"
               value={formik.values.birthdate}
               onChange={formik.handleChange}
@@ -207,6 +218,7 @@ function AgentPersonalInfo({ titles, data = {} }) {
 
           <div className="">
             <Input
+              readOnly={userData.role !== 'admin'}
               name="salary"
               value={formik.values.salary}
               onChange={formik.handleChange}
@@ -223,12 +235,15 @@ function AgentPersonalInfo({ titles, data = {} }) {
       )}
       {/* submit */}
       <div className="w-full">
-        <Button
-          type="submit"
-          loading={loading}
-          label={"Update Profile"}
-          Icon={HiOutlineCheckCircle}
-        />
+        {
+          userData.role === 'admin' && <Button
+            type="submit"
+            loading={loading}
+            label={"Update Profile"}
+            Icon={HiOutlineCheckCircle}
+          />
+        }
+
       </div>
     </form>
   );
