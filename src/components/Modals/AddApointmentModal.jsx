@@ -7,10 +7,13 @@ import * as Yup from 'yup';
 import AxiosInstancence from '../../ axiosInstance';
 import DectorSelector from "../../components/common/DectorSelector";
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import user from '../../state/user';
 
 
 function AddAppointmentModal({ closeModal, isOpen, datas, mutate }) {
   const [loading, setLoading] = useState(false);
+  const userData = useRecoilValue(user);
   const { patientId } = useParams();
   const formik = useFormik({
     initialValues: {

@@ -16,24 +16,25 @@ import Loader from "../../components/common/Loader";
 import AgentPersonalInfo from "../../components/UsedComp/AgentPersonalnfo";
 import NetworkError from "../error/networkError";
 import { FaRegFaceFrown } from "react-icons/fa6";
+import AgentAppointment from "../../components/UsedComp/AgentAppointment";
 
 
 function AgentProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
   const [access, setAccess] = React.useState({});
   const { agentId } = useParams();
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading,mutate, } = useSWR(
     `${backendBaseUrl}user/find/one/${agentId}`
   );
 
   const tabPanel = () => {
     switch (activeTab) {
       case 1:
-        return !error && data ? <AgentPersonalInfo data={data} titles={true} /> : <NetworkError callBack={() => window.location.reload()} label={'Failed To Load Agent'} />;
+        return !error && data ? <AgentPersonalInfo data={data} titles={true} /> : <NetworkError loading={isLoading} callBack={() => mutate()} label={'Failed To Load Agent'} />;
       case 2:
         return <PatientsUsed />;
       case 3:
-        return <AppointmentsUsed doctor={true} />;
+        return <AgentAppointment  />;
       case 4:
         return <PaymentsUsed doctor={true} />;
       case 5:
