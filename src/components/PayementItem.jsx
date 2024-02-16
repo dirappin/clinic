@@ -32,7 +32,7 @@ const PayementItem = ({ item }) => {
     return (
         <tr
             key={item._id}
-            className="border-b border-border hover:bg-greyed transitions"
+            className="border-b  border-border hover:bg-greyed transitions"
         >
             <td className={tdclass}>
                 <p className="text-xs">{formatDate(item.createdAt)}</p>
