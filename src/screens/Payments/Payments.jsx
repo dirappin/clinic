@@ -1,70 +1,62 @@
-import React, { useState } from 'react';
-import Layout from '../../Layout';
-import { Button, FromToDate, Select } from '../../components/Form';
-import { Transactiontable } from '../../components/Tables';
-import { sortsDatas, transactionData } from '../../components/Datas';
-import { BiChevronDown, BiTime } from 'react-icons/bi';
+import React, { useState } from "react";
+import Layout from "../../Layout";
+import { Button } from "../../components/Form";
+import {  BiTime } from "react-icons/bi";
 import {
-  MdFilterList,
   MdOutlineCalendarMonth,
-  MdOutlineCloudDownload,
-} from 'react-icons/md';
-import { toast } from 'react-hot-toast';
-import { BsCalendarMonth } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+} from "react-icons/md";
+import { BsCalendarMonth } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
+import PayementItem from "../../components/PayementItem";
+import { backendBaseUrl } from "../../constant";
+import FetchError from "../error/fetchError";
+import EmptyResult from "../../components/common/EmptyResult";
+
+const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 
 function Payments() {
-  const [status, setStatus] = useState(sortsDatas.status[0]);
-  const [method, setMethod] = useState(sortsDatas.method[0]);
-  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
-  const [startDate, endDate] = dateRange;
   const navigate = useNavigate();
-  const { patientId } = useParams()
+
+  const { data: dataCount, mutate: mutateDataCount, error: dataCountError, isLoading: dataCountLoading } = useSWR(`${backendBaseUrl}medical-record/paymentdatacount`);
+  const { data, mutate, size, setSize, isValidating, isLoading, error } =
+    useSWRInfinite(
+      (index) =>
+        `${backendBaseUrl}medical-record/find/payment/withpagination/?skip=${index + 1
+        }`
+    );
 
 
-  const { loading, mutate, data: payements, error } = useSWR(`${backendBaseUrl}medical-record/invoices/all/${patientId}`, {
-    revalidateOnFocus: true,
-    revalidateOnMount: true,
-  });
+  const payements = data ? [].concat(...data) : [];
+  const isLoadingMore =
+    isLoading || (size > 0 && data && typeof data[size - 1] === "undefined");
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    payements.length >= dataCount
+  const isRefreshing = isValidating && data && data.length === size;
 
-  console.log(payements,loading,error);
 
-
-  const sorts = [
-    {
-      id: 2,
-      selected: status,
-      setSelected: setStatus,
-      datas: sortsDatas.status,
-    },
-    {
-      id: 3,
-      selected: method,
-      setSelected: setMethod,
-      datas: sortsDatas.method,
-    },
-  ];
-  // boxes
   const boxes = [
     {
       id: 1,
-      title: 'Today Payments',
-      value: '4,42,236',
-      color: ['bg-subMain', 'text-subMain'],
+      title: "Today Payments",
+      value: "4,42,236",
+      color: ["bg-subMain", "text-subMain"],
       icon: BiTime,
     },
     {
       id: 2,
-      title: 'Monthly Payments',
-      value: '12,42,500',
-      color: ['bg-orange-500', 'text-orange-500'],
+      title: "Monthly Payments",
+      value: "12,42,500",
+      color: ["bg-orange-500", "text-orange-500"],
       icon: BsCalendarMonth,
     },
     {
       id: 3,
-      title: 'Yearly Payments',
-      value: '345,70,000',
-      color: ['bg-green-500', 'text-green-500'],
+      title: "Yearly Payments",
+      value: "345,70,000",
+      color: ["bg-green-500", "text-green-500"],
       icon: MdOutlineCalendarMonth,
     },
   ];
@@ -79,16 +71,6 @@ function Payments() {
 
   return (
     <Layout>
-      {/* add button */}
-      <button
-        onClick={() => {
-          toast.error('Exporting is not available yet');
-        }}
-        className="w-16 hover:w-44 group transitions hover:h-14 h-16 border border-border z-50 bg-subMain text-white rounded-full flex-rows gap-4 fixed bottom-8 right-12 button-fb"
-      >
-        <p className="hidden text-sm group-hover:block">Export</p>
-        <MdOutlineCloudDownload className="text-2xl" />
-      </button>
       <h1 className="text-xl font-semibold">Payments</h1>
       {/* boxes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
@@ -101,13 +83,13 @@ function Payments() {
               <h2 className="text-sm font-medium">{box.title}</h2>
               <h2 className="text-xl my-6 font-medium">{box.value}</h2>
               <p className="text-xs text-textGray">
-                You made <span className={box.color[1]}>{box.value}</span>{' '}
-                transactions{' '}
-                {box.title === 'Today Payments'
-                  ? 'today'
-                  : box.title === 'Monthly Payments'
-                  ? 'this month'
-                  : 'this year'}
+                You made <span className={box.color[1]}>{box.value}</span>{" "}
+                transactions{" "}
+                {box.title === "Today Payments"
+                  ? "today"
+                  : box.title === "Monthly Payments"
+                    ? "this month"
+                    : "this year"}
               </p>
             </div>
             <div
@@ -118,60 +100,45 @@ function Payments() {
           </div>
         ))}
       </div>
-      {/* datas */}
+
       <div
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        data-aos-delay="10"
-        data-aos-offset="200"
-        className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
+        className="bg-white relative flex flex-col my-8 rounded-xl border-[1px] border-border p-5"
       >
-        <div className="grid lg:grid-cols-5 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2">
-          <input
-            type="text"
-            placeholder='Search "Patients"'
-            className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
-          />
-          {/* sort  */}
-          {sorts.map((item) => (
-            <Select
-              key={item.id}
-              selectedPerson={item.selected}
-              setSelectedPerson={item.setSelected}
-              datas={item.datas}
-            >
-              <div className="h-14 w-full text-xs text-main rounded-md bg-dry border border-border px-4 flex items-center justify-between">
-                <p>{item.selected.name}</p>
-                <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
-          ))}
-          {/* date */}
-          <FromToDate
-            startDate={startDate}
-            endDate={endDate}
-            bg="bg-dry"
-            onChange={(update) => setDateRange(update)}
-          />
-          {/* export */}
-          <Button
-            label="Filter"
-            Icon={MdFilterList}
-            onClick={() => {
-              toast.error('Filter data is not available yet');
-            }}
-          />
-        </div>
-        <div className="mt-8 w-full overflow-x-scroll">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis, quas laboriosam sapiente autem deleniti debitis doloribus quia fugit animi id eaque, aperiam cumque rem ullam ipsam accusantium? Ipsam, error eligendi?
-          <Transactiontable
-            data={transactionData}
-            action={true}
-            functions={{
-              edit: editPayment,
-              preview: previewPayment,
-            }}
-          />
+        {error || Payments.length < 1  &&  <EmptyResult disableButton lable={'No payments yet'} />}
+        {error && <FetchError loading={isLoading} action={()=> mutate()} />}
+        <table className="table-auto  w-full">
+          {payements.length > 0 &&
+            <thead className="bg-dry rounded-md overflow-hidden">
+              <tr>
+                <th className={thclass}>Date</th>
+                <th className={thclass}>Doctor</th>
+                <th className={thclass}>Amount</th>
+                <th className={thclass}>Method</th>
+                <th className={thclass}>Action</th>
+              </tr>
+            </thead>
+          }
+
+          <tbody>
+            {payements.length > 0 && payements.map((item) => (
+              <PayementItem key={item._id} item={item} />
+            ))}
+          </tbody>
+        </table>
+        <div className="w-full py-2">
+          {payements.length > 0 &&
+            <Button
+              disabled={isReachingEnd}
+              onClick={() => setSize(size + 1)}
+              loading={isRefreshing}
+              className={'self-start w-full '}
+              label={isLoadingMore
+                ? "loading..."
+                : isReachingEnd
+                  ? "that's all"
+                  : "load more"}>
+            </Button>
+          }
         </div>
       </div>
     </Layout>

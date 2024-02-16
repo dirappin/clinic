@@ -429,8 +429,6 @@ export function PatientTable() {
     }
   );
 
-  console.log(data);
-
   const thclasse = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 
   const searchPatient = async (e) => {
@@ -586,6 +584,7 @@ export function DoctorsTable({ data, functions, doctor }) {
       },
     },
   ];
+
   return (
     <table className="table-auto w-full bg-dry">
       <thead className="bg-dry rounded-md overflow-hidden">
@@ -615,7 +614,7 @@ export function DoctorsTable({ data, functions, doctor }) {
                     className="w-full h-12 rounded-full object-cover border border-border"
                   />
                 </span>
-                <h4 className="text-sm font-medium">{item.user.title}</h4>
+        +         <h4 className="text-sm font-medium">{item.user.title}</h4>
               </div>
             </td>
             <td className={tdclass}>12 May, 2021</td>
