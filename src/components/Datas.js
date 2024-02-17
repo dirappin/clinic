@@ -1367,9 +1367,19 @@ export const patientTab = [
     icon: LuCopyPlus,
   },
   {
+    id: 4,
+    title: 'Chirurgie',
+    icon: LuSwords,
+  },
+  {
     id: 5,
     title: 'Echographie',
     icon: LuBath,
+  },
+  {
+    id: 6,
+    title: 'Maternite',
+    icon: LuBaby,
   },
   {
     id: 7,
@@ -1401,6 +1411,12 @@ export const patientTab = [
     title: 'Payments',
     icon: RiMoneyDollarCircleLine,
   },
+  {
+    id: 14,
+    title: 'Dental Chart',
+    icon: RiStethoscopeLine,
+  },
+ 
 ];
 
 export const doctorTab = [
@@ -2530,6 +2546,155 @@ export const medicalRecodHospitalisationData = [
       'Blood Pressure: 120/80 mmHg',
     ],
   },
+];
+
+export const medicalRecodHostoData = [
+
+  {
+    id: 1,
+    date: '13, Jan 2021',
+    amount: 150000,
+    data: [
+      {
+        id: 1,
+        title: 'Posologie:Matin',
+        value: 'huffgkk',
+      },
+      {
+        id: 2,
+        title: 'Posologie:Midi',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'Posologie:Soir',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'Posologie:Nuit',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+    
+  },
+  {
+    id: 2,
+    date: '10, Feb 2022',
+    amount: 300000,
+    data: [
+      {
+        id: 1,
+        title: 'Posologie:Matin',
+        value: 'huffgkk',
+      },
+      {
+        id: 2,
+        title: 'Posologie:Midi',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'Posologie:Soir',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'Posologie:Nuit',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+  },
+  {
+    id: 3,
+    date: '20, Mar 2022',
+    amount: 500000,
+    data: [
+      {
+        id: 1,
+        title: 'Posologie:Matin',
+        value: 'huffgkk',
+      },
+      {
+        id: 2,
+        title: 'Posologie:Midi',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'Posologie:Soir',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'Posologie:Nuit',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+   
+  },
+  {
+    id: 4,
+    date: '10, Apr 2022',
+    amount: 760000,
+    data: [
+      {
+        id: 1,
+        title: 'Posologie:Matin',
+        value: 'huffgkk',
+      },
+      {
+        id: 2,
+        title: 'Posologie:Midi',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 3,
+        title: 'Posologie:Soir',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+      {
+        id: 4,
+        title: 'Posologie:Nuit',
+        value: 'Bleeding Gums, Toothache, bad breath',
+      },
+    ],
+    attachments: [
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+      'https://placehold.it/300x300',
+    ],
+  },
+
+];
+
+export const patientHostoTab = [
+  {
+    id: 1,
+    title: 'JourHospitalisé Records',
+    icon: TbChartHistogram,
+  },
+
 ];
 
 export const doctorsData = [

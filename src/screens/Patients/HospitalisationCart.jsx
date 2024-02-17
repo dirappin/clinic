@@ -6,7 +6,7 @@ import { FiEye } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { medicalRecodHospitalisationData } from '../../components/Datas';
-import MedicalRecodHospitalisationModal from '../../components/Modals/MedicalRecodModal';
+import MedicalRecodHospitalisationModal from '../../components/Modals/MedicalRecodHospitalisationModal';
 import { useNavigate } from 'react-router-dom';
 
 const HospitalisationCart = () => {

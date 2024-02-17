@@ -385,7 +385,7 @@ export function ServiceTable({ mutate: reload }) {
             <th className={thclass}>Name</th>
             <th className={thclass}>Created At</th>
             <th className={thclass}>
-              Price <span className="text-xs font-light">(Tsh)</span>
+              Price <span className="text-xs font-light">(Dollars)</span>
             </th>
             <th className={thclass}>Action</th>
           </tr>

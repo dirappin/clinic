@@ -33,14 +33,23 @@ const ChirurgieRecord = () => {
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-4">
           <h1 className="text-sm font-medium sm:block hidden">
-            Maternite Record
+            Chirurgie Record
           </h1>
           <div className="sm:w-1/4 w-full">
             <Button
-              label="New Record"
+              label="P.Operation"
               Icon={BiPlus}
               onClick={() => {
-                navigate(`/patients/visiting/2`);
+                navigate(`/chirurgie_protocole/visiting/1`);
+              }}
+            />
+          </div>
+          <div className="sm:w-1/4 w-full">
+            <Button
+              label="T.Anesthesie"
+              Icon={BiPlus}
+              onClick={() => {
+                navigate(`/chirurgie/visiting/1`);
               }}
             />
           </div>

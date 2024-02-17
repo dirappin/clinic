@@ -18,12 +18,13 @@ const doctorsData = memberData.map((item) => {
     };
   });
 
-const NewHospitalisationRecord = () => {
+const NewChirurgieRecord = () => {
+
     const [doctors, setDoctors] = useState(doctorsData[0]);
     const [isOpen, setIsOpen] = useState(false);
-  
-    return (
-      <Layout>
+
+  return (
+    <Layout>
         {
           // modal
           isOpen && (
@@ -35,8 +36,8 @@ const NewHospitalisationRecord = () => {
             />
           )
         }
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-semibold">New Hospitasation Record</h1>
+        <div className=" items-center gap-4">
+          <h1 className="text-xl pl-4 font-semibold">New Chirurgie Record</h1>
         </div>
         <div className=" grid grid-cols-12 gap-6 my-8 items-start">
           <div
@@ -69,9 +70,9 @@ const NewHospitalisationRecord = () => {
             className="col-span-12 lg:col-span-8 bg-white rounded-xl border-[1px] border-border p-6"
           >
             <div className="flex w-full flex-col gap-5">
-              {/* doctor */}
+              {/* chirurgien */}
               <div className="flex w-full flex-col gap-3">
-                <p className="text-black text-sm">Doctor</p>
+                <p className="text-black text-sm">Chirurgie</p>
                 <Select
                   selectedPerson={doctors}
                   setSelectedPerson={setDoctors}
@@ -82,97 +83,84 @@ const NewHospitalisationRecord = () => {
                   </div>
                 </Select>
               </div>
-              {/* I.PLAINTES */}
+               {/* assistant */}
+               <div className="flex w-full flex-col gap-3">
+                <p className="text-black text-sm">Assistant</p>
+                <Select
+                  selectedPerson={doctors}
+                  setSelectedPerson={setDoctors}
+                  datas={doctorsData}
+                >
+                  <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
+                    {doctors.name} <BiChevronDown className="text-xl" />
+                  </div>
+                </Select>
+              </div>
+               {/* doctor */}
+               <div className="flex w-full flex-col gap-3">
+                <p className="text-black text-sm">Anesthesiste</p>
+                <Select
+                  selectedPerson={doctors}
+                  setSelectedPerson={setDoctors}
+                  datas={doctorsData}
+                >
+                  <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
+                    {doctors.name} <BiChevronDown className="text-xl" />
+                  </div>
+                </Select>
+              </div>
+              {/* Demande par */}
               <Textarea
-                label="I.PLAINTES"
+                label="Demande par:"
                 color={true}
                 rows={3}
-                placeholder={'I.PLAINTES ....'}
+                placeholder={' ....'}
               />
-              {/* II.HISTORIQUE DE LA MALADIE */}
-              <Textarea
-                label="II.HISTORIQUE DE LA MALADIE"
-                color={true}
-                rows={3}
-                placeholder={'II.HISTORIQUE DE LA MALADIE ....'}
-              />
-              {/* III.ANTECEDENTS */}
-              <Textarea
-                label="III.ANTECEDENTS"
-                color={true}
-                rows={3}
-                placeholder={'III.ANTECEDENTS....'}
-              />
-              {/* IV.ANTECEDENTS */}
-              <Textarea
-                label="IV.ANTECEDENTS"
-                color={true}
-                rows={3}
-                placeholder={'IV.ANTECEDENTS....'}
-              />
-              {/* V.EXAMEN PHYSIQUE */}
-              <Textarea
-                label="V.EXAMEN PHYSIQUE"
-                color={true}
-                rows={3}
-                placeholder={'V.EXAMEN PHYSIQUE ....'}
-              />
-              {/* VI.SYSTEME RESPIRATOIRE */}
-              <Textarea
-                label="VI.SYSTEME RESPIRATOIRE"
-                color={true}
-                rows={3}
-                placeholder={'VI.SYSTEME RESPIRATOIRE....'}
-              />
-              {/* VII.SYSTEME PULMONAIRE */}
-              <Textarea
-                label="VII.SYSTEME PULMONAIRE"
-                color={true}
-                rows={3}
-                placeholder={'VII.SYSTEME PULMONAIRE....'}
-              />
-              {/* VIII.SYSTEME GASTRO INTESINAL */}
-              <Textarea
-                label="VIII.SYSTEME GASTRO INTESINAL"
-                color={true}
-                rows={3}
-                placeholder={'VIII.SYSTEME GASTRO INTESINAL....'}
-              />
-               {/* IX.SYSTEME NEUROLOGIQUE */}
+               {/* Indication Operation */}
                <Textarea
-                label="IX.SYSTEME NEUROLOGIQUE"
+                label="Indication Operation"
                 color={true}
                 rows={3}
-                placeholder={'IX.SYSTEME NEUROLOGIQUE....'}
+                placeholder={'....'}
               />
-              {/*  X.SYSTEME GENITAUX URINAIRE */}
+              {/* déroulement de l'opération */}
               <Textarea
-                label="X.SYSTEME GENITAUX URINAIRE"
+                label="déroulement de l'opération"
                 color={true}
                 rows={3}
-                placeholder={'X.SYSTEME GENITAUX URINAIRE ....'}
+                placeholder={' ....'}
               />
-              {/* XI.SYSTEME LOCOMOTEUR */}
+              {/* Traitement Post Operation */}
               <Textarea
-                label="XI.SYSTEME LOCOMOTEUR"
+                label="Traitement Post Operation"
                 color={true}
                 rows={3}
-                placeholder={'XI.SYSTEME LOCOMOTEUR....'}
+                placeholder={'Traitement Post Operation ....'}
               />
-              {/* XII.DIAGNOSTIC DIFFERENCIEL */}
-              <Textarea
-                label="XII.DIAGNOSTIC DIFFERENCIEL"
-                color={true}
-                rows={3}
-                placeholder={'XII.DIAGNOSTIC DIFFERENCIEL....'}
-              />
-              {/*  XIII.TRAITEMENT */}
-              <Textarea
-                label="XIII.TRAITEMENT"
-                color={true}
-                rows={3}
-                placeholder={' XIII.TRAITEMENT....'}
-              />
+              {/* fiche */}
+              <div className="flex w-full flex-col gap-4">
+                <p className="text-black text-sm uppercase">fiche d'anesthésie</p>
+                <div className="grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
+                  {[1, 2, 3, 4].map((_, i) => (
+                    <div className="relative w-full">
+                      <img
+                        src={`https://placehold.it/300x300?text=${i}`}
+                        alt="patient"
+                        className="w-full  md:h-40 rounded-lg object-cover"
+                      />
+                      <button
+                        onClick={() =>
+                          toast.error('This feature is not available yet.')
+                        }
+                        className="bg-white rounded-full w-8 h-8 flex-colo absolute -top-1 -right-1"
+                      >
+                        <FaTimes className="text-red-500" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <Uploader setImage={{}} />
+              </div>
               {/* attachment */}
               <div className="flex w-full flex-col gap-4">
                 <p className="text-black text-sm">Attachments</p>
@@ -209,14 +197,7 @@ const NewHospitalisationRecord = () => {
           </div>
         </div>
       </Layout>
-    );
+  )
 }
 
-export default NewHospitalisationRecord
-
-
-
-
-
-
-
+export default NewChirurgieRecord;

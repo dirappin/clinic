@@ -1,17 +1,14 @@
 import React from 'react';
-
+import Modal from './Modal';
 import { Button } from '../Form';
-import { FiEye, FiFastForward } from 'react-icons/fi';
+import { FiEye } from 'react-icons/fi';
+import { MedicineDosageTable } from '../Tables';
+import { medicineData } from '../Datas';
 import { useNavigate } from 'react-router-dom';
 
-import Modal from './Modal';
-
-const MedicalRecodHospitalisationModal = ({ closeModal, isOpen, datas }) => {
-
+function MedicalRecodHostoModal({ closeModal, isOpen, datas }) {
   const navigate = useNavigate();
-
   return (
-    
     <Modal
       closeModal={closeModal}
       isOpen={isOpen}
@@ -19,7 +16,7 @@ const MedicalRecodHospitalisationModal = ({ closeModal, isOpen, datas }) => {
       width={'max-w-4xl'}
     >
       <div className="flex-colo gap-6">
-        {datas?.data?.slice(0, 20).map((data) => (
+        {datas?.data?.slice(0, 3).map((data) => (
           <div key={data.id} className="grid grid-cols-12 gap-4 w-full">
             <div className="col-span-12 md:col-span-3">
               <p className="text-sm font-medium">{data.title}:</p>
@@ -31,6 +28,35 @@ const MedicalRecodHospitalisationModal = ({ closeModal, isOpen, datas }) => {
             </div>
           </div>
         ))}
+        {/* visual sign */}
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Vital Signs:</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl p-6">
+            <p className="text-xs text-main font-light leading-5">
+              {datas?.vitalSigns?.map((item) => (
+                // separate each item with comma
+                <span key={item} className="mr-1">
+                  {item},
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+        {/* medicine */}
+        <div className="grid grid-cols-12 gap-4 w-full">
+          <div className="col-span-12 md:col-span-3">
+            <p className="text-sm font-medium">Prescriptions</p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-[1px] border-border rounded-xl overflow-hidden p-4">
+            <MedicineDosageTable
+              data={medicineData?.slice(0, 3)}
+              functions={{}}
+              button={false}
+            />
+          </div>
+        </div>
         {/* attachments */}
         <div className="grid grid-cols-12 gap-4 w-full">
           <div className="col-span-12 md:col-span-3">
@@ -50,22 +76,9 @@ const MedicalRecodHospitalisationModal = ({ closeModal, isOpen, datas }) => {
             }
           </div>
         </div>
-        {/* jour */}
+
+        {/* view Invoice */}
         <div className="flex justify-end items-center w-full">
-          <div className="md:w-3/4 w-full">
-            <Button 
-              className=" bg-green-500"
-              label="Jour hospitalisé"
-              Icon={FiFastForward}
-              onClick={() => {
-                closeModal();
-                navigate(`/jourhospitalise`);
-              }}
-            />
-          </div>
-        </div>
-         {/* view Invoice */}
-         <div className="flex justify-end items-center w-full">
           <div className="md:w-3/4 w-full">
             <Button
               label="View Invoice"
@@ -77,11 +90,9 @@ const MedicalRecodHospitalisationModal = ({ closeModal, isOpen, datas }) => {
             />
           </div>
         </div>
-        
       </div>
     </Modal>
-  )
+  );
 }
 
-export default MedicalRecodHospitalisationModal
-
+export default MedicalRecodHostoModal;

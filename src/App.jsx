@@ -53,6 +53,11 @@ import Loader from "./components/common/Loader";
 import SessionEnd from "./screens/error/session-end";
 import AgentProfile from "./screens/Agent/AgentProfile";
 import RadioExamsForm from "./components/common/radioExamsForm";
+import JourHospitalisé from './screens/Hospitalisation/JourHospitalisé';
+import NewDayhosto from "./screens/Hospitalisation/NewDayhosto";
+import NewChirurgieRecord from "./screens/DoctorChirurgie/NewChirurgieRecord";
+import NewChirurgieRecord2 from "./screens/DoctorChirurgie/NewChirurgieRecord2";
+import NewMarternite from "./screens/Maternite/NewMarternite";
 
 
 function App() {
@@ -92,8 +97,12 @@ function App() {
             <Route path="/triage" element={<Triage />} />
             {/* DoctorAmbulatoire */}
             <Route path="/doctor/ambulatoire" element={<DoctorAmbulatoire />} />
-            {/* DoctorAmbulatoire */}
+
+            {/* chirurgie */}
             <Route path="/chirurgie" element={<DoctorChirurgie />} />
+            <Route path="/chirurgie_protocole/visiting/1" element={<NewChirurgieRecord />} />
+            <Route path="/chirurgie/visiting/1" element={<NewChirurgieRecord2 />} />
+
             {/* TodayAppointments  */}
             <Route path="/today/appointments" element={<TodayAppointments />} />
             {/* Laboratoire */}
@@ -108,9 +117,13 @@ function App() {
             <Route path="/pharmacystock" element={<PharmacyStock />} />
             {/* Hospitalisation */}
             <Route path="/hospitalisation" element={<Hospitalisation />} />
+            <Route path="/jourhospitalise" element={<JourHospitalisé />} />
+            <Route path="/hosto/visiting/1" element={<NewDayhosto />} />
+
             {/* Maternite */}
             <Route path="/maternite" element={<Maternite />} />
-            {/* invoce */}
+            <Route path="/maternite/visiting/1" element={<NewMarternite />} />
+            {/* agents */}
             <Route path="/agents" element={<Agents />} />
             {/* invoce */}
             <Route path="/invoices" element={<Invoices />} />
@@ -163,6 +176,7 @@ function App() {
             {/* doctors */}
             <Route path="/doctors" element={<Doctors />} />
             <Route path="agents/preview/:agentId" element={<AgentProfile />} />
+
             {/* doctorscart */}
             <Route path="/doctorscart" element={<DoctorCart />} />
             {/* reception */}
