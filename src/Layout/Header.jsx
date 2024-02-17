@@ -3,13 +3,14 @@ import { MenuSelect } from '../components/Form';
 import { TbUser } from 'react-icons/tb';
 import { AiOutlinePoweroff } from 'react-icons/ai';
 import { MdOutlineNotificationsNone } from 'react-icons/md';
-import { IoArrowBackOutline, IoArrowForwardOutline } from 'react-icons/io5';
+import { IoArrowBackOutline, IoArrowForwardOutline, IoReload } from 'react-icons/io5';
 import NotificationComp from '../components/NotificationComp';
 import { useNavigate } from 'react-router-dom';
 import { BiMenu } from 'react-icons/bi';
 import MenuDrawer from '../components/Drawer/MenuDrawer';
 import user from '../state/user';
 import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 
 
 function Header() {
@@ -22,6 +23,13 @@ function Header() {
   };
 
   const navigate = useNavigate();
+
+  //const [refreshKey, setRefreshKey] = useState(0);
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
+
   const DropDown1 = [
     {
       title: 'Profile',
@@ -57,6 +65,13 @@ function Header() {
 
           <button
             className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
+            onClick={refreshPage}
+          >
+            <IoReload />
+          </button>
+
+          <button
+            className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
             onClick={() => navigate(-1)}
           >
             <IoArrowBackOutline />
@@ -67,6 +82,7 @@ function Header() {
           >
             <IoArrowForwardOutline />
           </button>
+          
         </div>
         <div className="md:col-span-1 sm:col-span-1 col-span-2 items-center justify-end pr-4 md:pr-0">
           <div className="float-right flex gap-4 items-center justify-center">

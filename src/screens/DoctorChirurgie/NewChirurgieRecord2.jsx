@@ -18,12 +18,13 @@ const doctorsData = memberData.map((item) => {
     };
   });
 
-const NewHospitalisationRecord = () => {
+const NewChirurgieRecord2 = () => {
+
     const [doctors, setDoctors] = useState(doctorsData[0]);
     const [isOpen, setIsOpen] = useState(false);
-  
-    return (
-      <Layout>
+
+  return (
+    <Layout>
         {
           // modal
           isOpen && (
@@ -35,8 +36,8 @@ const NewHospitalisationRecord = () => {
             />
           )
         }
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-semibold">New Hospitasation Record</h1>
+        <div className=" items-center gap-4">
+          <h1 className="text-xl pl-4 font-semibold">New Chirurgie Record</h1>
         </div>
         <div className=" grid grid-cols-12 gap-6 my-8 items-start">
           <div
@@ -69,9 +70,9 @@ const NewHospitalisationRecord = () => {
             className="col-span-12 lg:col-span-8 bg-white rounded-xl border-[1px] border-border p-6"
           >
             <div className="flex w-full flex-col gap-5">
-              {/* doctor */}
+              {/* chirurgien */}
               <div className="flex w-full flex-col gap-3">
-                <p className="text-black text-sm">Doctor</p>
+                <p className="text-black text-sm">Chirurgie</p>
                 <Select
                   selectedPerson={doctors}
                   setSelectedPerson={setDoctors}
@@ -82,97 +83,145 @@ const NewHospitalisationRecord = () => {
                   </div>
                 </Select>
               </div>
-              {/* I.PLAINTES */}
+               {/* assistant */}
+               <div className="flex w-full flex-col gap-3">
+                <p className="text-black text-sm">Assistant</p>
+                <Select
+                  selectedPerson={doctors}
+                  setSelectedPerson={setDoctors}
+                  datas={doctorsData}
+                >
+                  <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
+                    {doctors.name} <BiChevronDown className="text-xl" />
+                  </div>
+                </Select>
+              </div>
+               {/* doctor */}
+               <div className="flex w-full flex-col gap-3">
+                <p className="text-black text-sm">Anesthesiste</p>
+                <Select
+                  selectedPerson={doctors}
+                  setSelectedPerson={setDoctors}
+                  datas={doctorsData}
+                >
+                  <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
+                    {doctors.name} <BiChevronDown className="text-xl" />
+                  </div>
+                </Select>
+              </div>
+              {/* premedication */}
               <Textarea
-                label="I.PLAINTES"
+                label="premedication:"
                 color={true}
                 rows={3}
-                placeholder={'I.PLAINTES ....'}
+                placeholder={' ....'}
               />
-              {/* II.HISTORIQUE DE LA MALADIE */}
+              {/* Drogues */}
               <Textarea
-                label="II.HISTORIQUE DE LA MALADIE"
+                label="Drogues:"
                 color={true}
                 rows={3}
-                placeholder={'II.HISTORIQUE DE LA MALADIE ....'}
+                placeholder={' ....'}
               />
-              {/* III.ANTECEDENTS */}
+              {/* Solutes */}
               <Textarea
-                label="III.ANTECEDENTS"
+                label="Solutes:"
                 color={true}
                 rows={3}
-                placeholder={'III.ANTECEDENTS....'}
+                placeholder={' ....'}
               />
-              {/* IV.ANTECEDENTS */}
+              {/* Transfusion */}
               <Textarea
-                label="IV.ANTECEDENTS"
+                label="Transfusion:"
                 color={true}
                 rows={3}
-                placeholder={'IV.ANTECEDENTS....'}
+                placeholder={' ....'}
               />
-              {/* V.EXAMEN PHYSIQUE */}
+              {/* Doses Totales */}
               <Textarea
-                label="V.EXAMEN PHYSIQUE"
+                label="Doses Totales:"
                 color={true}
                 rows={3}
-                placeholder={'V.EXAMEN PHYSIQUE ....'}
+                placeholder={' ....'}
               />
-              {/* VI.SYSTEME RESPIRATOIRE */}
+              {/* AIRWAY */}
               <Textarea
-                label="VI.SYSTEME RESPIRATOIRE"
+                label="AIRWAY:"
                 color={true}
                 rows={3}
-                placeholder={'VI.SYSTEME RESPIRATOIRE....'}
+                placeholder={' ....'}
               />
-              {/* VII.SYSTEME PULMONAIRE */}
+              {/* Decurarisation */}
               <Textarea
-                label="VII.SYSTEME PULMONAIRE"
+                label="Decurarisation:"
                 color={true}
                 rows={3}
-                placeholder={'VII.SYSTEME PULMONAIRE....'}
+                placeholder={' ....'}
               />
-              {/* VIII.SYSTEME GASTRO INTESINAL */}
+              {/* SNG */}
               <Textarea
-                label="VIII.SYSTEME GASTRO INTESINAL"
+                label="SNG:"
                 color={true}
                 rows={3}
-                placeholder={'VIII.SYSTEME GASTRO INTESINAL....'}
+                placeholder={' ....'}
               />
-               {/* IX.SYSTEME NEUROLOGIQUE */}
+              {/* C */}
+              <Textarea
+                label="C:"
+                color={true}
+                rows={3}
+                placeholder={' ....'}
+              />
+               {/* TA */}
                <Textarea
-                label="IX.SYSTEME NEUROLOGIQUE"
+                label="TA:"
                 color={true}
                 rows={3}
-                placeholder={'IX.SYSTEME NEUROLOGIQUE....'}
+                placeholder={' ....'}
               />
-              {/*  X.SYSTEME GENITAUX URINAIRE */}
+               {/* Evolution Anesthesique */}
+               <Textarea
+                label="Evolution Anesthesique:"
+                color={true}
+                rows={3}
+                placeholder={' ....'}
+              />
+               {/* Conclusion */}
+               <Textarea
+                label="Conclusion:"
+                color={true}
+                rows={3}
+                placeholder={' ....'}
+              />
+               {/* Duree */}
+               <Textarea
+                label="Duree:"
+                color={true}
+                rows={3}
+                placeholder={' ....'}
+              />
+               {/* Bilan */}
+               <Textarea
+                label="Bilan:"
+                color={true}
+                rows={3}
+                placeholder={'....'}
+              />
+              {/* déroulement de l'opération */}
               <Textarea
-                label="X.SYSTEME GENITAUX URINAIRE"
+                label="déroulement de l'opération"
                 color={true}
                 rows={3}
-                placeholder={'X.SYSTEME GENITAUX URINAIRE ....'}
+                placeholder={' ....'}
               />
-              {/* XI.SYSTEME LOCOMOTEUR */}
+              {/* Recommandations Post-Op */}
               <Textarea
-                label="XI.SYSTEME LOCOMOTEUR"
+                label="Recommandations Post-Op:"
                 color={true}
                 rows={3}
-                placeholder={'XI.SYSTEME LOCOMOTEUR....'}
+                placeholder={' ....'}
               />
-              {/* XII.DIAGNOSTIC DIFFERENCIEL */}
-              <Textarea
-                label="XII.DIAGNOSTIC DIFFERENCIEL"
-                color={true}
-                rows={3}
-                placeholder={'XII.DIAGNOSTIC DIFFERENCIEL....'}
-              />
-              {/*  XIII.TRAITEMENT */}
-              <Textarea
-                label="XIII.TRAITEMENT"
-                color={true}
-                rows={3}
-                placeholder={' XIII.TRAITEMENT....'}
-              />
+             
               {/* attachment */}
               <div className="flex w-full flex-col gap-4">
                 <p className="text-black text-sm">Attachments</p>
@@ -209,14 +258,7 @@ const NewHospitalisationRecord = () => {
           </div>
         </div>
       </Layout>
-    );
+  )
 }
 
-export default NewHospitalisationRecord
-
-
-
-
-
-
-
+export default NewChirurgieRecord2;

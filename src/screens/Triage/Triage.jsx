@@ -38,7 +38,7 @@ const Triage = () => {
             title="APPOINTMENTS"
           />
           <Button
-            link="/Patients"
+            link="/Reception/ambulatoire"
             logo={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
