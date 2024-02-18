@@ -4,8 +4,10 @@ import { backendBaseUrl } from '../../constant';
 import CardStatusFetchError from '../../components/error/CardStatusFetchError';
 import Loader from '../../components/common/Loader';
 
-const PaymentStatusCard = ({ path, box }) => {
-    const { isLoading, data, error } = useSWR(`${backendBaseUrl}medical-record/${path}`, {
+
+
+const PatientStatus = ({ box,path }) => {
+    const { isLoading, data, error } = useSWR(`${backendBaseUrl}patient/${path}`, {
         revalidateOnFocus: true,
         revalidateOnMount: true,
     });
@@ -23,11 +25,10 @@ const PaymentStatusCard = ({ path, box }) => {
                         <h2 className="text-sm font-medium">{box.title}</h2>
                         <h2 className="text-xl my-6 font-medium">{typeof data === "number" && data}</h2>
                         <p className="text-xs text-textGray">
-                            You made <span className={box.color[1]}>{typeof data === "number" && data}</span>{" "}
-                            transactions{" "}
-                            {box.title === "Today Payments"
+                            Total Patients <span className={box.color[1]}>{typeof data === "number" && data}</span>{" "}
+                            {box.title === "Today Patients"
                                 ? "today"
-                                : box.title === "Monthly Payments"
+                                : box.title === "Monthly Patients"
                                     ? "this month"
                                     : "this year"}
                         </p>
@@ -39,9 +40,8 @@ const PaymentStatusCard = ({ path, box }) => {
                     </div>
                 </>
             }
-
         </div>
     )
 }
 
-export default PaymentStatusCard
+export default PatientStatus

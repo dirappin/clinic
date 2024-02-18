@@ -72,8 +72,8 @@ function Payments() {
       <h1 className="text-xl font-semibold">Payments</h1>
       {/* boxes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        {boxes.map((box) => (
-          <PaymentStatusCard box={box} path={box.path} />
+        {boxes.map((box, index) => (
+          <PaymentStatusCard key={index} box={box} path={box.path} />
         ))}
       </div>
 
