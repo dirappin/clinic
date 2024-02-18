@@ -11,7 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { backendBaseUrl } from '../../constant';
 import TriageRecordElement from './TriageRecordElement';
-import FetchError from '../error/fetchError';
+import FetchError from '../../components/error/FetchError';
 import EmptyResult from '../../components/common/EmptyResult';
 import DeleteModal from '../../components/Modals/DeleteModal';
 

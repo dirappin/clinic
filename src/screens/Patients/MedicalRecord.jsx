@@ -8,7 +8,7 @@ import AxiosInstance from "../../ axiosInstance";
 import Loader from "../../components/common/Loader";
 import MedicalRecordItem from "./MedicalRecordItem";
 import EmptyResult from "../../components/common/EmptyResult";
-import NetworkError from "../error/networkError";
+import NetworkError from "../../components/error/networkError";
 
 function MedicalRecord() {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../Layout";
 import { Button } from "../../components/Form";
-import {  BiTime } from "react-icons/bi";
+import { BiTime } from "react-icons/bi";
 import {
   MdOutlineCalendarMonth,
 } from "react-icons/md";
@@ -11,8 +11,10 @@ import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 import PayementItem from "../../components/PayementItem";
 import { backendBaseUrl } from "../../constant";
-import FetchError from "../error/fetchError";
+import FetchError from "../../components/error/FetchError";
 import EmptyResult from "../../components/common/EmptyResult";
+import PaymentStatusCard from "./PaymentStatusCard";
+
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 
@@ -44,6 +46,7 @@ function Payments() {
       value: "4,42,236",
       color: ["bg-subMain", "text-subMain"],
       icon: BiTime,
+      path: "dayPayament",
     },
     {
       id: 2,
@@ -51,6 +54,7 @@ function Payments() {
       value: "12,42,500",
       color: ["bg-orange-500", "text-orange-500"],
       icon: BsCalendarMonth,
+      path: "mounthPayment",
     },
     {
       id: 3,
@@ -58,16 +62,10 @@ function Payments() {
       value: "345,70,000",
       color: ["bg-green-500", "text-green-500"],
       icon: MdOutlineCalendarMonth,
+      path: "yearPayment"
     },
   ];
 
-  const editPayment = (id) => {
-    navigate(`/payments/edit/${id}`);
-  };
-  // preview
-  const previewPayment = (id) => {
-    navigate(`/payments/preview/${id}`);
-  };
 
   return (
     <Layout>
@@ -75,37 +73,15 @@ function Payments() {
       {/* boxes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
         {boxes.map((box) => (
-          <div
-            key={box.id}
-            className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5"
-          >
-            <div className="w-3/4">
-              <h2 className="text-sm font-medium">{box.title}</h2>
-              <h2 className="text-xl my-6 font-medium">{box.value}</h2>
-              <p className="text-xs text-textGray">
-                You made <span className={box.color[1]}>{box.value}</span>{" "}
-                transactions{" "}
-                {box.title === "Today Payments"
-                  ? "today"
-                  : box.title === "Monthly Payments"
-                    ? "this month"
-                    : "this year"}
-              </p>
-            </div>
-            <div
-              className={`w-10 h-10 flex-colo rounded-md text-white text-md ${box.color[0]}`}
-            >
-              <box.icon />
-            </div>
-          </div>
+          <PaymentStatusCard box={box} path={box.path} />
         ))}
       </div>
 
       <div
         className="bg-white relative flex flex-col my-8 rounded-xl border-[1px] border-border p-5"
       >
-        {error || Payments.length < 1  &&  <EmptyResult disableButton lable={'No payments yet'} />}
-        {error && <FetchError loading={isLoading} action={()=> mutate()} />}
+        {data && data.length < 1 && <EmptyResult disableButton lable={'No payments yet'} />}
+        {error && <FetchError loading={isLoading} action={() => mutate()} />}
         <table className="table-auto  w-full">
           {payements.length > 0 &&
             <thead className="bg-dry rounded-md overflow-hidden">

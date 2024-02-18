@@ -11,7 +11,7 @@ import { backendBaseUrl } from "../../constant";
 import useSWR from "swr";
 import ExamElement from "./ExamElement";
 import Loader from "../../components/common/Loader";
-import FetchError from "../error/fetchError";
+import FetchError from "../../components/error/FetchError";
 import DeleteModal from "../../components/Modals/DeleteModal";
 import EmptyResult from "../../components/common/EmptyResult";
 

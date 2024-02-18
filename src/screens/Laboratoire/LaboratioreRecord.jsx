@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { backendBaseUrl } from '../../constant';
-import FetchError from '../error/fetchError';
+import FetchError from '../../components/error/FetchError';
 import EmptyResult from '../../components/common/EmptyResult';
 import LaboratoryElement from './LaboratoryElement';
 import Loader from '../../components/common/Loader';

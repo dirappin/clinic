@@ -11,14 +11,14 @@ import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import useSWR, { mutate } from "swr";
 import Loader from "./common/Loader";
-import NetworkError from "../screens/error/networkError";
+import NetworkError from "./error/networkError.jsx";
 import { IoSearchOutline } from "react-icons/io5";
 import axios from "axios";
 import { backendBaseUrl } from "../constant";
 import { MdClose } from "react-icons/md";
 import EmptyResult from "./common/EmptyResult";
 import { birthYearFormater, formatDate } from "../util/formatDate";
-import FetchError from "../screens/error/fetchError";
+import FetchError from "./error/FetchError.jsx";
 import ServiceTableItem from "./ServiceTableItem";
 import { checkAppointmentStatus } from "../util/formatDate.js";
 import { useRecoilValue } from "recoil";
@@ -152,7 +152,6 @@ export function Transactiontable({ data, action, functions }) {
 
 // invoice table
 export function InvoiceTable({ data }) {
-  console.log(data);
   const navigate = useNavigate();
   const DropDown1 = [
     {

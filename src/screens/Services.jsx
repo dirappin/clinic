@@ -9,7 +9,7 @@ import { servicesData, sortsDatas } from '../components/Datas';
 import AddEditServiceModal from '../components/Modals/AddEditServiceModal';
 import useSWR from 'swr';
 import { backendBaseUrl } from '../constant';
-import FetchError from './error/fetchError';
+import FetchError from '../components/error/FetchError';
 import Loader from '../components/common/Loader';
 
 

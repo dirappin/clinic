@@ -23,7 +23,7 @@ import LaboratioreRecord from "../Laboratoire/LaboratioreRecord";
 import { useParams } from "react-router-dom";
 import Loader from "../../components/common/Loader";
 import toast from "react-hot-toast";
-import NetworkError from "../error/networkError";
+import NetworkError from "../../components/error/networkError";
 import AxiosInstance from "../../ axiosInstance";
 import { birthYearFormater } from "../../util/formatDate";
 import { Outlet } from "react-router-dom";
