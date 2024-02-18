@@ -13,7 +13,7 @@ import { InvoiceProductsTable } from '../../components/Tables';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import useSWR from 'swr';
 import { backendBaseUrl } from '../../constant';
-import NetworkError from '../error/networkError';
+import NetworkError from '../../components/error/networkError';
 import { formatDate } from '../../util/formatDate';
 import Loader from '../../components/common/Loader';
 import { Button } from '../../components/Form';

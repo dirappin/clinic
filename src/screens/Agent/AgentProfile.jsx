@@ -14,7 +14,7 @@ import useSWR from "swr";
 import { backendBaseUrl } from "../../constant";
 import Loader from "../../components/common/Loader";
 import AgentPersonalInfo from "../../components/UsedComp/AgentPersonalnfo";
-import NetworkError from "../error/networkError";
+import NetworkError from "../../components/error/networkError";
 import { FaRegFaceFrown } from "react-icons/fa6";
 import AgentAppointment from "../../components/UsedComp/AgentAppointment";
 

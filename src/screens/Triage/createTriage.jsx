@@ -12,7 +12,7 @@ import useSWR from 'swr';
 import { backendBaseUrl } from '../../constant';
 import { birthYearFormater } from '../../util/formatDate';
 import Loader from '../../components/common/Loader';
-import FetchError from '../error/fetchError';
+import FetchError from '../../components/error/FetchError';
 import FilesUploader from '../../components/MultiFilesUploader';
 import { useNavigate } from 'react-router-dom';
 import FormUserProfile from '../../components/common/FormUserProfile';

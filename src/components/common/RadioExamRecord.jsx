@@ -6,7 +6,7 @@ import MedicalRadiographiRecodModal from '../../components/Modals/MedicalRadiogr
 import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { backendBaseUrl } from '../../constant';
-import FetchError from '../../screens/error/fetchError';
+import FetchError from '../error/FetchError';
 import Loader from './Loader';
 import EmptyResult from './EmptyResult';
 import RadioExamRecordElement from './RadioExamRecordElement';

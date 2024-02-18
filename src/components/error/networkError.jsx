@@ -1,6 +1,6 @@
 import React from "react";
 import { CiWifiOff } from "react-icons/ci";
-import { Button } from "../../components/Form";
+import { Button } from "../Form";
 import { TbFaceIdError } from "react-icons/tb";
 
 const networkError = ({ callBack, label, loading }) => {

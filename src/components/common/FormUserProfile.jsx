@@ -1,7 +1,7 @@
 import React from 'react'
 import useSWR from 'swr'
 import Loader from './Loader'
-import FetchError from '../../screens/error/fetchError';
+import FetchError from '../error/FetchError';
 import { backendBaseUrl } from '../../constant';
 import { useParams } from 'react-router-dom';
 import { birthYearFormater } from '../../util/formatDate';

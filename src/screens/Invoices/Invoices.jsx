@@ -1,18 +1,27 @@
-import React from 'react';
-import Layout from '../../Layout';
-import { Button } from '../../components/Form';
-import { MdOutlineCloudDownload } from 'react-icons/md';
-import { toast } from 'react-hot-toast';
-import { InvoiceTable } from '../../components/Tables';
-import { invoicesData } from '../../components/Datas';
-import { BiPlus } from 'react-icons/bi';
-import { Link, useParams } from 'react-router-dom';
-import useSWR from 'swr';
-import { backendBaseUrl } from '../../constant';
+import React from "react";
+import Layout from "../../Layout";
+import { Button } from "../../components/Form";
+import { MdOutlineCloudDownload } from "react-icons/md";
+import { toast } from "react-hot-toast";
+import { InvoiceTable } from "../../components/Tables";
+import { invoicesData } from "../../components/Datas";
+import { BiPlus } from "react-icons/bi";
+import { Link, useParams } from "react-router-dom";
+import useSWR from "swr";
+import { backendBaseUrl } from "../../constant";
+import Loader from "../../components/common/Loader";
+import FetchError from "../../components/error/FetchError";
+import EmptyResult from "../../components/common/EmptyResult";
 
 function Invoices() {
-  const {patietnId} = useParams()
-  const { loading, mutate, data,error } = useSWR(`${backendBaseUrl}/medical-record/invoices/all/${patietnId}`);
+  const { patietnId } = useParams();
+  const { isLoading, mutate, data, error } = useSWR(
+    `${backendBaseUrl}/medical-record/invoices/all/${patietnId}`,
+    {
+      revalidateOnFocus: true,
+      revalidateOnMount: true,
+    }
+  );
 
   return (
     <Layout>
@@ -48,12 +57,16 @@ function Invoices() {
             label="Export"
             Icon={MdOutlineCloudDownload}
             onClick={() => {
-              toast.error('Exporting is not available yet');
+              toast.error("Exporting is not available yet");
             }}
           />
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
-          {}
+          {error && <FetchError action={() => mutate()} />}
+          {isLoading && <Loader className={'h-20'} />}
+          {data && data.length < 1 && (
+            <EmptyResult disableButton lable={"No invoices"} />
+          )}
           <InvoiceTable data={data} />
         </div>
       </div>
