@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Input } from "../components/Form.jsx";
 import { BiLogInCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
@@ -10,14 +10,16 @@ import userAtom from "../state/user.js";
 import { useRecoilState } from "recoil";
 import * as Yup from "yup";
 import { cn } from "../util/cn.js";
+import image from '../../public/images/logo.png'
 
 
 
 function Login() {
   const [error, setError] = useState("");
-  const [__, setUser] = useRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
 
   const formik = useFormik({
     initialValues: {
@@ -59,12 +61,16 @@ function Login() {
     }
   };
 
+  useEffect(() => {
+    if (user.loggedIn === true) navigate("/")
+  }, [])
+
 
   return (
     <div className="w-full h-screen flex-colo bg-dry px-4">
       <form onSubmit={formik.handleSubmit} className="max-w-[650px] w-full 5 p-8 rounded-2xl m-auto bg-white flex-colo">
         <img
-          src="/images/logo.png"
+          src={image}
           alt="logo"
           className="w-48 h-16 object-contain"
         />

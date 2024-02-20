@@ -1,13 +1,14 @@
 import React from 'react';
 import { Button } from '../components/Form';
 import { useNavigate } from 'react-router-dom';
+import notfoundImage from '../../public/images/404.svg'
 
 function NotFound() {
   const navigate = useNavigate();
   return (
     <div className="w-full h-screen flex-colo bg-dry text-center">
       <img
-        src="/images/404.svg"
+        src={notfoundImage}
         alt="404"
         className="w-full max-h-96 object-contain"
       />
