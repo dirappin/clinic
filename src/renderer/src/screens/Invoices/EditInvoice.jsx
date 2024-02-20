@@ -17,7 +17,7 @@ import NetworkError from '../../components/error/networkError';
 import { formatDate } from '../../util/formatDate';
 import Loader from '../../components/common/Loader';
 import { Button } from '../../components/Form';
-import AxiosInstancence from '../../ axiosInstance';
+import AxiosInstancence from '../../axiosInstance';
 import toast from 'react-hot-toast';
 
 

@@ -4,7 +4,7 @@ import { Button, Input, Select } from "../../components/Form";
 import { BiChevronDown } from "react-icons/bi";
 import { sortsDatas } from "../../components/Datas";
 import { HiOutlineCheckCircle } from "react-icons/hi";
-import AxiosInstance from "../../ axiosInstance";
+import AxiosInstance from "../../axiosInstance";
 import { toast } from "react-hot-toast";
 import Uploader from "../../components/Uploader";
 import { useFormik } from "formik";

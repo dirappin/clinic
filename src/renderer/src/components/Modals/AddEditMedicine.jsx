@@ -7,7 +7,7 @@ import { HiOutlineCheckCircle } from 'react-icons/hi';
 import { toast } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import AxiosInstancence from '../../ axiosInstance';
+import AxiosInstancence from '../../axiosInstance';
 
 function AddEditMedicineModal({ closeModal, isOpen, datas, mutate }) {
   const [measures, setMeasures] = useState(sortsDatas.measure[0]);

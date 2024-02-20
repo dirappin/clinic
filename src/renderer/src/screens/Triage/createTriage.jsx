@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Button, Select, Textarea } from '../../components/Form';
 import { toast } from 'react-hot-toast';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
-import AxiosInstance from '../../ axiosInstance';
+import AxiosInstance from '../../axiosInstance';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { cloudinaryMiltifilesUpload } from '../../util/cloudinary'
