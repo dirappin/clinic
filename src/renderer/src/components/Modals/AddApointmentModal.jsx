@@ -4,7 +4,7 @@ import { Button, Textarea } from '../Form';
 import { toast } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import AxiosInstancence from '../../ axiosInstance';
+import AxiosInstancence from '../../axiosInstance';
 import DectorSelector from "../../components/common/DectorSelector";
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

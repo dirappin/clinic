@@ -4,7 +4,7 @@ import { FiEye } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { formatDate } from "../../util/formatDate";
-import AxiosInstancence from "../../ axiosInstance";
+import AxiosInstancence from "../../axiosInstance";
 import { useState } from "react";
 import DeleteModal from "../../components/Modals/DeleteModal";
 

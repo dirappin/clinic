@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { formatDate } from '../../util/formatDate';
 import DeleteModal from '../../components/Modals/DeleteModal';
-import AxiosInstancence from '../../ axiosInstance';
+import AxiosInstancence from '../../axiosInstance';
 import MedicalRecodTriageModal from '../../components/Modals/MedicalRecodTriageModal';
 import { useState } from 'react';
 

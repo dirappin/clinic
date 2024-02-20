@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import MedicineDosageModal from "../../components/Modals/MedicineDosage";
 import { cloudinaryMiltifilesUpload } from "../../util/cloudinary";
 import { HiOutlineCheckCircle } from "react-icons/hi";
-import AxiosInstance from "../../ axiosInstance";
+import AxiosInstance from "../../axiosInstance";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRecoilValue } from "recoil";

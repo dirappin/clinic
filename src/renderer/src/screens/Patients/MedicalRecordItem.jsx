@@ -5,7 +5,7 @@ import { FiEye } from "react-icons/fi";
 import MedicalRecodModal from "../../components/Modals/MedicalRecodModal";
 import { medicalRecodData } from "../../components/Datas";
 import DeleteModal from "../../components/Modals/DeleteModal";
-import AxiosInstancence from "../../ axiosInstance";
+import AxiosInstancence from "../../axiosInstance";
 import toast from "react-hot-toast";
 
 const MedicalRecordItem = ({ item,request }) => {

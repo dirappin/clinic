@@ -5,7 +5,7 @@ import { sortsDatas } from '../Datas';
 import { BiChevronDown } from 'react-icons/bi';
 import { CgSpinnerTwoAlt } from 'react-icons/cg';
 import { toast } from 'react-hot-toast';
-import AxiosInstancence from '../../ axiosInstance';
+import AxiosInstancence from '../../axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 import user from '../../state/user';
 import { useFormik } from 'formik';

@@ -13,7 +13,7 @@ import DectorSelector from "../../components/common/DectorSelector";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { cn } from "../../util/cn";
-import AxiosInstancence from "../../ axiosInstance";
+import AxiosInstancence from "../../axiosInstance";
 
 const NewExamen = () => {
   const { patientId } = useParams();

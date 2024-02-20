@@ -4,7 +4,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { formatDate } from '../../util/formatDate';
 import DeleteModal from '../Modals/DeleteModal';
 import MedicalRadiographiRecodModal from '../Modals/MedicalRadiographiRecodModal';
-import AxiosInstancence from '../../ axiosInstance';
+import AxiosInstancence from '../../axiosInstance';
 import toast from 'react-hot-toast';
 
 

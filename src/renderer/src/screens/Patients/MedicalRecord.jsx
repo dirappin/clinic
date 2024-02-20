@@ -4,7 +4,7 @@ import { BiPlus } from "react-icons/bi";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import AxiosInstance from "../../ axiosInstance";
+import AxiosInstance from "../../axiosInstance";
 import Loader from "../../components/common/Loader";
 import MedicalRecordItem from "./MedicalRecordItem";
 import EmptyResult from "../../components/common/EmptyResult";
