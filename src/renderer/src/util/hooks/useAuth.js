@@ -34,11 +34,8 @@ export function UseAuthentication() {
                     loggedIn: true,
                 });
 
-                console.log(request);
-
                 setLoading(false);
             } catch (error) {
-                console.log(error);
                 setLoading(false);
                 if (error.response?.data.message === jwtExpirationMessage) {
                     setLoading(false);

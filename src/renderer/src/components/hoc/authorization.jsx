@@ -7,7 +7,7 @@ const Authorization = ({ children }) => {
 
     return (
         <>
-            {userData.loggedIn ? <>{children}</> : <Navigate to={"login"} />}
+            {userData.loggedIn ? <>{children}</> : <Navigate to={"/login"} />}
         </>
     );
 };

@@ -79,8 +79,9 @@ function App() {
           {/* Routes */}
 
           <Routes>
-            <Route path="/session-end" element={<SessionEnd />} />
             <Route path="/" element={<Patients />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/session-end" element={<SessionEnd />} />
             <Route path="/dashboard" element={<Dashboard />} />
             {/* surveillance */}
             <Route path="/surveillance" element={<Surveillance />} />
@@ -135,7 +136,7 @@ function App() {
             {/* patient */}
             <Route path="/patients" element={<Patients />} />
             <Route
-              path="patients/preview/:patientId"
+              path="/patients/preview/:patientId"
               element={
                 <PatientProfile />
               }
@@ -180,13 +181,12 @@ function App() {
             {/* reception */}
             <Route path="/receptions" element={<Receptions />} />
             {/* others */}
-            <Route path="login" element={<Login />} />
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/campaigns" element={<Campaings />} />
             <Route path="/medicine" element={<Medicine />} />
             <Route path="/services" element={<Services />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="*" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>
       )}

@@ -12,7 +12,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-modern-drawer/dist/index.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter,HashRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 import { swrFetcher } from "./util/swr";
@@ -25,9 +25,9 @@ root.render(
     }}
   >
     <RecoilRoot>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </RecoilRoot>
   </SWRConfig>
 );
