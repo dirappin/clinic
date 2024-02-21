@@ -22,7 +22,7 @@ export function UseAuthentication() {
         } else {
             try {
                 const request = await axios.post(
-                    backendBaseUrl + "/auth/verify-token",
+                    backendBaseUrl + "auth/verify-token",
                     {
                         token: getToken,
                     }
