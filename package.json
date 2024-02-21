@@ -1,5 +1,5 @@
 {
-  "name": "template",
+  "name": "jericho-road",
   "version": "1.0.1",
   "description": "An Electron application with React",
   "main": "./out/main/index.js",

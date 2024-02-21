@@ -17,7 +17,7 @@ export function UseAuthentication() {
 
         if (!getToken) {
             setLoading(false);
-            return navigate("login");
+            return navigate("/login");
         }
 
         try {
