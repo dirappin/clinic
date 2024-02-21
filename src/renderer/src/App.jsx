@@ -186,7 +186,7 @@ function App() {
             <Route path="/medicine" element={<Medicine />} />
             <Route path="/services" element={<Services />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<Login />} />
           </Routes>
         </ThemeProvider>
       )}
