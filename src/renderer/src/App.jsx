@@ -180,7 +180,7 @@ function App() {
             {/* reception */}
             <Route path="/receptions" element={<Receptions />} />
             {/* others */}
-            <Route path="/login" element={<Login />} />
+            <Route path="login" element={<Login />} />
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/campaigns" element={<Campaings />} />
             <Route path="/medicine" element={<Medicine />} />
