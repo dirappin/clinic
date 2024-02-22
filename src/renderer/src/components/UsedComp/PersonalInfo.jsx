@@ -59,6 +59,7 @@ function PersonalInfo({ titles }) {
       setLoading(false);
       navigate("/patients/preview/" + request.data._id);
     } catch (error) {
+      console.log(error);
       setError(
         error.response
           ? error.response.data.message

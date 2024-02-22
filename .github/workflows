@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Run ESLint
+        run: npm run lint
+      - name: Run Jest tests
+        run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the app
+        run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environments:
+      production:
+        # Add your production environment secrets here
+        secrets:
+          # ...
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build/
+      - name: Deploy to your production environment
+        # Replace this with your deployment script or commands
+        run: |
+          # Example using SSH deployment
+          ssh-keyscan ${{ secrets.DEPLOY_SERVER }} >> ~/.ssh/known_hosts
+          scp -i ${{ secrets.DEPLOY_KEY }} -r build/* ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_SERVER }}:/path/to/your/server/
+
+          # Example using AWS S3 deployment
+          # aws s3 cp --acl public-read build/ s3://your-bucket-name/
