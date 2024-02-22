@@ -3,6 +3,24 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+const { autoUpdater } = require('electron-updater');
+
+autoUpdater.checkForUpdatesAndNotify();
+
+autoUpdater.on('update-downloaded', () => {
+  const dialog = require('electron').dialog;
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Update Available',
+    message: 'A new update is available. Downloading and will install shortly.',
+    buttons: ['Restart Now', 'Later']
+  }).then(result => {
+    if (result.response === 0) { // User clicked "Restart Now"
+      autoUpdater.quitAndInstall();
+    }
+  });
+});
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({

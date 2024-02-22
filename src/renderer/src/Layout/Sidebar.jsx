@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import user from "../state/user";
 import useEntryCheckerRole from "../util/hooks/entryCheckerRoleRestriction";
 import { CiLock } from "react-icons/ci";
+import image from '../../public/images/logo.png';
 
 
 const MenuElement = ({ item, index }) => {
@@ -60,7 +61,7 @@ function Sidebar() {
       <div className="border-b sticky top-0  bg-white">
         <Link to="/" className="">
           <img
-            src="/images/logo.png"
+            src={image}
             alt="logo"
             className=" lg:w-44 w-64 h-24  object-contain"
           />
